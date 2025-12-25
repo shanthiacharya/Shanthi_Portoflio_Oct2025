@@ -1,0 +1,17 @@
+{
+  "name": "shanthi--portoflio--oct2025",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --server --files \"**/*.html, **/*.css, **/*.js\" --no-notify --no-open",
+    "dev": "browser-sync start --server --files \"**/*.html, **/*.css, **/*.js\" --no-notify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "browser-sync": "^3.0.4"
+  }
+}

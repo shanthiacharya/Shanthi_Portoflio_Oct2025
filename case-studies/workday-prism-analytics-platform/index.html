@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workday Prism Analytics Platform Journey - Shanthi Acharya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+            --dark-green: #064E3B;
+            --navy: #0F172A;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-white);
+            overflow-x: hidden;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading State */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--background-light);
+            border-top-color: var(--accent-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        nav .back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-teal);
+            transform: scale(1.3);
+        }
+
+        .progress-dot:hover {
+            transform: scale(1.5);
+        }
+
+        .progress-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--text-dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .progress-dot:hover::after {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 50%, var(--accent-teal) 100%);
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 199, 177, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0, 61, 130, 0.3) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .orb-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            33% { transform: translateY(-30px) translateX(20px); }
+            66% { transform: translateY(20px) translateX(-15px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: var(--background-white);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            color: var(--accent-teal-light);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .hero-content .period {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            margin-bottom: 3rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .scroll-arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid rgba(255, 255, 255, 0.8);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+            transform: rotate(45deg);
+        }
+
+        /* Journey Overview Section */
+        .journey-overview {
+            padding: 100px 2rem;
+            background: var(--background-light);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emotion-graph-container {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px var(--shadow-sm);
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .emotion-graph {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+
+        .emotion-graph svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .emotion-point {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emotion-point:hover {
+            transform: scale(1.2);
+        }
+
+        .emotion-tooltip {
+            position: absolute;
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .emotion-tooltip.visible {
+            opacity: 1;
+        }
+
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .metric-card {
+            background: var(--background-white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 12px var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--shadow-md);
+        }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Pillars Grid */
+        .pillars-section {
+            padding: 100px 2rem;
+            background: var(--background-white);
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pillar-card {
+            background: var(--background-light);
+            padding: 2.5rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px var(--shadow-md);
+            border-color: var(--accent-teal);
+        }
+
+        .pillar-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .pillar-tagline {
+            font-size: 1rem;
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .pillar-stats {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--background-white);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--background-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-teal);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .modal-tagline {
+            font-size: 1.2rem;
+            color: var(--accent-teal);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px var(--shadow-sm);
+        }
+
+        .project-name {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .project-impact {
+            font-size: 0.9rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 100px 2rem;
+            background: linear-gradient(180deg, var(--dark-green) 0%, var(--navy) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .timeline-section .section-title {
+            color: white;
+        }
+
+        .timeline-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto 0;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-teal), rgba(0, 199, 177, 0.3));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 3rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            border: 3px solid var(--dark-green);
+            box-shadow: 0 0 0 4px rgba(0, 199, 177, 0.3);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            color: var(--accent-teal);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .timeline-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .progress-indicator {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .metrics-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emotion-graph {
+                height: 300px;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -2.5rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                max-height: 95vh;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading State -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator" id="progressIndicator">
+        <div class="progress-dot" data-section="hero" data-label="Hero"></div>
+        <div class="progress-dot" data-section="journey" data-label="Journey"></div>
+        <div class="progress-dot" data-section="pillars" data-label="Pillars"></div>
+        <div class="progress-dot" data-section="timeline" data-label="Timeline"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="hero-content">
+            <h1>Prism Analytics</h1>
+            <p class="subtitle">Analytics Platform Journey</p>
+            <p class="period">2019 — 2025</p>
+            <p class="tagline">Transforming Enterprise Data at Scale</p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Journey Overview Section -->
+    <section class="journey-overview fade-in-up" id="journey">
+        <div class="container">
+            <h2 class="section-title">The Journey</h2>
+            <p class="section-subtitle">From critical challenges to delighted users - a 5-year transformation story</p>
+            
+            <div class="emotion-graph-container">
+                <div class="emotion-graph" id="emotionGraph">
+                    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Grid lines -->
+                        <defs>
+                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+                                <stop offset="25%" style="stop-color:#FFA500;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+                                <stop offset="75%" style="stop-color:#00C7B1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00C7B1;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Y-axis labels -->
+                        <text x="30" y="50" fill="#5A6C7D" font-size="14" font-weight="600">Delighted</text>
+                        <text x="30" y="120" fill="#5A6C7D" font-size="14" font-weight="600">Empowered</text>
+                        <text x="30" y="200" fill="#5A6C7D" font-size="14" font-weight="600">Satisfied</text>
+                        <text x="30" y="280" fill="#5A6C7D" font-size="14" font-weight="600">Frustrated</text>
+                        <text x="30" y="360" fill="#5A6C7D" font-size="14" font-weight="600">Critical</text>
+                        
+                        <!-- Emotion line path -->
+                        <path id="emotionLine" d="M 100 350 Q 250 300, 400 200 T 700 50" 
+                              stroke="url(#lineGradient)" 
+                              stroke-width="4" 
+                              fill="none"
+                              stroke-dasharray="1000"
+                              stroke-dashoffset="1000"/>
+                        
+                        <!-- Data points -->
+                        <circle class="emotion-point" cx="100" cy="350" r="12" fill="#FF6B35" data-year="2019" data-emotion="Critical" data-desc="Initial state: High friction, IT dependency, manual processes"/>
+                        <circle class="emotion-point" cx="250" cy="300" r="12" fill="#FFA500" data-year="2020" data-emotion="Frustrated" data-desc="Early improvements: Some automation, but still fragmented"/>
+                        <circle class="emotion-point" cx="400" cy="200" r="12" fill="#FFD700" data-year="2021" data-emotion="Satisfied" data-desc="Performance breakthrough: 10x speed improvement, better UX"/>
+                        <circle class="emotion-point" cx="550" cy="120" r="12" fill="#00C7B1" data-year="2022" data-emotion="Empowered" data-desc="Unified platform: Self-service capabilities, reduced tools"/>
+                        <circle class="emotion-point" cx="700" cy="50" r="12" fill="#00C7B1" data-year="2025" data-emotion="Delighted" data-desc="AI integration: Intelligent automation, predictive insights"/>
+                    </svg>
+                </div>
+                <div class="emotion-tooltip" id="emotionTooltip"></div>
+            </div>
+
+            <div class="metrics-bar">
+                <div class="metric-card">
+                    <div class="metric-value" data-target="50000">0</div>
+                    <div class="metric-label">Users Impacted</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" data-target="2.5">$0</div>
+                    <div class="metric-label">Million Saved Annually</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" data-target="10">0</div>
+                    <div class="metric-label">x Performance Improvement</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" data-target="78">0</div>
+                    <div class="metric-label">NPS Score</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillars Section -->
+    <section class="pillars-section fade-in-up" id="pillars">
+        <div class="container">
+            <h2 class="section-title">Strategic Pillars</h2>
+            <p class="section-subtitle">Four foundational areas driving the transformation</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card" data-pillar="integration">
+                    <div class="pillar-icon">📊</div>
+                    <h3 class="pillar-title">Data Integration</h3>
+                    <p class="pillar-tagline">From Gatekeepers to Self-Service</p>
+                    <p class="pillar-stats">3 Projects • 70% Faster</p>
+                </div>
+                
+                <div class="pillar-card" data-pillar="preparation">
+                    <div class="pillar-icon">⚡</div>
+                    <h3 class="pillar-title">Data Preparation</h3>
+                    <p class="pillar-tagline">From Breaking Points to Breakthrough</p>
+                    <p class="pillar-stats">2 Projects • 10x Speed</p>
+                </div>
+                
+                <div class="pillar-card" data-pillar="catalog">
+                    <div class="pillar-icon">🔄</div>
+                    <h3 class="pillar-title">Data Catalog</h3>
+                    <p class="pillar-tagline">From Fragmentation to Flow</p>
+                    <p class="pillar-stats">3 Projects • 60% Less Tools</p>
+                </div>
+                
+                <div class="pillar-card" data-pillar="monitoring">
+                    <div class="pillar-icon">🤖</div>
+                    <h3 class="pillar-title">Monitoring & Observability</h3>
+                    <p class="pillar-tagline">From Manual to Magical</p>
+                    <p class="pillar-stats">4 Projects • 40% Automated</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section fade-in-up" id="timeline">
+        <div class="container">
+            <h2 class="section-title">Success Timeline</h2>
+            <p class="section-subtitle">Key milestones in our transformation journey</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2020</div>
+                    <h3 class="timeline-title">Self-Service Revolution</h3>
+                    <p class="timeline-description">Launched self-service report builder and template marketplace, reducing IT dependency by 70% and enabling business users to create reports independently.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <h3 class="timeline-title">Performance Breakthrough</h3>
+                    <p class="timeline-description">Introduced incremental processing engine and distributed query optimization, achieving 10x performance improvement and 99.99% uptime.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <h3 class="timeline-title">Unified Platform Launch</h3>
+                    <p class="timeline-description">Launched Analytics Workbench consolidating 5 tools into 1 platform, reducing context switching by 60% and onboarding time by 60%.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2023-2024</div>
+                    <h3 class="timeline-title">AI Integration</h3>
+                    <p class="timeline-description">Integrated AI-powered features including anomaly detection (90% faster), calculation copilot (40% faster calculations), and smart data lineage (80% documentation automated).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-tagline" id="modalTagline"></p>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Pillar data
+        const pillarData = {
+            integration: {
+                title: "Data Integration",
+                tagline: "From Gatekeepers to Self-Service",
+                projects: [
+                    {
+                        name: "Self-Service Report Builder",
+                        description: "Enabled business users to create reports without IT assistance, reducing report creation time by 85%.",
+                        impact: "85% faster report creation"
+                    },
+                    {
+                        name: "Template Marketplace",
+                        description: "Centralized repository of reusable report templates, achieving 70% template reuse rate across the organization.",
+                        impact: "70% reuse rate"
+                    },
+                    {
+                        name: "Natural Language Query",
+                        description: "AI-powered query interface allowing users to ask questions in plain English without writing SQL.",
+                        impact: "0 SQL required"
+                    }
+                ]
+            },
+            preparation: {
+                title: "Data Preparation",
+                tagline: "From Breaking Points to Breakthrough",
+                projects: [
+                    {
+                        name: "Incremental Processing Engine",
+                        description: "Revolutionary processing architecture that only processes changed data, delivering 10x performance improvement.",
+                        impact: "10x performance"
+                    },
+                    {
+                        name: "Distributed Query Optimization",
+                        description: "Intelligent query distribution across clusters, ensuring 99.99% uptime and handling massive data volumes.",
+                        impact: "99.99% uptime"
+                    }
+                ]
+            },
+            catalog: {
+                title: "Data Catalog",
+                tagline: "From Fragmentation to Flow",
+                projects: [
+                    {
+                        name: "Analytics Workbench",
+                        description: "Unified workspace consolidating 5 separate tools into one cohesive platform, dramatically reducing context switching.",
+                        impact: "5 tools → 1 platform"
+                    },
+                    {
+                        name: "Cross-Product Navigation",
+                        description: "Seamless navigation between analytics products, reducing context switching by 60% and improving workflow efficiency.",
+                        impact: "60% reduced context switching"
+                    },
+                    {
+                        name: "Consistent Design System",
+                        description: "Unified design language across all analytics products, reducing onboarding time and improving user confidence.",
+                        impact: "60% faster onboarding"
+                    }
+                ]
+            },
+            monitoring: {
+                title: "Monitoring & Observability",
+                tagline: "From Manual to Magical",
+                projects: [
+                    {
+                        name: "Anomaly Detection Engine",
+                        description: "AI-powered system that automatically detects data anomalies and performance issues, alerting teams 90% faster than manual monitoring.",
+                        impact: "90% faster detection"
+                    },
+                    {
+                        name: "Calculation Copilot",
+                        description: "Intelligent assistant that suggests optimal calculation formulas and validates logic, reducing calculation errors by 40%.",
+                        impact: "40% faster calculations"
+                    },
+                    {
+                        name: "Smart Data Lineage",
+                        description: "Automated documentation of data flows and dependencies, reducing manual documentation effort by 80%.",
+                        impact: "80% documentation automated"
+                    },
+                    {
+                        name: "Predictive Pipeline Optimization",
+                        description: "ML-driven system that predicts pipeline failures and optimizes resource allocation, reducing costs by 50%.",
+                        impact: "50% cost reduction"
+                    }
+                ]
+            }
+        };
+
+        // Loading state
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Progress indicator
+        const sections = ['hero', 'journey', 'pillars', 'timeline'];
+        const progressDots = document.querySelectorAll('.progress-dot');
+
+        function updateProgressIndicator() {
+            const scrollPos = window.scrollY + window.innerHeight / 2;
+            
+            sections.forEach((section, index) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const top = element.offsetTop;
+                    const bottom = top + element.offsetHeight;
+                    
+                    if (scrollPos >= top && scrollPos < bottom) {
+                        progressDots[index].classList.add('active');
+                    } else {
+                        progressDots[index].classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateProgressIndicator, 10);
+        });
+
+        progressDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const section = document.getElementById(sections[index]);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Emotion graph interactions
+        const emotionPoints = document.querySelectorAll('.emotion-point');
+        const emotionTooltip = document.getElementById('emotionTooltip');
+        const emotionLine = document.getElementById('emotionLine');
+
+        // Animate line drawing
+        setTimeout(() => {
+            emotionLine.style.transition = 'stroke-dashoffset 2s ease-out';
+            emotionLine.style.strokeDashoffset = '0';
+        }, 500);
+
+        emotionPoints.forEach(point => {
+            point.addEventListener('mouseenter', (e) => {
+                const year = e.target.getAttribute('data-year');
+                const emotion = e.target.getAttribute('data-emotion');
+                const desc = e.target.getAttribute('data-desc');
+                
+                emotionTooltip.innerHTML = `
+                    <strong>${year}: ${emotion}</strong><br>
+                    ${desc}
+                `;
+                emotionTooltip.classList.add('visible');
+                
+                const rect = e.target.getBoundingClientRect();
+                const graphRect = document.getElementById('emotionGraph').getBoundingClientRect();
+                emotionTooltip.style.left = (rect.left - graphRect.left + rect.width / 2) + 'px';
+                emotionTooltip.style.top = (rect.top - graphRect.top - 60) + 'px';
+            });
+
+            point.addEventListener('mouseleave', () => {
+                emotionTooltip.classList.remove('visible');
+            });
+        });
+
+        // Metric counters
+        function animateCounter(element) {
+            const target = parseFloat(element.getAttribute('data-target'));
+            const initialText = element.textContent;
+            const hasDollar = initialText.includes('$');
+            const duration = 2000;
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    if (hasDollar) {
+                        element.textContent = '$' + target.toFixed(1);
+                    } else {
+                        element.textContent = target % 1 === 0 ? Math.floor(target) : target.toFixed(0);
+                    }
+                    clearInterval(timer);
+                } else {
+                    if (hasDollar) {
+                        element.textContent = '$' + current.toFixed(1);
+                    } else {
+                        element.textContent = target % 1 === 0 ? Math.floor(current) : Math.floor(current);
+                    }
+                }
+            }, 16);
+        }
+
+        const metricObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    animateCounter(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.metric-value').forEach(el => {
+            metricObserver.observe(el);
+        });
+
+        // Modal system
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTagline = document.getElementById('modalTagline');
+        const projectsGrid = document.getElementById('projectsGrid');
+
+        document.querySelectorAll('.pillar-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const pillar = card.getAttribute('data-pillar');
+                const data = pillarData[pillar];
+                
+                modalTitle.textContent = data.title;
+                modalTagline.textContent = data.tagline;
+                projectsGrid.innerHTML = '';
+                
+                data.projects.forEach(project => {
+                    const projectCard = document.createElement('div');
+                    projectCard.className = 'project-card';
+                    projectCard.innerHTML = `
+                        <h4 class="project-name">${project.name}</h4>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-impact">${project.impact}</div>
+                    `;
+                    projectsGrid.appendChild(projectCard);
+                });
+                
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                modalClose.focus();
+            });
+        });
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation for modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Initial progress indicator update
+        updateProgressIndicator();
+    </script>
+</body>
+</html>
+

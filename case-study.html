@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workday Prism Analytics Case Study - Shanthi Acharya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* DataCamp Color Palette */
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        nav .back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .case-study-body {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul, .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body code {
+            background: var(--background-light);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .case-study-header {
+                padding: 2rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 2rem;
+            }
+
+            .case-study-body {
+                padding: 2rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.6rem;
+            }
+
+            .case-study-body h3 {
+                font-size: 1.3rem;
+            }
+
+            .case-study-body h4 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">Shanthi Acharya</a>
+            <a href="index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="case-study-header">
+                <h1>Workday Prism Analytics: Transforming Data Management Through User-Centered Design</h1>
+                <p class="subtitle">A comprehensive case study showcasing strategic UX leadership and design transformation</p>
+            </div>
+
+            <div class="case-study-body">
+                <h2>Executive Summary</h2>
+                <p>Workday's Prism Product & Platform team embarked on an ambitious journey to evolve their analytics platform from a functional data management tool into an intelligent, self-service data intelligence ecosystem. This case study explores how strategic UX research, iterative design, and a clear vision transformed user satisfaction while addressing critical pain points in data integration, preparation, cataloging, and job management.</p>
+
+                <h2>The Challenge</h2>
+                <h3>Understanding the Problem</h3>
+                <p>Despite launching innovative features like Tables and Data Change Tasks, the Prism team faced a critical user experience paradox:</p>
+
+                <blockquote>
+                    <strong>The Good News:</strong><br>
+                    "For the last six years, the products just get better all the time in my opinion. Especially with the Tables and Data Change Task, that's the biggest game changer that I've seen. We can do so many things."<br>
+                    <em>— WOW, Product Portfolio Manager</em>
+                </blockquote>
+
+                <blockquote>
+                    <strong>The Reality:</strong><br>
+                    "Almost every project I have worked with them on has resulted in some significant level of rework or restructuring of my dataset at the Customer's expense. This is not an acceptable approach for me to figure out what is not working with the product with the customers time."<br>
+                    <em>— WOW, Customer Enablement Consultant</em>
+                </blockquote>
+
+                <p>This disparity revealed a fundamental issue: while the platform offered powerful capabilities, the user experience created friction that diminished trust and increased implementation costs.</p>
+
+                <h3>Key Pain Points Identified</h3>
+                <p>Through longitudinal research with customers, the team identified critical challenges across four product pillars:</p>
+
+                <h4>1. Data Integration</h4>
+                <ul>
+                    <li>Schema maintenance challenges requiring manual processes</li>
+                    <li>High IT dependency for accessing external data</li>
+                    <li>Cumbersome two-step process for loading and transforming data</li>
+                    <li>Usability issues with mapping and data type conversion</li>
+                </ul>
+
+                <h4>2. Interactive Data Preparation</h4>
+                <ul>
+                    <li>Limited sample size (20k rows) insufficient for validation</li>
+                    <li>Inability to rename transformation stages</li>
+                    <li>Lack of reusability for complex calculations</li>
+                    <li>Poor visibility between lineage and IDP workflows</li>
+                </ul>
+
+                <h4>3. Data Catalog</h4>
+                <ul>
+                    <li>Difficulty finding the right data assets</li>
+                    <li>Lack of organizational structure beyond naming conventions</li>
+                    <li>No workflow capabilities for automated processes</li>
+                    <li>Missing content integration with reports and visualizations</li>
+                </ul>
+
+                <h4>4. Job Monitoring & Management</h4>
+                <ul>
+                    <li>Lack of consolidated control and visualization</li>
+                    <li>Insufficient troubleshooting tools</li>
+                    <li>Poor visibility into job dependencies and failures</li>
+                    <li>Reactive rather than proactive management capabilities</li>
+                </ul>
+
+                <hr>
+
+                <h2>The Approach</h2>
+                <h3>Vision Framework</h3>
+                <p>The design team established a comprehensive UX vision built on four strategic pillars:</p>
+
+                <p><strong>Self Service</strong> — Enable customers to leverage rich data management features independently</p>
+                <p><strong>Automation</strong> — Proactively identify issues and reduce manual efforts</p>
+                <p><strong>Augmentation</strong> — Use ML/AI to gain data intelligence and identify trends</p>
+                <p><strong>Scalability</strong> — Improve scale, performance, UX, business value, and cost</p>
+
+                <h3>Research-Driven Design</h3>
+                <p>The team conducted extensive longitudinal research across multiple phases:</p>
+                <ul>
+                    <li><strong>Data Catalog Metadata Research</strong> — Understanding organizational needs</li>
+                    <li><strong>Folders Research</strong> — Exploring information architecture</li>
+                    <li><strong>Workspace Phase I & II</strong> — Iterating on collaborative features</li>
+                </ul>
+                <p>This continuous engagement with users ensured that design decisions remained grounded in real-world needs.</p>
+
+                <hr>
+
+                <h2>The Solution</h2>
+                <h3>1. Data Integration Transformation</h3>
+
+                <h4>Connector Marketplace</h4>
+                <p>The team reimagined data connectivity with a self-service marketplace experience, featuring:</p>
+                <ul>
+                    <li>Frequently used connection types prominently displayed</li>
+                    <li>Integration with Data Catalog, Workday Reports, and Salesforce</li>
+                    <li>Guided setup flow reducing IT dependency</li>
+                </ul>
+
+                <h4>Advanced Query & Filter Conditions</h4>
+                <p>Streamlining the data ingestion process by:</p>
+                <ul>
+                    <li>Combining loading and transformation in one task</li>
+                    <li>Supporting complex filtering at the source</li>
+                    <li>Providing flexible access modes</li>
+                </ul>
+
+                <h4>Ad-Hoc Table Creation from Source Schema</h4>
+                <p>Addressing schema synchronization challenges:</p>
+                <ul>
+                    <li>Automatic table creation from source schemas</li>
+                    <li>Reduced manual updates and rework</li>
+                    <li>Dynamic schema adjustment capabilities</li>
+                </ul>
+
+                <h4>Smart Suggestions & Data Type Conversion</h4>
+                <p>Improving mapping efficiency through:</p>
+                <ul>
+                    <li>AI-powered field mapping suggestions</li>
+                    <li>Intelligent data type conversion</li>
+                    <li>Support for large-scale data and complex use cases</li>
+                </ul>
+
+                <h3>2. Interactive Data Preparation Evolution</h3>
+
+                <h4>IDP Stage Visualization</h4>
+                <p>Transforming the transformation experience with:</p>
+                <ul>
+                    <li>Visual pipeline representation</li>
+                    <li>Efficient navigation between stages</li>
+                    <li>Clear understanding of data flow</li>
+                    <li>Improved troubleshooting capabilities</li>
+                </ul>
+
+                <h4>Chat DataPrep</h4>
+                <p>Introducing generative AI for data transformation:</p>
+                <ul>
+                    <li>Natural language transformation requests</li>
+                    <li>Preview capabilities before applying changes</li>
+                    <li>Reduced learning curve for complex operations</li>
+                </ul>
+
+                <h4>Lineage Integration</h4>
+                <p>Creating holistic visibility:</p>
+                <ul>
+                    <li>Seamless navigation between lineage and IDP</li>
+                    <li>Visual data journey tracking</li>
+                    <li>Impact analysis capabilities</li>
+                    <li>Enhanced data governance</li>
+                </ul>
+
+                <h3>3. Data Catalog Reimagined</h3>
+                <p>The team developed a comprehensive vision progressing through four stages:</p>
+
+                <h4>Stage 1: Self-Service Access</h4>
+                <ul>
+                    <li>Basic connectors and tagging</li>
+                    <li>Keyword search capabilities</li>
+                    <li>Operational metadata</li>
+                    <li>Field origin and lineage</li>
+                </ul>
+
+                <h4>Stage 2: Extended Self-Service</h4>
+                <ul>
+                    <li>External connectors</li>
+                    <li>Workspaces for organization</li>
+                    <li>Bulk tagging</li>
+                    <li>Semantic search</li>
+                    <li>Collaboration features</li>
+                    <li>Landing page</li>
+                </ul>
+
+                <h4>Stage 3: Analytics Catalog</h4>
+                <ul>
+                    <li>Connector marketplace</li>
+                    <li>Proactive dataset management</li>
+                    <li>Cloud usage optimization</li>
+                    <li>Comprehensive metrics</li>
+                    <li>Content integration (Reports, BI, Analytic Apps)</li>
+                </ul>
+
+                <h4>Stage 4: Enterprise Catalog</h4>
+                <ul>
+                    <li>Automated workflows</li>
+                    <li>Business glossaries</li>
+                    <li>Data quality monitoring</li>
+                    <li>Data policy enforcement</li>
+                </ul>
+
+                <h4>Key Features Implemented:</h4>
+
+                <p><strong>Workspaces</strong><br>
+                Container-based organization enabling:</p>
+                <ul>
+                    <li>Better governance practices</li>
+                    <li>Secure collaboration</li>
+                    <li>Simplified deployment</li>
+                    <li>Asset management at scale</li>
+                </ul>
+
+                <p><strong>Search & Discovery</strong><br>
+                Flexible finding capabilities:</p>
+                <ul>
+                    <li>Metadata-based filtering</li>
+                    <li>Quick dataset location</li>
+                    <li>Relevance-based ranking</li>
+                </ul>
+
+                <p><strong>Content Integration</strong><br>
+                Quick access to:</p>
+                <ul>
+                    <li>Associated reports</li>
+                    <li>Discovery boards</li>
+                    <li>Analytic applications</li>
+                    <li>Usage analytics</li>
+                </ul>
+
+                <p><strong>AI/ML Enrichment</strong><br>
+                Intelligent recommendations for:</p>
+                <ul>
+                    <li>Auto-tagging</li>
+                    <li>Description generation</li>
+                    <li>Security group assignment</li>
+                    <li>Usage pattern analysis</li>
+                </ul>
+
+                <h3>4. Job Monitoring & Management Excellence</h3>
+
+                <h4>Centralized Dashboard</h4>
+                <p>Comprehensive visibility featuring:</p>
+                <ul>
+                    <li>Real-time activity monitoring</li>
+                    <li>Visual trend analysis</li>
+                    <li>Activity categorization</li>
+                    <li>Performance metrics</li>
+                </ul>
+
+                <h4>Predictive Capabilities</h4>
+                <ul>
+                    <li>Expected completion times</li>
+                    <li>Jobs exceeding normal runtime</li>
+                    <li>High-volume day warnings</li>
+                    <li>Resource utilization forecasting</li>
+                </ul>
+
+                <h4>Priority Management</h4>
+                <ul>
+                    <li>Pending job queue visualization</li>
+                    <li>Drag-and-drop reordering</li>
+                    <li>Dependency tracking</li>
+                    <li>Smart scheduling suggestions</li>
+                </ul>
+
+                <h4>Future Scheduled Jobs</h4>
+                <ul>
+                    <li>Calendar view of upcoming activities</li>
+                    <li>Volume predictions</li>
+                    <li>Scheduling conflict identification</li>
+                    <li>Proactive capacity planning</li>
+                </ul>
+
+                <h4>Entitlement Management</h4>
+                <ul>
+                    <li>Cross-application usage tracking</li>
+                    <li>Trend analysis</li>
+                    <li>Threshold warnings</li>
+                    <li>Optimization recommendations</li>
+                </ul>
+
+                <h4>Inspect Activity</h4>
+                <p>Comprehensive debugging tools:</p>
+                <ul>
+                    <li>Activity history comparison</li>
+                    <li>Detailed execution logs</li>
+                    <li>Snapshot comparison</li>
+                    <li>Root cause analysis</li>
+                </ul>
+
+                <hr>
+
+                <h2>The Results</h2>
+                <h3>Immediate Impact</h3>
+
+                <blockquote>
+                    <strong>Dashboard v1 Reception:</strong><br>
+                    "Congratulations & kudos to the team! This now becomes the central cockpit for Prism users to get visibility into & manage their jobs, which is HUGE value, especially as Prism jobs are becoming increasingly mission critical. Well done!"<br>
+                    <em>— Krupa</em>
+                </blockquote>
+
+                <blockquote>
+                    "This is the first step towards many more important features coming in related areas to help customers understand and manage how they use Prism."<br>
+                    <em>— Abhi</em>
+                </blockquote>
+
+                <h3>Measurable Improvements</h3>
+                <p><strong>User Satisfaction Trajectory</strong><br>
+                The team's focus on addressing pain points created a pathway from initial frustration to sustained satisfaction:</p>
+                <ul>
+                    <li>First-time experience significantly improved through guided workflows</li>
+                    <li>Ongoing experience enhanced through predictive and automation features</li>
+                    <li>Trust rebuilt through transparency and debugging capabilities</li>
+                </ul>
+
+                <p><strong>Operational Efficiency</strong></p>
+                <ul>
+                    <li>Reduced time from data integration to insight</li>
+                    <li>Decreased IT dependency for data connections</li>
+                    <li>Minimized rework through schema synchronization</li>
+                    <li>Improved troubleshooting speed with visual tools</li>
+                </ul>
+
+                <h3>Strategic Outcomes</h3>
+                <p><strong>From Data Catalog to Data Intelligence</strong><br>
+                The phased approach positioned Prism Analytics as an enterprise-grade platform:</p>
+                <ul>
+                    <li><strong>Foundation:</strong> Self-service data access</li>
+                    <li><strong>Growth:</strong> Extended collaboration and discovery</li>
+                    <li><strong>Maturity:</strong> Analytics catalog with optimization</li>
+                    <li><strong>Future:</strong> Enterprise catalog with full governance</li>
+                </ul>
+
+                <p><strong>Product Differentiation</strong></p>
+                <ul>
+                    <li>Unified data management experience</li>
+                    <li>AI-powered assistance throughout the workflow</li>
+                    <li>Proactive rather than reactive management</li>
+                    <li>Seamless integration across Workday ecosystem</li>
+                </ul>
+
+                <hr>
+
+                <h2>Key Insights & Lessons</h2>
+                <h3>1. Vision Must Precede Features</h3>
+                <p>The team's success stemmed from establishing clear UX vision pillars before designing specific features. This ensured every design decision aligned with strategic objectives: self-service, automation, augmentation, and scalability.</p>
+
+                <h3>2. Continuous Research Drives Innovation</h3>
+                <p>Longitudinal research revealed evolving needs and validated design directions. By maintaining ongoing customer engagement, the team avoided building features that solved yesterday's problems.</p>
+
+                <h3>3. Visualization Transforms Understanding</h3>
+                <p>Across all product areas—IDP, lineage, catalog, and monitoring—adding visual representations dramatically improved user comprehension and confidence.</p>
+
+                <h3>4. Progressive Enhancement Works</h3>
+                <p>The four-stage Data Catalog evolution demonstrated how breaking ambitious visions into achievable phases creates momentum while delivering continuous value.</p>
+
+                <h3>5. AI as Augmentation, Not Replacement</h3>
+                <p>Features like Chat DataPrep and smart suggestions showed that AI works best when enhancing human decision-making rather than attempting to replace it.</p>
+
+                <hr>
+
+                <h2>Future Vision</h2>
+                <h3>Short-Term Roadmap</h3>
+
+                <h4>Data Integration</h4>
+                <ul>
+                    <li>Connector SDK for custom integrations</li>
+                    <li>Enhanced pipeline reusability</li>
+                    <li>Additional intelligent transforms</li>
+                    <li>Extraction capabilities</li>
+                </ul>
+
+                <h4>Interactive Data Prep</h4>
+                <ul>
+                    <li>Expanded function library</li>
+                    <li>Advanced statistical functions</li>
+                    <li>Improved performance for large datasets</li>
+                    <li>Enhanced collaboration features</li>
+                </ul>
+
+                <h4>Data Catalog</h4>
+                <ul>
+                    <li>Business glossary integration</li>
+                    <li>Advanced data quality metrics</li>
+                    <li>Policy enforcement automation</li>
+                    <li>Enhanced content recommendations</li>
+                </ul>
+
+                <h4>Job Management</h4>
+                <ul>
+                    <li>Intelligent scheduling optimization</li>
+                    <li>Automated failure recovery</li>
+                    <li>Advanced alerting rules</li>
+                    <li>Performance optimization suggestions</li>
+                </ul>
+
+                <h3>Long-Term Vision</h3>
+                <p><strong>Prism-as-a-Platform</strong><br>
+                Moving toward componentization enabling:</p>
+                <ul>
+                    <li>Reusable templates and widgets</li>
+                    <li>Custom application composition</li>
+                    <li>Flexible packaging options</li>
+                    <li>Enhanced entitlement management</li>
+                </ul>
+
+                <p><strong>Complete Data Intelligence</strong><br>
+                Evolving from catalog to intelligence platform:</p>
+                <ul>
+                    <li>Predictive analytics integration</li>
+                    <li>Automated insight generation</li>
+                    <li>Cross-domain data relationships</li>
+                    <li>Enterprise-wide governance</li>
+                </ul>
+
+                <hr>
+
+                <h2>Conclusion</h2>
+                <p>The Workday Prism Analytics transformation demonstrates how strategic UX investment converts functional platforms into competitive advantages. By systematically addressing pain points across data integration, preparation, cataloging, and monitoring while maintaining a clear vision, the team created a cohesive experience that empowers business analysts to work independently and confidently.</p>
+
+                <p>The journey from user frustration to user delight required more than incremental improvements—it demanded reimagining the entire data management workflow through the lens of user needs. The result is a platform positioned not just to manage data, but to deliver intelligence that drives business value.</p>
+
+                <hr>
+
+                <h2>Project Credits</h2>
+                <p><strong>Design Leadership</strong><br>
+                Shanthi Acharya, Design Manager</p>
+
+                <p><strong>Senior Product Designers</strong><br>
+                Clara Kapelanczyk<br>
+                Luping Yeh</p>
+
+                <p><strong>Organization</strong><br>
+                Workday, Inc.</p>
+
+                <p><em>This case study represents the strategic UX work across the Prism Product & Platform team, showcasing how user-centered design transforms complex enterprise software into intuitive, powerful tools that scale with business needs.</em></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+

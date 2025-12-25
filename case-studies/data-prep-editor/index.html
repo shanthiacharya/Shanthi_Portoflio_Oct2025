@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Transform Interactive Prep Editor Case Study - Shanthi Acharya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* DataCamp Color Palette */
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        nav .back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            width: 220px;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: sticky;
+            top: 140px;
+            align-self: flex-start;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .toc-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toc-nav {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            box-shadow: none;
+        }
+
+        .toc-nav__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toc-nav__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav__item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-nav__link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .toc-nav__link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .toc-nav__link:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .toc-nav__link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Adjust main content layout for TOC */
+        @media (min-width: 1024px) {
+            .main-content-wrapper {
+                display: block;
+            }
+
+            .content-with-toc {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-top: 2rem;
+                padding-top: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .case-study-header {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .case-study-body {
+                scroll-margin-top: 140px;
+                margin-top: 0;
+                padding: 0 3rem 3rem 3rem;
+            }
+        }
+
+        /* Hide TOC on smaller screens */
+        @media (max-width: 1023px) {
+            .toc-container {
+                display: none;
+            }
+
+            .content-with-toc {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-header .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .case-study-body {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .case-study-body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        @media (min-width: 1024px) {
+            .case-study-body {
+                padding-top: 0;
+            }
+            
+            .case-study-body h2:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul, .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body .asset-placeholder {
+            background: var(--background-light);
+            border: 2px dashed var(--border-light);
+            padding: 3rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .case-study-body .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .case-study-header {
+                padding: 2rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 2rem;
+            }
+
+            .case-study-body {
+                padding: 2rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.6rem;
+            }
+
+            .case-study-body h3 {
+                font-size: 1.3rem;
+            }
+
+            .case-study-body h4 {
+                font-size: 1.1rem;
+            }
+
+            .case-study-body .before-after {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <div class="container">
+            <!-- Content with TOC -->
+            <div class="content-with-toc">
+                <!-- Table of Contents -->
+                <nav class="toc-container" id="tocContainer" aria-label="Table of contents">
+                    <div class="toc-nav" id="tocNav">
+                        <div class="toc-nav__title">Contents</div>
+                        <ul class="toc-nav__list" id="tocList"></ul>
+                    </div>
+                </nav>
+                
+                <div class="main-content">
+                    <div class="case-study-header">
+                        <h1>Data Transform Interactive Prep Editor</h1>
+                        <p class="tagline">Reimagining data preparation for power users and beginners</p>
+                        <p class="subtitle">Workday • Interaction Design</p>
+                    </div>
+                    
+                    <div class="case-study-body">
+                <h2>1. Context</h2>
+                <p><strong>What is data preparation/transformation?</strong></p>
+                <p>[Describe data preparation and transformation in the context of analytics. Explain what users need to do - cleaning data, transforming formats, combining datasets, etc.]</p>
+
+                <p><strong>Who uses this tool?</strong></p>
+                <p>[Describe the users - their technical level, use cases, and typical workflows. Include both power users and beginners. What are their different needs?]</p>
+
+                <p><strong>What was broken about the old editor?</strong></p>
+                <p>[Describe the problems with the existing editor. What made it clunky? What hindered user productivity? Set up the problem that needed to be solved.]</p>
+
+                <hr>
+
+                <h2>2. Problem Space</h2>
+                
+                <h3>User Pain Points</h3>
+                <p>[List specific examples of user pain points. Be concrete and specific.]</p>
+                <ul>
+                    <li>[Pain point 1 - specific example]</li>
+                    <li>[Pain point 2 - specific example]</li>
+                    <li>[Pain point 3 - specific example]</li>
+                </ul>
+
+                <blockquote>
+                    "[Add user quote highlighting a specific pain point]"
+                    <br><em>— User Role/Title</em>
+                </blockquote>
+
+                <h3>Technical Constraints</h3>
+                <p>[Describe the technical constraints you worked within. What were the limitations? Performance requirements? Platform constraints?]</p>
+
+                <h3>Competitor Landscape</h3>
+                <p>[What do competitors do well? What do they do poorly? How did this inform your design decisions?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Competitor analysis]
+                    <br>Add image: assets/competitor-analysis.jpg
+                </div>
+
+                <hr>
+
+                <h2>3. Design Challenge</h2>
+                
+                <h3>How to Balance Power and Simplicity?</h3>
+                <p>[This is the core challenge. Explain the tension between power users who need advanced features and beginners who need simplicity. How did you approach this?]</p>
+
+                <h3>Key Interaction Design Questions</h3>
+                <p>[What were the key questions you needed to answer?]</p>
+                <ul>
+                    <li>[Question 1]</li>
+                    <li>[Question 2]</li>
+                    <li>[Question 3]</li>
+                </ul>
+
+                <h3>Visual Complexity vs. Clarity</h3>
+                <p>[How did you balance showing enough information without overwhelming users? What principles guided this?]</p>
+
+                <hr>
+
+                <h2>4. Redesign Process</h2>
+                
+                <h3>User Research Insights</h3>
+                <p>[What did user research reveal? What were the key insights that informed the redesign?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: User research insights]
+                    <br>Add image: assets/user-research.jpg
+                </div>
+
+                <h3>Design Exploration</h3>
+                <p>[Describe the design exploration process. What alternatives did you consider? How did you iterate?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Process work (sketches, prototypes)]
+                    <br>Add images: assets/sketches.jpg, assets/wireframes.jpg
+                </div>
+
+                <h3>Key Design Decisions and Rationale</h3>
+                <p>[Explain the major design decisions and why you made them. What was the reasoning?]</p>
+                <ul>
+                    <li><strong>Decision 1:</strong> [Rationale]</li>
+                    <li><strong>Decision 2:</strong> [Rationale]</li>
+                    <li><strong>Decision 3:</strong> [Rationale]</li>
+                </ul>
+
+                <h3>Prototyping and Testing</h3>
+                <p>[Describe the prototyping and testing process. What did you prototype? How did you test? What did you learn?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: User testing insights/videos]
+                    <br>Add image: assets/user-testing.jpg
+                </div>
+
+                <hr>
+
+                <h2>5. Solution: The New Editor</h2>
+                
+                <h3>Before/After Comparison</h3>
+                <p>[This is critical for this case study. Show the transformation clearly.]</p>
+
+                <div class="before-after">
+                    <div class="asset-placeholder">
+                        [Placeholder: Before editor screenshot]
+                        <br>Add image: assets/before-editor.jpg
+                    </div>
+                    <div class="asset-placeholder">
+                        [Placeholder: After editor screenshot]
+                        <br>Add image: assets/after-editor.jpg
+                    </div>
+                </div>
+
+                <h3>Key Interaction Improvements</h3>
+                <p>[Detail the specific interaction improvements. What changed? How does it work now?]</p>
+                <ul>
+                    <li>[Improvement 1]</li>
+                    <li>[Improvement 2]</li>
+                    <li>[Improvement 3]</li>
+                </ul>
+
+                <h3>Visual Design Improvements</h3>
+                <p>[Describe visual design improvements. How did you improve clarity? What visual hierarchy changes were made?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: After editor screenshots (multiple states)]
+                    <br>Add images: assets/editor-state-1.jpg, assets/editor-state-2.jpg
+                </div>
+
+                <h3>How You Balanced Power and Simplicity</h3>
+                <p>[Explain your approach to balancing power and simplicity. How did you make advanced features accessible? How did you simplify without losing functionality?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Visual design system elements]
+                    <br>Add image: assets/design-system.jpg
+                </div>
+
+                <hr>
+
+                <h2>6. Interaction Design Details</h2>
+                <p>[Pick 2-3 key interactions to showcase in detail. This is where you demonstrate your interaction design expertise.]</p>
+
+                <h3>Interaction 1: [Name]</h3>
+                <p><strong>Detail the micro-interactions:</strong> [Describe the micro-interactions - what happens when users interact?]</p>
+                <p><strong>Show states, transitions, feedback:</strong> [Detail the different states, how transitions work, and what feedback users receive.]</p>
+                <p><strong>Explain design thinking:</strong> [Why did you design it this way? What principles guided you?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Interaction details (flows, states, animations)]
+                    <br>Add images: assets/interaction-1-flow.jpg, assets/interaction-1-states.jpg
+                </div>
+
+                <h3>Interaction 2: [Name]</h3>
+                <p><strong>Detail the micro-interactions:</strong> [Describe the micro-interactions]</p>
+                <p><strong>Show states, transitions, feedback:</strong> [Detail states, transitions, feedback]</p>
+                <p><strong>Explain design thinking:</strong> [Explain the design thinking]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Interaction 2 details]
+                    <br>Add images: assets/interaction-2-flow.jpg
+                </div>
+
+                <h3>Interaction 3: [Name]</h3>
+                <p><strong>Detail the micro-interactions:</strong> [Describe the micro-interactions]</p>
+                <p><strong>Show states, transitions, feedback:</strong> [Detail states, transitions, feedback]</p>
+                <p><strong>Explain design thinking:</strong> [Explain the design thinking]</p>
+
+                <hr>
+
+                <h2>7. Impact</h2>
+                
+                <h3>Efficiency Improvements</h3>
+                <p>[Describe efficiency improvements - time saved, fewer steps, etc. Include specific metrics if available.]</p>
+                <ul>
+                    <li>Time saved: [Metric]</li>
+                    <li>Steps reduced: [Metric]</li>
+                    <li>Workflow improvement: [Metric]</li>
+                </ul>
+
+                <h3>Error Reduction</h3>
+                <p>[How were errors reduced? What types of errors? By how much?]</p>
+
+                <h3>User Satisfaction</h3>
+                <blockquote>
+                    "[Add user quote about the improved experience]"
+                    <br><em>— User Role/Title</em>
+                </blockquote>
+
+                <h3>Adoption/Usage Metrics</h3>
+                <p>[Include adoption and usage metrics if available.]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Metrics/impact data]
+                    <br>Add image: assets/impact-metrics.jpg
+                </div>
+
+                <hr>
+
+                <h2>8. Reflection</h2>
+                
+                <h3>Key Learnings About Interaction Design</h3>
+                <p>[What did you learn about interaction design from this project? What insights did you gain?]</p>
+
+                <h3>Working Within Technical Constraints</h3>
+                <p>[How did you work within technical constraints? What compromises did you make? How did constraints actually help the design?]</p>
+
+                <h3>What I'd Iterate Next</h3>
+                <p>[What would you improve if you had more time? What's next? Show continuous improvement mindset.]</p>
+
+                <hr>
+
+                <h2>Project Credits</h2>
+                <p><strong>Design Leadership</strong><br>
+                Shanthi Acharya, Design Manager</p>
+
+                <p><strong>Team Members</strong><br>
+                [Add team members and their roles]</p>
+
+                <p><strong>Organization</strong><br>
+                Workday, Inc.</p>
+
+                <p><em>This case study demonstrates how thoughtful interaction design can transform complex tools, making them both powerful and approachable.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Generate IDs for h2 headings and build TOC
+            function initializeTOC() {
+                const caseStudyBody = document.querySelector('.case-study-body');
+                if (!caseStudyBody) return;
+
+                const headings = caseStudyBody.querySelectorAll('h2');
+                const tocList = document.getElementById('tocList');
+                const tocContainer = document.getElementById('tocContainer');
+                
+                if (!tocList || headings.length === 0) {
+                    if (tocContainer) tocContainer.style.display = 'none';
+                    return;
+                }
+
+                // Clear existing TOC
+                tocList.innerHTML = '';
+
+                // Process each heading
+                headings.forEach((heading, index) => {
+                    // Generate ID if not exists
+                    let id = heading.id;
+                    if (!id) {
+                        id = 'section-' + index + '-' + heading.textContent
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        heading.id = id;
+                    }
+
+                    // Create TOC link
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-nav__item';
+                    
+                    const link = document.createElement('a');
+                    link.className = 'toc-nav__link';
+                    link.href = '#' + id;
+                    link.textContent = heading.textContent;
+                    link.setAttribute('data-heading-id', id);
+                    
+                    // Smooth scroll on click
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHeading = document.getElementById(id);
+                        if (targetHeading) {
+                            const offset = 120; // Account for fixed nav
+                            const targetPosition = targetHeading.offsetTop - offset;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                            // Update active state
+                            updateActiveTOCLink(id);
+                        }
+                    });
+                    
+                    listItem.appendChild(link);
+                    tocList.appendChild(listItem);
+                });
+
+                // Show TOC container
+                if (tocContainer) {
+                    tocContainer.classList.add('visible');
+                }
+
+                // Initialize scroll spy
+                initializeScrollSpy(headings);
+            }
+
+            // Scroll spy using IntersectionObserver
+            function initializeScrollSpy(headings) {
+                if (headings.length === 0) return;
+
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-20% 0px -70% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateActiveTOCLink(entry.target.id);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all headings
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        observer.observe(heading);
+                    }
+                });
+            }
+
+            // Update active TOC link
+            function updateActiveTOCLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc-nav__link');
+                tocLinks.forEach(link => {
+                    const headingId = link.getAttribute('data-heading-id');
+                    if (headingId === activeId) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            // TOC is always sticky now via CSS, so this function is simplified
+            function handleTOCSticky() {
+                // TOC sticky positioning is handled by CSS position: sticky
+                // No JavaScript toggling needed
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    initializeTOC();
+                    handleTOCSticky();
+                });
+            } else {
+                initializeTOC();
+                handleTOCSticky();
+            }
+        })();
+    </script>
+</body>
+</html>

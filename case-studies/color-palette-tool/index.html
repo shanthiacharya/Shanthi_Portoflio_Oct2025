@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Color Palette Tool Case Study - Shanthi Acharya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* DataCamp Color Palette */
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        nav .back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            width: 220px;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: sticky;
+            top: 140px;
+            align-self: flex-start;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .toc-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toc-nav {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            box-shadow: none;
+        }
+
+        .toc-nav__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toc-nav__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav__item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-nav__link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .toc-nav__link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .toc-nav__link:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .toc-nav__link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Adjust main content layout for TOC */
+        @media (min-width: 1024px) {
+            .main-content-wrapper {
+                display: block;
+            }
+
+            .content-with-toc {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-top: 2rem;
+                padding-top: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .case-study-header {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+
+            .case-study-body {
+                scroll-margin-top: 140px;
+                margin-top: 0;
+                padding: 0 3rem 3rem 3rem;
+            }
+        }
+
+        /* Hide TOC on smaller screens */
+        @media (max-width: 1023px) {
+            .toc-container {
+                display: none;
+            }
+
+            .content-with-toc {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-header .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .case-study-body {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .case-study-body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        @media (min-width: 1024px) {
+            .case-study-body {
+                padding-top: 0;
+            }
+            
+            .case-study-body h2:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul, .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body .asset-placeholder {
+            background: var(--background-light);
+            border: 2px dashed var(--border-light);
+            padding: 3rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .case-study-body .image-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .case-study-body .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body .image-caption {
+            margin-top: 1rem;
+            color: var(--text-medium);
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .case-study-body .video-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .case-study-body .video-container video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body .external-link {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+
+        .case-study-body .external-link:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        .case-study-body code {
+            background: var(--background-light);
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .case-study-header {
+                padding: 2rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 2rem;
+            }
+
+            .case-study-body {
+                padding: 2rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.6rem;
+            }
+
+            .case-study-body h3 {
+                font-size: 1.3rem;
+            }
+
+            .case-study-body h4 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <div class="container">
+            <!-- Content with TOC -->
+            <div class="content-with-toc">
+                <!-- Table of Contents -->
+                <nav class="toc-container" id="tocContainer" aria-label="Table of contents">
+                    <div class="toc-nav" id="tocNav">
+                        <div class="toc-nav__title">Contents</div>
+                        <ul class="toc-nav__list" id="tocList"></ul>
+                    </div>
+                </nav>
+                
+                <div class="main-content">
+                    <div class="case-study-header">
+                        <h1>Data Visualization Color Palette Tool</h1>
+                        <p class="tagline">Building an intelligent color palette tool for data visualization</p>
+                        <p class="subtitle">AI Tooling • Accessibility</p>
+                    </div>
+                    
+                    <div class="case-study-body">
+                <h2>Problem</h2>
+                
+                <ul>
+                    <li>Current default palette does not meet WCAG 2.1 Success Criterion 1.4.11 Non-text Contrast (AA).</li>
+                    <li>Default palette uses older Canvas 13 colors</li>
+                    <li>There's an urgent, high demand to integrate data visualizations within the Ask Workday UI. AI/ML teams are currently using charting logic built into LLMs, but they require formal guidance on usage and a consistent look and feel for the visualizations.</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="assets/WorkdayCharts.png" alt="Workday Charts - Various chart types showing data visualizations">
+                    <p class="image-caption">Workday Charts</p>
+                </div>
+
+                <h3>Goals</h3>
+                
+                <ul>
+                    <li>Design and establish a palette of 12 (or 16) colors that all meet the WCAG 2.1 Success Criterion 1.4.11 Non-text Contrast (AA), ensuring all graphical objects have a contrast ratio of at least 3:1 against any adjacent colors.</li>
+                    <li>Colors will be aligned to new Canvas 14 library.</li>
+                    <li>Design & establish a style guide to the core 10 chart types (donut, line chart, column*, bars*, area*, scatter plot, bubble, waterfall, heatmap** & funnel)</li>
+                </ul>
+
+                <hr>
+
+                <h2>3. Building with AI Tools</h2>
+                
+                <h3>Why Lovable/Vibe?</h3>
+                <p>[Explain why you chose Lovable/Vibe or other AI coding tools. What attracted you to these tools? What advantages do they offer?]</p>
+
+                <h3>Development Process with AI Coding Assistant</h3>
+                <p>[Describe your development process. How did you work with the AI assistant? What was your workflow?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Development process artifacts]
+                    <br>Add images: assets/development-process.jpg
+                </div>
+
+                <h3>How AI Helped (and Where You Guided It)</h3>
+                <p>[Explain how AI helped accelerate development. What did it do well? Where did you need to guide it? What was the collaboration like?]</p>
+
+                <h3>Iteration Cycle</h3>
+                <p>[Describe the iteration cycle. How quickly could you iterate? What was the feedback loop like?]</p>
+
+                <hr>
+
+                <h2>4. The Tool</h2>
+                
+                <h3>Key Features</h3>
+                <p>[List and describe the key features of the tool.]</p>
+                <ul>
+                    <li>[Feature 1]</li>
+                    <li>[Feature 2]</li>
+                    <li>[Feature 3]</li>
+                </ul>
+
+                <h3>Live Demo/Screenshots</h3>
+
+                <div class="video-container">
+                    <video controls>
+                        <source src="assets/LovableDataViz Prototype-1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <h3>How It Works (User Flow)</h3>
+                <p>[Describe the user flow. How do users interact with the tool? What's the step-by-step process?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Screen recording/demo of usage]
+                    <br>Add video or GIF: assets/tool-demo.gif
+                </div>
+
+                <h3>Design Decisions</h3>
+                <p>[Explain key design decisions. Why did you design it this way? What principles guided you?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Example color palettes generated]
+                    <br>Add images: assets/palette-examples.jpg
+                </div>
+
+                <hr>
+
+                <h2>5. Technical Implementation</h2>
+                
+                <h3>Tech Stack Overview</h3>
+                <p>[Brief overview of the tech stack. Don't go too deep, but give a sense of what technologies were used.]</p>
+                <ul>
+                    <li>[Technology 1]</li>
+                    <li>[Technology 2]</li>
+                    <li>[Technology 3]</li>
+                </ul>
+
+                <h3>Interesting Technical Challenges</h3>
+                <p>[Describe interesting technical challenges you faced and how you solved them.]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Code snippets (tasteful, if relevant)]
+                    <br>Add image: assets/code-snippet.jpg
+                </div>
+
+                <h3>How You Ensured Accessibility</h3>
+                <p>[Explain how you ensured accessibility in the technical implementation. What checks did you build in?]</p>
+
+                <hr>
+
+                <h2>6. Outcomes & Learnings</h2>
+                
+                <h3>Link to Live Tool</h3>
+                <p>[Provide link to the live tool or describe where it's hosted.]</p>
+                <a href="#" class="external-link" target="_blank">View Live Tool →</a>
+
+                <h3>User Feedback</h3>
+                <p>[Include any user feedback you've received. What are people saying about it?]</p>
+
+                <blockquote>
+                    "[Add user feedback quote if available]"
+                    <br><em>— User/Designer</em>
+                </blockquote>
+
+                <h3>What I Learned About Data Viz Color Theory</h3>
+                <p>[Share learnings about data visualization color theory. What insights did you gain?]</p>
+
+                <h3>What I Learned About Building with AI Tools</h3>
+                <p>[Reflect on building with AI tools. What worked well? What didn't? What would you do differently?]</p>
+
+                <h3>What I Learned About Shipping Quickly</h3>
+                <p>[Reflect on the experience of shipping quickly. What did you learn about rapid development?]</p>
+
+                <div class="asset-placeholder">
+                    [Placeholder: Before/after using tool in real viz]
+                    <br>Add images: assets/before-viz.jpg, assets/after-viz.jpg
+                </div>
+
+                <h3>Future Improvements</h3>
+                <p>[What would you improve? What features would you add? Show continuous improvement mindset.]</p>
+                <ul>
+                    <li>[Improvement 1]</li>
+                    <li>[Improvement 2]</li>
+                    <li>[Improvement 3]</li>
+                </ul>
+
+                <hr>
+
+                <h2>7. Why This Matters</h2>
+                
+                <h3>Shows Initiative (Building in Public)</h3>
+                <p>[Explain how this project demonstrates initiative and building in public. What does it say about you as a designer?]</p>
+
+                <h3>Demonstrates Domain Expertise (Data Viz)</h3>
+                <p>[How does this project demonstrate your expertise in data visualization?]</p>
+
+                <h3>Modern Tooling (AI Coding Tools)</h3>
+                <p>[How does using AI coding tools demonstrate your adaptability and willingness to embrace new technologies?]</p>
+
+                <h3>Accessibility Focus</h3>
+                <p>[How does the accessibility focus demonstrate your values and commitment to inclusive design?]</p>
+
+                <hr>
+
+                <h2>Project Credits</h2>
+                <p><strong>Design & Development</strong><br>
+                Shanthi Acharya</p>
+
+                <p><strong>Tools Used</strong><br>
+                [List AI tools and other technologies used]</p>
+
+                <p><em>This personal project demonstrates initiative, domain expertise, and the ability to leverage modern tools to create valuable solutions quickly.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Generate IDs for h2 headings and build TOC
+            function initializeTOC() {
+                const caseStudyBody = document.querySelector('.case-study-body');
+                if (!caseStudyBody) return;
+
+                const headings = caseStudyBody.querySelectorAll('h2');
+                const tocList = document.getElementById('tocList');
+                const tocContainer = document.getElementById('tocContainer');
+                
+                if (!tocList || headings.length === 0) {
+                    if (tocContainer) tocContainer.style.display = 'none';
+                    return;
+                }
+
+                // Clear existing TOC
+                tocList.innerHTML = '';
+
+                // Process each heading
+                headings.forEach((heading, index) => {
+                    // Generate ID if not exists
+                    let id = heading.id;
+                    if (!id) {
+                        id = 'section-' + index + '-' + heading.textContent
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        heading.id = id;
+                    }
+
+                    // Create TOC link
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-nav__item';
+                    
+                    const link = document.createElement('a');
+                    link.className = 'toc-nav__link';
+                    link.href = '#' + id;
+                    link.textContent = heading.textContent;
+                    link.setAttribute('data-heading-id', id);
+                    
+                    // Smooth scroll on click
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHeading = document.getElementById(id);
+                        if (targetHeading) {
+                            const offset = 120; // Account for fixed nav
+                            const targetPosition = targetHeading.offsetTop - offset;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                            // Update active state
+                            updateActiveTOCLink(id);
+                        }
+                    });
+                    
+                    listItem.appendChild(link);
+                    tocList.appendChild(listItem);
+                });
+
+                // Show TOC container
+                if (tocContainer) {
+                    tocContainer.classList.add('visible');
+                }
+
+                // Initialize scroll spy
+                initializeScrollSpy(headings);
+            }
+
+            // Scroll spy using IntersectionObserver
+            function initializeScrollSpy(headings) {
+                if (headings.length === 0) return;
+
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-20% 0px -70% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateActiveTOCLink(entry.target.id);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all headings
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        observer.observe(heading);
+                    }
+                });
+            }
+
+            // Update active TOC link
+            function updateActiveTOCLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc-nav__link');
+                tocLinks.forEach(link => {
+                    const headingId = link.getAttribute('data-heading-id');
+                    if (headingId === activeId) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            // TOC is always sticky now via CSS, so this function is simplified
+            function handleTOCSticky() {
+                // TOC sticky positioning is handled by CSS position: sticky
+                // No JavaScript toggling needed
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    initializeTOC();
+                    handleTOCSticky();
+                });
+            } else {
+                initializeTOC();
+                handleTOCSticky();
+            }
+        })();
+    </script>
+</body>
+</html>
