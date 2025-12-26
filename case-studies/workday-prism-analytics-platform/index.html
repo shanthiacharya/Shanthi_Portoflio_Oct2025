@@ -15,6 +15,7 @@
         }
 
         :root {
+            /* DataCamp Color Palette */
             --primary-blue: #003D82;
             --primary-blue-light: #004C8C;
             --accent-teal: #00C7B1;
@@ -29,55 +30,21 @@
             --border-light: #E0E4E8;
             --shadow-sm: rgba(0, 61, 130, 0.08);
             --shadow-md: rgba(0, 61, 130, 0.12);
-            --dark-green: #064E3B;
-            --navy: #0F172A;
         }
 
         body {
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.7;
             color: var(--text-dark);
-            background: var(--background-white);
-            overflow-x: hidden;
+            background: var(--background-light);
             font-weight: 400;
             letter-spacing: -0.01em;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         html {
             scroll-behavior: smooth;
-        }
-
-        /* Loading State */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background-white);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--background-light);
-            border-top-color: var(--accent-teal);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Navigation */
@@ -85,7 +52,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--background-white);
             backdrop-filter: blur(10px);
             padding: 1.2rem 0;
             z-index: 1000;
@@ -94,7 +61,7 @@
         }
 
         nav .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -133,1135 +100,834 @@
             transform: translateY(-2px);
         }
 
-        /* Progress Indicator */
-        .progress-indicator {
-            position: fixed;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .progress-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--border-light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .progress-dot.active {
-            background: var(--accent-teal);
-            transform: scale(1.3);
-        }
-
-        .progress-dot:hover {
-            transform: scale(1.5);
-        }
-
-        .progress-dot::after {
-            content: attr(data-label);
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--text-dark);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            white-space: nowrap;
+        /* Table of Contents */
+        .toc-container {
+            width: 220px;
+            flex-shrink: 0;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: sticky;
+            top: 140px;
+            align-self: flex-start;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            margin-top: 0;
+            padding-top: 0;
         }
 
-        .progress-dot:hover::after {
+        .toc-container.visible {
             opacity: 1;
+            transform: translateX(0);
         }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .toc-nav {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            box-shadow: none;
+        }
+
+        .toc-nav__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toc-nav__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav__item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-nav__link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.2s ease;
             position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 50%, var(--accent-teal) 100%);
-            padding-top: 80px;
+            padding-left: 1.25rem;
         }
 
-        .hero::before {
+        .toc-nav__link::before {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 199, 177, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 61, 130, 0.3) 0%, transparent 50%);
-            animation: pulse 4s ease-in-out infinite;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        .floating-orb {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 150px;
-            height: 150px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .orb-3 {
-            width: 100px;
-            height: 100px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            33% { transform: translateY(-30px) translateX(20px); }
-            66% { transform: translateY(20px) translateX(-15px); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 900px;
-            padding: 0 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-content h1 {
-            font-size: 4rem;
-            color: var(--background-white);
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-        }
-
-        .hero-content .subtitle {
-            font-size: 1.8rem;
-            color: var(--accent-teal-light);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .hero-content .period {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 1rem;
-            font-weight: 400;
-        }
-
-        .hero-content .tagline {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.95);
-            font-weight: 500;
-            margin-bottom: 3rem;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        .scroll-indicator span {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .scroll-arrow {
-            width: 24px;
-            height: 24px;
-            border-right: 2px solid rgba(255, 255, 255, 0.8);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.8);
-            transform: rotate(45deg);
-        }
-
-        /* Journey Overview Section */
-        .journey-overview {
-            padding: 100px 2rem;
+        .toc-nav__link:hover {
+            color: var(--primary-blue);
             background: var(--background-light);
-            position: relative;
+        }
+
+        .toc-nav__link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Adjust main content layout for TOC */
+        @media (min-width: 1024px) {
+            .main-content-wrapper {
+                display: block;
+            }
+
+            .content-with-toc {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .case-study-header {
+                width: 100%;
+                margin-bottom: 2rem;
+                margin-top: 0;
+                padding-top: 0;
+                scroll-margin-top: 140px;
+            }
+
+            .hero-video {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                border-radius: 12px;
+                margin-top: 2rem;
+                box-shadow: 0 4px 16px var(--shadow-md);
+            }
+
+            .case-study-body {
+                scroll-margin-top: 140px;
+                margin-top: 0;
+                padding: 0 3rem 3rem 3rem;
+            }
+        }
+
+        /* Hide TOC on smaller screens */
+        @media (max-width: 1023px) {
+            .toc-container {
+                display: none;
+            }
+
+            .content-with-toc {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            width: 100%;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        .section-title {
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
             text-align: center;
-            font-size: 3rem;
+            border: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
             color: var(--primary-blue);
             margin-bottom: 1rem;
+            line-height: 1.3;
             font-weight: 700;
             letter-spacing: -0.02em;
         }
 
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+        .case-study-header .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .emotion-graph-container {
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .case-study-body {
             background: var(--background-white);
             padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px var(--shadow-sm);
-            margin-bottom: 4rem;
-            position: relative;
-        }
-
-        .emotion-graph {
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
             width: 100%;
-            height: 400px;
-            position: relative;
         }
 
-        .emotion-graph svg {
-            width: 100%;
-            height: 100%;
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
         }
 
-        .emotion-point {
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .case-study-body h2:first-child {
+            margin-top: 0;
         }
 
-        .emotion-point:hover {
-            transform: scale(1.2);
+        .case-study-body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
         }
 
-        .emotion-tooltip {
-            position: absolute;
-            background: var(--text-dark);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 10;
+        @media (min-width: 1024px) {
+            .case-study-body {
+                padding-top: 0;
+            }
+            
+            .case-study-body h2:first-child {
+                margin-top: 0;
+            }
         }
 
-        .emotion-tooltip.visible {
-            opacity: 1;
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
         }
 
-        .metrics-bar {
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul, .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body .image-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .case-study-body .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            margin: 1rem 0;
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
         .metric-card {
-            background: var(--background-white);
-            padding: 2rem;
+            background: var(--background-light);
+            padding: 1.5rem;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 2px 12px var(--shadow-sm);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
 
         .metric-value {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--accent-teal);
             margin-bottom: 0.5rem;
         }
 
         .metric-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-light);
             font-weight: 500;
         }
 
-        /* Pillars Grid */
-        .pillars-section {
-            padding: 100px 2rem;
-            background: var(--background-white);
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .pillar-card {
-            background: var(--background-light);
-            padding: 2.5rem;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pillar-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .pillar-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 32px var(--shadow-md);
-            border-color: var(--accent-teal);
-        }
-
-        .pillar-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .pillar-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .pillar-title {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .pillar-tagline {
-            font-size: 1rem;
-            color: var(--accent-teal);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .pillar-stats {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-top: 1rem;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            padding: 2rem;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: var(--background-white);
-            border-radius: 16px;
-            padding: 3rem;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: translateY(50px);
-            transition: transform 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            width: 40px;
-            height: 40px;
-            border: none;
-            background: var(--background-light);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
-            background: var(--accent-teal);
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
-            font-size: 2rem;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .modal-tagline {
-            font-size: 1.2rem;
-            color: var(--accent-teal);
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
+        /* Project Cards */
         .project-card {
             background: var(--background-light);
             padding: 1.5rem;
             border-radius: 12px;
             border-left: 4px solid var(--accent-teal);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 1.5rem;
         }
 
-        .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px var(--shadow-sm);
-        }
-
-        .project-name {
-            font-size: 1.2rem;
+        .project-card h4 {
             color: var(--primary-blue);
+            margin-top: 0;
             margin-bottom: 0.5rem;
-            font-weight: 600;
         }
 
-        .project-description {
-            font-size: 0.95rem;
-            color: var(--text-light);
+        .project-card p {
             margin-bottom: 0.75rem;
-            line-height: 1.6;
         }
 
-        .project-impact {
-            font-size: 0.9rem;
+        .project-card .impact {
             color: var(--accent-teal);
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        /* Timeline Section */
-        .timeline-section {
-            padding: 100px 2rem;
-            background: linear-gradient(180deg, var(--dark-green) 0%, var(--navy) 100%);
-            color: white;
-            position: relative;
+        /* Timeline Cards */
+        .timeline-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-blue);
         }
 
-        .timeline-section .section-title {
-            color: white;
-        }
-
-        .timeline-section .section-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 4rem auto 0;
-            padding-left: 3rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--accent-teal), rgba(0, 199, 177, 0.3));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 4rem;
-            padding-left: 3rem;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -3.5rem;
-            top: 0.5rem;
-            width: 16px;
-            height: 16px;
-            background: var(--accent-teal);
-            border-radius: 50%;
-            border: 3px solid var(--dark-green);
-            box-shadow: 0 0 0 4px rgba(0, 199, 177, 0.3);
-        }
-
-        .timeline-year {
-            font-size: 1.5rem;
+        .timeline-card .year {
             color: var(--accent-teal);
             font-weight: 700;
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
 
-        .timeline-title {
-            font-size: 1.8rem;
-            color: white;
+        .timeline-card h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
             margin-bottom: 0.75rem;
-            font-weight: 600;
         }
 
-        .timeline-description {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.7;
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
         }
 
-        /* Scroll Animations */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 3rem;
+            }
         }
 
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .progress-indicator {
-                display: none;
+            nav .container {
+                padding: 0 1rem;
             }
 
-            .hero-content h1 {
-                font-size: 2.5rem;
+            .main-content {
+                padding: 1rem;
             }
 
-            .hero-content .subtitle {
-                font-size: 1.4rem;
+            .container {
+                padding: 0 1rem;
             }
 
-            .section-title {
+            .case-study-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-header h1 {
                 font-size: 2rem;
             }
 
-            .metrics-bar {
-                grid-template-columns: 1fr;
+            .case-study-body {
+                padding: 2rem 1.5rem;
             }
 
-            .pillars-grid {
-                grid-template-columns: 1fr;
+            .case-study-body h2 {
+                font-size: 1.6rem;
             }
 
-            .emotion-graph {
-                height: 300px;
+            .case-study-body h3 {
+                font-size: 1.3rem;
             }
 
-            .timeline {
-                padding-left: 2rem;
+            .case-study-body h4 {
+                font-size: 1.1rem;
             }
 
-            .timeline-item {
-                padding-left: 2rem;
-            }
-
-            .timeline-item::before {
-                left: -2.5rem;
-            }
-
-            .modal-content {
-                padding: 2rem;
-                max-height: 95vh;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
+            nav .container {
+                padding: 0 0.75rem;
             }
 
-            .hero-content .subtitle {
+            .main-content {
+                padding: 0.75rem;
+            }
+
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .case-study-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .case-study-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.4rem;
+            }
+
+            .case-study-body h3 {
                 font-size: 1.2rem;
             }
 
-            .section-title {
-                font-size: 1.75rem;
+            .case-study-body p {
+                font-size: 1rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading State -->
-    <div class="loader" id="loader">
-        <div class="spinner"></div>
-    </div>
-
     <!-- Navigation -->
     <nav>
         <div class="container">
             <a href="../../index.html" class="logo">Shanthi Acharya</a>
-            <a href="../../index.html" class="back-btn">← Back to Portfolio</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
         </div>
     </nav>
 
-    <!-- Progress Indicator -->
-    <div class="progress-indicator" id="progressIndicator">
-        <div class="progress-dot" data-section="hero" data-label="Hero"></div>
-        <div class="progress-dot" data-section="journey" data-label="Journey"></div>
-        <div class="progress-dot" data-section="pillars" data-label="Pillars"></div>
-        <div class="progress-dot" data-section="timeline" data-label="Timeline"></div>
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <div class="container">
+            <!-- Content with TOC -->
+            <div class="content-with-toc">
+                <!-- Table of Contents -->
+                <nav class="toc-container" id="tocContainer" aria-label="Table of contents">
+                    <div class="toc-nav" id="tocNav">
+                        <div class="toc-nav__title">Contents</div>
+                        <ul class="toc-nav__list" id="tocList"></ul>
+                    </div>
+                </nav>
+                
+                <div class="main-content">
+                    <div class="case-study-header">
+                        <h1>Prism Analytics Platform Journey</h1>
+                        <p class="tagline">Transforming Enterprise Data at Scale</p>
+                        <p class="subtitle">2019 — 2025 | Product Design Leadership</p>
+                        <img class="hero-video" src="assets/prism_product_platform.png" alt="Prism Analytics Platform Overview">
+                    </div>
+                    
+                    <div class="case-study-body">
+                        <h2>The Journey</h2>
+                        <p>From critical challenges to delighted users - a 5-year transformation story. This case study documents the evolution of Workday's Prism Analytics platform, showing how strategic UX improvements transformed the user experience from frustration to delight.</p>
+
+                        <h3>Impact Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-value">50,000</div>
+                                <div class="metric-label">Users Impacted</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">$2.5M</div>
+                                <div class="metric-label">Saved Annually</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">10x</div>
+                                <div class="metric-label">Performance Improvement</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">78</div>
+                                <div class="metric-label">NPS Score</div>
+                            </div>
+                        </div>
+
+                        <h3>The Emotional Journey</h3>
+                        <p>Our users' experience evolved significantly over the five years:</p>
+                        <ul>
+                            <li><strong>2019 - Critical:</strong> Initial state with high friction, IT dependency, and manual processes</li>
+                            <li><strong>2020 - Frustrated:</strong> Early improvements brought some automation, but the experience remained fragmented</li>
+                            <li><strong>2021 - Satisfied:</strong> Performance breakthrough with 10x speed improvement and better UX</li>
+                            <li><strong>2022 - Empowered:</strong> Unified platform with self-service capabilities and reduced tool sprawl</li>
+                            <li><strong>2025 - Delighted:</strong> AI integration enabling intelligent automation and predictive insights</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2>Strategic Pillars</h2>
+                        <p>Four foundational areas drove the transformation, each addressing critical user needs and business objectives.</p>
+
+                        <h3>Pillar 1: Data Integration</h3>
+                        <p><em>From Gatekeepers to Self-Service</em></p>
+                        <p>This pillar focused on removing IT dependencies and enabling business users to work with data independently.</p>
+
+                        <div class="project-card">
+                            <h4>Self-Service Report Builder</h4>
+                            <p>Enabled business users to create reports without IT assistance, reducing report creation time by 85%.</p>
+                            <div class="impact">Impact: 85% faster report creation</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Template Marketplace</h4>
+                            <p>Centralized repository of reusable report templates, achieving 70% template reuse rate across the organization.</p>
+                            <div class="impact">Impact: 70% reuse rate</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Natural Language Query</h4>
+                            <p>AI-powered query interface allowing users to ask questions in plain English without writing SQL.</p>
+                            <div class="impact">Impact: 0 SQL required</div>
+                        </div>
+
+                        <h3>Pillar 2: Data Preparation</h3>
+                        <p><em>From Breaking Points to Breakthrough</em></p>
+                        <p>Addressing performance bottlenecks that were causing user frustration and limiting platform adoption.</p>
+
+                        <div class="project-card">
+                            <h4>Incremental Processing Engine</h4>
+                            <p>Revolutionary processing architecture that only processes changed data, delivering 10x performance improvement.</p>
+                            <div class="impact">Impact: 10x performance</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Distributed Query Optimization</h4>
+                            <p>Intelligent query distribution across clusters, ensuring 99.99% uptime and handling massive data volumes.</p>
+                            <div class="impact">Impact: 99.99% uptime</div>
+                        </div>
+
+                        <h3>Pillar 3: Data Catalog</h3>
+                        <p><em>From Fragmentation to Flow</em></p>
+                        <p>Consolidating disparate tools into a unified experience that reduces cognitive load and context switching.</p>
+
+                        <div class="project-card">
+                            <h4>Analytics Workbench</h4>
+                            <p>Unified workspace consolidating 5 separate tools into one cohesive platform, dramatically reducing context switching.</p>
+                            <div class="impact">Impact: 5 tools → 1 platform</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Cross-Product Navigation</h4>
+                            <p>Seamless navigation between analytics products, reducing context switching by 60% and improving workflow efficiency.</p>
+                            <div class="impact">Impact: 60% reduced context switching</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Consistent Design System</h4>
+                            <p>Unified design language across all analytics products, reducing onboarding time and improving user confidence.</p>
+                            <div class="impact">Impact: 60% faster onboarding</div>
+                        </div>
+
+                        <h3>Pillar 4: Monitoring & Observability</h3>
+                        <p><em>From Manual to Magical</em></p>
+                        <p>Introducing AI-powered capabilities that automate routine tasks and provide intelligent assistance.</p>
+
+                        <div class="project-card">
+                            <h4>Anomaly Detection Engine</h4>
+                            <p>AI-powered system that automatically detects data anomalies and performance issues, alerting teams 90% faster than manual monitoring.</p>
+                            <div class="impact">Impact: 90% faster detection</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Calculation Copilot</h4>
+                            <p>Intelligent assistant that suggests optimal calculation formulas and validates logic, reducing calculation errors by 40%.</p>
+                            <div class="impact">Impact: 40% faster calculations</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Smart Data Lineage</h4>
+                            <p>Automated documentation of data flows and dependencies, reducing manual documentation effort by 80%.</p>
+                            <div class="impact">Impact: 80% documentation automated</div>
+                        </div>
+
+                        <div class="project-card">
+                            <h4>Predictive Pipeline Optimization</h4>
+                            <p>ML-driven system that predicts pipeline failures and optimizes resource allocation, reducing costs by 50%.</p>
+                            <div class="impact">Impact: 50% cost reduction</div>
+                        </div>
+
+                        <hr>
+
+                        <h2>Success Timeline</h2>
+                        <p>Key milestones in our transformation journey.</p>
+
+                        <div class="timeline-card">
+                            <div class="year">2020</div>
+                            <h4>Self-Service Revolution</h4>
+                            <p>Launched self-service report builder and template marketplace, reducing IT dependency by 70% and enabling business users to create reports independently.</p>
+                        </div>
+
+                        <div class="timeline-card">
+                            <div class="year">2021</div>
+                            <h4>Performance Breakthrough</h4>
+                            <p>Introduced incremental processing engine and distributed query optimization, achieving 10x performance improvement and 99.99% uptime.</p>
+                        </div>
+
+                        <div class="timeline-card">
+                            <div class="year">2022</div>
+                            <h4>Unified Platform Launch</h4>
+                            <p>Launched Analytics Workbench consolidating 5 tools into 1 platform, reducing context switching by 60% and onboarding time by 60%.</p>
+                        </div>
+
+                        <div class="timeline-card">
+                            <div class="year">2023-2024</div>
+                            <h4>AI Integration</h4>
+                            <p>Integrated AI-powered features including anomaly detection (90% faster), calculation copilot (40% faster calculations), and smart data lineage (80% documentation automated).</p>
+                        </div>
+
+                        <hr>
+
+                        <h2>Project Credits</h2>
+                        <p><strong>Design Leadership</strong><br>
+                        Shanthi Acharya, Design Manager</p>
+
+                        <p><strong>Organization</strong><br>
+                        Workday, Inc.</p>
+
+                        <p><em>This case study represents strategic UX work on the Prism Analytics Platform, showcasing how user-centered design transforms complex enterprise software into intuitive, powerful tools over a 5-year journey.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="floating-orb orb-1"></div>
-        <div class="floating-orb orb-2"></div>
-        <div class="floating-orb orb-3"></div>
-        <div class="hero-content">
-            <h1>Prism Analytics</h1>
-            <p class="subtitle">Analytics Platform Journey</p>
-            <p class="period">2019 — 2025</p>
-            <p class="tagline">Transforming Enterprise Data at Scale</p>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll to explore</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <!-- Journey Overview Section -->
-    <section class="journey-overview fade-in-up" id="journey">
+    <!-- Footer -->
+    <footer>
         <div class="container">
-            <h2 class="section-title">The Journey</h2>
-            <p class="section-subtitle">From critical challenges to delighted users - a 5-year transformation story</p>
-            
-            <div class="emotion-graph-container">
-                <div class="emotion-graph" id="emotionGraph">
-                    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Grid lines -->
-                        <defs>
-                            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
-                                <stop offset="25%" style="stop-color:#FFA500;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
-                                <stop offset="75%" style="stop-color:#00C7B1;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#00C7B1;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        
-                        <!-- Y-axis labels -->
-                        <text x="30" y="50" fill="#5A6C7D" font-size="14" font-weight="600">Delighted</text>
-                        <text x="30" y="120" fill="#5A6C7D" font-size="14" font-weight="600">Empowered</text>
-                        <text x="30" y="200" fill="#5A6C7D" font-size="14" font-weight="600">Satisfied</text>
-                        <text x="30" y="280" fill="#5A6C7D" font-size="14" font-weight="600">Frustrated</text>
-                        <text x="30" y="360" fill="#5A6C7D" font-size="14" font-weight="600">Critical</text>
-                        
-                        <!-- Emotion line path -->
-                        <path id="emotionLine" d="M 100 350 Q 250 300, 400 200 T 700 50" 
-                              stroke="url(#lineGradient)" 
-                              stroke-width="4" 
-                              fill="none"
-                              stroke-dasharray="1000"
-                              stroke-dashoffset="1000"/>
-                        
-                        <!-- Data points -->
-                        <circle class="emotion-point" cx="100" cy="350" r="12" fill="#FF6B35" data-year="2019" data-emotion="Critical" data-desc="Initial state: High friction, IT dependency, manual processes"/>
-                        <circle class="emotion-point" cx="250" cy="300" r="12" fill="#FFA500" data-year="2020" data-emotion="Frustrated" data-desc="Early improvements: Some automation, but still fragmented"/>
-                        <circle class="emotion-point" cx="400" cy="200" r="12" fill="#FFD700" data-year="2021" data-emotion="Satisfied" data-desc="Performance breakthrough: 10x speed improvement, better UX"/>
-                        <circle class="emotion-point" cx="550" cy="120" r="12" fill="#00C7B1" data-year="2022" data-emotion="Empowered" data-desc="Unified platform: Self-service capabilities, reduced tools"/>
-                        <circle class="emotion-point" cx="700" cy="50" r="12" fill="#00C7B1" data-year="2025" data-emotion="Delighted" data-desc="AI integration: Intelligent automation, predictive insights"/>
-                    </svg>
-                </div>
-                <div class="emotion-tooltip" id="emotionTooltip"></div>
-            </div>
-
-            <div class="metrics-bar">
-                <div class="metric-card">
-                    <div class="metric-value" data-target="50000">0</div>
-                    <div class="metric-label">Users Impacted</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" data-target="2.5">$0</div>
-                    <div class="metric-label">Million Saved Annually</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" data-target="10">0</div>
-                    <div class="metric-label">x Performance Improvement</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" data-target="78">0</div>
-                    <div class="metric-label">NPS Score</div>
-                </div>
-            </div>
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
         </div>
-    </section>
-
-    <!-- Pillars Section -->
-    <section class="pillars-section fade-in-up" id="pillars">
-        <div class="container">
-            <h2 class="section-title">Strategic Pillars</h2>
-            <p class="section-subtitle">Four foundational areas driving the transformation</p>
-            
-            <div class="pillars-grid">
-                <div class="pillar-card" data-pillar="integration">
-                    <div class="pillar-icon">📊</div>
-                    <h3 class="pillar-title">Data Integration</h3>
-                    <p class="pillar-tagline">From Gatekeepers to Self-Service</p>
-                    <p class="pillar-stats">3 Projects • 70% Faster</p>
-                </div>
-                
-                <div class="pillar-card" data-pillar="preparation">
-                    <div class="pillar-icon">⚡</div>
-                    <h3 class="pillar-title">Data Preparation</h3>
-                    <p class="pillar-tagline">From Breaking Points to Breakthrough</p>
-                    <p class="pillar-stats">2 Projects • 10x Speed</p>
-                </div>
-                
-                <div class="pillar-card" data-pillar="catalog">
-                    <div class="pillar-icon">🔄</div>
-                    <h3 class="pillar-title">Data Catalog</h3>
-                    <p class="pillar-tagline">From Fragmentation to Flow</p>
-                    <p class="pillar-stats">3 Projects • 60% Less Tools</p>
-                </div>
-                
-                <div class="pillar-card" data-pillar="monitoring">
-                    <div class="pillar-icon">🤖</div>
-                    <h3 class="pillar-title">Monitoring & Observability</h3>
-                    <p class="pillar-tagline">From Manual to Magical</p>
-                    <p class="pillar-stats">4 Projects • 40% Automated</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="timeline-section fade-in-up" id="timeline">
-        <div class="container">
-            <h2 class="section-title">Success Timeline</h2>
-            <p class="section-subtitle">Key milestones in our transformation journey</p>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2020</div>
-                    <h3 class="timeline-title">Self-Service Revolution</h3>
-                    <p class="timeline-description">Launched self-service report builder and template marketplace, reducing IT dependency by 70% and enabling business users to create reports independently.</p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2021</div>
-                    <h3 class="timeline-title">Performance Breakthrough</h3>
-                    <p class="timeline-description">Introduced incremental processing engine and distributed query optimization, achieving 10x performance improvement and 99.99% uptime.</p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <h3 class="timeline-title">Unified Platform Launch</h3>
-                    <p class="timeline-description">Launched Analytics Workbench consolidating 5 tools into 1 platform, reducing context switching by 60% and onboarding time by 60%.</p>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2023-2024</div>
-                    <h3 class="timeline-title">AI Integration</h3>
-                    <p class="timeline-description">Integrated AI-powered features including anomaly detection (90% faster), calculation copilot (40% faster calculations), and smart data lineage (80% documentation automated).</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
-            <h2 class="modal-title" id="modalTitle"></h2>
-            <p class="modal-tagline" id="modalTagline"></p>
-            <div class="projects-grid" id="projectsGrid"></div>
-        </div>
-    </div>
+    </footer>
 
     <script>
-        // Pillar data
-        const pillarData = {
-            integration: {
-                title: "Data Integration",
-                tagline: "From Gatekeepers to Self-Service",
-                projects: [
-                    {
-                        name: "Self-Service Report Builder",
-                        description: "Enabled business users to create reports without IT assistance, reducing report creation time by 85%.",
-                        impact: "85% faster report creation"
-                    },
-                    {
-                        name: "Template Marketplace",
-                        description: "Centralized repository of reusable report templates, achieving 70% template reuse rate across the organization.",
-                        impact: "70% reuse rate"
-                    },
-                    {
-                        name: "Natural Language Query",
-                        description: "AI-powered query interface allowing users to ask questions in plain English without writing SQL.",
-                        impact: "0 SQL required"
-                    }
-                ]
-            },
-            preparation: {
-                title: "Data Preparation",
-                tagline: "From Breaking Points to Breakthrough",
-                projects: [
-                    {
-                        name: "Incremental Processing Engine",
-                        description: "Revolutionary processing architecture that only processes changed data, delivering 10x performance improvement.",
-                        impact: "10x performance"
-                    },
-                    {
-                        name: "Distributed Query Optimization",
-                        description: "Intelligent query distribution across clusters, ensuring 99.99% uptime and handling massive data volumes.",
-                        impact: "99.99% uptime"
-                    }
-                ]
-            },
-            catalog: {
-                title: "Data Catalog",
-                tagline: "From Fragmentation to Flow",
-                projects: [
-                    {
-                        name: "Analytics Workbench",
-                        description: "Unified workspace consolidating 5 separate tools into one cohesive platform, dramatically reducing context switching.",
-                        impact: "5 tools → 1 platform"
-                    },
-                    {
-                        name: "Cross-Product Navigation",
-                        description: "Seamless navigation between analytics products, reducing context switching by 60% and improving workflow efficiency.",
-                        impact: "60% reduced context switching"
-                    },
-                    {
-                        name: "Consistent Design System",
-                        description: "Unified design language across all analytics products, reducing onboarding time and improving user confidence.",
-                        impact: "60% faster onboarding"
-                    }
-                ]
-            },
-            monitoring: {
-                title: "Monitoring & Observability",
-                tagline: "From Manual to Magical",
-                projects: [
-                    {
-                        name: "Anomaly Detection Engine",
-                        description: "AI-powered system that automatically detects data anomalies and performance issues, alerting teams 90% faster than manual monitoring.",
-                        impact: "90% faster detection"
-                    },
-                    {
-                        name: "Calculation Copilot",
-                        description: "Intelligent assistant that suggests optimal calculation formulas and validates logic, reducing calculation errors by 40%.",
-                        impact: "40% faster calculations"
-                    },
-                    {
-                        name: "Smart Data Lineage",
-                        description: "Automated documentation of data flows and dependencies, reducing manual documentation effort by 80%.",
-                        impact: "80% documentation automated"
-                    },
-                    {
-                        name: "Predictive Pipeline Optimization",
-                        description: "ML-driven system that predicts pipeline failures and optimizes resource allocation, reducing costs by 50%.",
-                        impact: "50% cost reduction"
-                    }
-                ]
-            }
-        };
+        (function() {
+            'use strict';
 
-        // Loading state
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-        });
+            // Generate IDs for h2 headings and build TOC
+            function initializeTOC() {
+                const caseStudyBody = document.querySelector('.case-study-body');
+                if (!caseStudyBody) return;
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                const headings = caseStudyBody.querySelectorAll('h2');
+                const tocList = document.getElementById('tocList');
+                const tocContainer = document.getElementById('tocContainer');
+                
+                if (!tocList || headings.length === 0) {
+                    if (tocContainer) tocContainer.style.display = 'none';
+                    return;
                 }
-            });
-        }, observerOptions);
 
-        document.querySelectorAll('.fade-in-up, .timeline-item').forEach(el => {
-            observer.observe(el);
-        });
+                // Clear existing TOC
+                tocList.innerHTML = '';
 
-        // Progress indicator
-        const sections = ['hero', 'journey', 'pillars', 'timeline'];
-        const progressDots = document.querySelectorAll('.progress-dot');
+                // Process each heading
+                headings.forEach((heading, index) => {
+                    // Generate ID if not exists
+                    let id = heading.id;
+                    if (!id) {
+                        id = 'section-' + index + '-' + heading.textContent
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        heading.id = id;
+                    }
 
-        function updateProgressIndicator() {
-            const scrollPos = window.scrollY + window.innerHeight / 2;
-            
-            sections.forEach((section, index) => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const top = element.offsetTop;
-                    const bottom = top + element.offsetHeight;
+                    // Create TOC link
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-nav__item';
                     
-                    if (scrollPos >= top && scrollPos < bottom) {
-                        progressDots[index].classList.add('active');
-                    } else {
-                        progressDots[index].classList.remove('active');
-                    }
-                }
-            });
-        }
-
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(updateProgressIndicator, 10);
-        });
-
-        progressDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                const section = document.getElementById(sections[index]);
-                if (section) {
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Emotion graph interactions
-        const emotionPoints = document.querySelectorAll('.emotion-point');
-        const emotionTooltip = document.getElementById('emotionTooltip');
-        const emotionLine = document.getElementById('emotionLine');
-
-        // Animate line drawing
-        setTimeout(() => {
-            emotionLine.style.transition = 'stroke-dashoffset 2s ease-out';
-            emotionLine.style.strokeDashoffset = '0';
-        }, 500);
-
-        emotionPoints.forEach(point => {
-            point.addEventListener('mouseenter', (e) => {
-                const year = e.target.getAttribute('data-year');
-                const emotion = e.target.getAttribute('data-emotion');
-                const desc = e.target.getAttribute('data-desc');
-                
-                emotionTooltip.innerHTML = `
-                    <strong>${year}: ${emotion}</strong><br>
-                    ${desc}
-                `;
-                emotionTooltip.classList.add('visible');
-                
-                const rect = e.target.getBoundingClientRect();
-                const graphRect = document.getElementById('emotionGraph').getBoundingClientRect();
-                emotionTooltip.style.left = (rect.left - graphRect.left + rect.width / 2) + 'px';
-                emotionTooltip.style.top = (rect.top - graphRect.top - 60) + 'px';
-            });
-
-            point.addEventListener('mouseleave', () => {
-                emotionTooltip.classList.remove('visible');
-            });
-        });
-
-        // Metric counters
-        function animateCounter(element) {
-            const target = parseFloat(element.getAttribute('data-target'));
-            const initialText = element.textContent;
-            const hasDollar = initialText.includes('$');
-            const duration = 2000;
-            const start = 0;
-            const increment = target / (duration / 16);
-            let current = start;
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    if (hasDollar) {
-                        element.textContent = '$' + target.toFixed(1);
-                    } else {
-                        element.textContent = target % 1 === 0 ? Math.floor(target) : target.toFixed(0);
-                    }
-                    clearInterval(timer);
-                } else {
-                    if (hasDollar) {
-                        element.textContent = '$' + current.toFixed(1);
-                    } else {
-                        element.textContent = target % 1 === 0 ? Math.floor(current) : Math.floor(current);
-                    }
-                }
-            }, 16);
-        }
-
-        const metricObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-                    entry.target.classList.add('counted');
-                    animateCounter(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.metric-value').forEach(el => {
-            metricObserver.observe(el);
-        });
-
-        // Modal system
-        const modalOverlay = document.getElementById('modalOverlay');
-        const modalClose = document.getElementById('modalClose');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalTagline = document.getElementById('modalTagline');
-        const projectsGrid = document.getElementById('projectsGrid');
-
-        document.querySelectorAll('.pillar-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const pillar = card.getAttribute('data-pillar');
-                const data = pillarData[pillar];
-                
-                modalTitle.textContent = data.title;
-                modalTagline.textContent = data.tagline;
-                projectsGrid.innerHTML = '';
-                
-                data.projects.forEach(project => {
-                    const projectCard = document.createElement('div');
-                    projectCard.className = 'project-card';
-                    projectCard.innerHTML = `
-                        <h4 class="project-name">${project.name}</h4>
-                        <p class="project-description">${project.description}</p>
-                        <div class="project-impact">${project.impact}</div>
-                    `;
-                    projectsGrid.appendChild(projectCard);
+                    const link = document.createElement('a');
+                    link.className = 'toc-nav__link';
+                    link.href = '#' + id;
+                    link.textContent = heading.textContent;
+                    link.setAttribute('data-heading-id', id);
+                    
+                    // Smooth scroll on click
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHeading = document.getElementById(id);
+                        if (targetHeading) {
+                            // Use scrollIntoView which respects scroll-margin-top from CSS
+                            targetHeading.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            // Update active state
+                            updateActiveTOCLink(id);
+                        }
+                    });
+                    
+                    listItem.appendChild(link);
+                    tocList.appendChild(listItem);
                 });
-                
-                modalOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                modalClose.focus();
-            });
-        });
 
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
+                // Show TOC container
+                if (tocContainer) {
+                    tocContainer.classList.add('visible');
+                }
 
-        modalClose.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
+                // Initialize scroll spy
+                initializeScrollSpy(headings);
             }
-        });
 
-        // Keyboard navigation for modal
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-                closeModal();
+            // Scroll spy using IntersectionObserver
+            function initializeScrollSpy(headings) {
+                if (headings.length === 0) return;
+
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-20% 0px -70% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateActiveTOCLink(entry.target.id);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all headings
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        observer.observe(heading);
+                    }
+                });
             }
-        });
 
-        // Initial progress indicator update
-        updateProgressIndicator();
+            // Update active TOC link
+            function updateActiveTOCLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc-nav__link');
+                tocLinks.forEach(link => {
+                    const headingId = link.getAttribute('data-heading-id');
+                    if (headingId === activeId) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            // TOC is always sticky now via CSS, so this function is simplified
+            function handleTOCSticky() {
+                // TOC sticky positioning is handled by CSS position: sticky
+                // No JavaScript toggling needed
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function() {
+                    initializeTOC();
+                    handleTOCSticky();
+                });
+            } else {
+                initializeTOC();
+                handleTOCSticky();
+            }
+        })();
     </script>
 </body>
 </html>
-

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Companion App Case Study - Shanthi Acharya</title>
+    <title>EverWell - Senior Companion App Case Study - Shanthi Acharya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -371,23 +371,80 @@
             font-style: italic;
         }
 
-        .case-study-body .asset-placeholder {
-            background: var(--background-light);
-            border: 2px dashed var(--border-light);
-            padding: 3rem;
-            margin: 2rem 0;
-            border-radius: 10px;
-            text-align: center;
-            color: var(--text-light);
-            font-style: italic;
-        }
-
         .case-study-body hr {
             border: none;
             height: 3px;
             background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
             margin: 4rem 0;
             border-radius: 2px;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            margin-bottom: 0;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-badge {
+            background: var(--background-light);
+            color: var(--primary-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        /* Hero Image */
+        .hero-image {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 24px;
+            margin-top: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 61, 130, 0.15), 
+                        0 8px 24px rgba(0, 0, 0, 0.1);
+            border: 8px solid #1a1a1a;
+            background: #1a1a1a;
+        }
+
+        /* Demo Link */
+        .demo-link {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1.5rem 0;
+            transition: all 0.3s;
+        }
+
+        .demo-link:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
         }
 
         /* Footer */
@@ -464,224 +521,158 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>Senior Companion App</h1>
-                        <p class="tagline">Designing an empathetic companion app in 48 hours</p>
-                        <p class="subtitle">Hackathon Project • Rapid Design • Accessibility</p>
+                        <h1>EverWell</h1>
+                        <p class="tagline">A voice-first wellness companion for seniors</p>
+                        <p class="subtitle">World's Largest Hackathon presented by Bolt • June 2025</p>
+                        <img class="hero-image" src="assets/everwell.gif" alt="EverWell App - Home screen showing weather, walking prompts, mood check-in, and step tracking">
                     </div>
                     
                     <div class="case-study-body">
-                <h2>1. Context</h2>
-                <p><strong>What hackathon?</strong></p>
-                <p>[Name the hackathon, when it took place, and any relevant context about the event.]</p>
+                        <h2>Inspiration</h2>
+                        <p>We were inspired by the aging journey of our own parents and in-laws, noticing how easily they can slip into isolation or sedentary routines with mobility issues and loss of a partner. As busy parents and working professionals, we continue to struggle to provide caregiving and companionship.</p>
+                        
+                        <p>Caregivers and family members cannot be with them 24/7 and need a way to motivate them to be active and safe. We envisioned EverWell as a kind, voice-first companion that empowers seniors to move more, feel more connected, and age with greater independence — while giving caregivers peace of mind.</p>
 
-                <p><strong>The challenge prompt</strong></p>
-                <p>[Describe the hackathon challenge. What was the prompt? What were the requirements? What was the goal?]</p>
+                        <hr>
 
-                <p><strong>Your role in the team</strong></p>
-                <p>[Describe your role - were you the sole designer? Part of a team? What were your responsibilities?]</p>
+                        <h2>What EverWell Does</h2>
+                        <p>EverWell is a comprehensive wellness companion designed primarily for seniors, with features to support their daily health, activity, and social engagement. It also includes a dedicated portal for caregivers to monitor their loved ones' well-being.</p>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Hackathon context (logo, team photo)]
-                    <br>Add images: assets/hackathon-logo.jpg, assets/team-photo.jpg
-                </div>
+                        <h3>Core Features</h3>
 
-                <hr>
+                        <div class="feature-card">
+                            <h4>Smart Weather Detection & Walking Nudges</h4>
+                            <p>Detects weather conditions and provides the perfect time to walk, gently nudging users to stay active.</p>
+                        </div>
 
-                <h2>2. The Challenge: Seniors & Technology</h2>
-                
-                <h3>Key Considerations for Senior Users</h3>
-                <p>[What are the key considerations when designing for seniors? Think about cognitive load, physical limitations, technology familiarity, etc.]</p>
-                <ul>
-                    <li>[Consideration 1]</li>
-                    <li>[Consideration 2]</li>
-                    <li>[Consideration 3]</li>
-                </ul>
+                        <div class="feature-card">
+                            <h4>Walking Buddy</h4>
+                            <p>Enables light conversation during walks through an AI-powered voice companion, making exercise more enjoyable and less lonely.</p>
+                        </div>
 
-                <h3>Accessibility Needs</h3>
-                <p>[Describe specific accessibility needs for senior users - font sizes, contrast, touch targets, etc.]</p>
+                        <div class="feature-card">
+                            <h4>Story Time</h4>
+                            <p>Offers narrated stories across various categories using voice AI assistant for entertainment and cognitive engagement.</p>
+                        </div>
 
-                <h3>Trust and Simplicity Requirements</h3>
-                <p>[Why is trust important? How does simplicity build trust? What are the requirements?]</p>
+                        <div class="feature-card">
+                            <h4>Mood Check-in</h4>
+                            <p>Allows users to log their daily mood, helping track emotional well-being over time.</p>
+                        </div>
 
-                <hr>
+                        <div class="feature-card">
+                            <h4>Activity Tracking</h4>
+                            <p>Monitors daily steps, distance, calories burned, and active minutes, with progress towards set goals.</p>
+                        </div>
 
-                <h2>3. Rapid Research</h2>
-                
-                <h3>How Did You Understand Senior Needs Quickly?</h3>
-                <p>[Describe your rapid research approach. How did you gather insights quickly? What methods did you use?]</p>
+                        <div class="feature-card">
+                            <h4>Medication Management</h4>
+                            <p>Provides medication reminders, tracks adherence, and allows users to manage their medication schedules.</p>
+                        </div>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Research artifacts (quick insights)]
-                    <br>Add images: assets/research-notes.jpg
-                </div>
+                        <div class="feature-card">
+                            <h4>Calendar and Events</h4>
+                            <p>Helps users organize appointments, personal events, and walking activities.</p>
+                        </div>
 
-                <h3>Key Insights Discovered</h3>
-                <p>[What were the key insights? What did you learn about senior users' needs?]</p>
-                <ul>
-                    <li>[Insight 1]</li>
-                    <li>[Insight 2]</li>
-                    <li>[Insight 3]</li>
-                </ul>
+                        <div class="feature-card">
+                            <h4>Safety Features</h4>
+                            <p>Includes emergency contacts management, location sharing with family, and health monitoring capabilities.</p>
+                        </div>
 
-                <h3>Quick Persona or User Model</h3>
-                <p>[Create a quick persona or user model based on your research. Who is the primary user?]</p>
+                        <div class="feature-card">
+                            <h4>Caregiver Portal</h4>
+                            <p>Offers a separate login for caregivers to view a summary of the senior's daily activities, medication compliance, mood trends, and receive alerts for real-time updates and peace of mind.</p>
+                        </div>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Quick persona]
-                    <br>Add image: assets/persona.jpg
-                </div>
+                        <h3>Design Approach</h3>
+                        <p>EverWell features a clean, modern UI with calming gradients, bold typography, and large, accessible components designed specifically for seniors. Visual cues like emojis, icons, and color-coded statuses make navigation intuitive and engaging. The interface feels warm, uncluttered, and emotionally supportive.</p>
 
-                <hr>
+                        <hr>
 
-                <h2>4. Concept & Features</h2>
-                
-                <h3>What Problem Were You Solving?</h3>
-                <p>[Clearly define the problem you were solving. What need were you addressing?]</p>
+                        <h2>How We Built It</h2>
+                        <p>We leveraged cutting-edge technology to create a robust, accessible mobile application:</p>
 
-                <h3>Core Features Decided Upon</h3>
-                <p>[List the core features you decided to include. What made the cut?]</p>
-                <ul>
-                    <li>[Feature 1]</li>
-                    <li>[Feature 2]</li>
-                    <li>[Feature 3]</li>
-                </ul>
+                        <div class="tech-stack">
+                            <span class="tech-badge">React Native</span>
+                            <span class="tech-badge">Expo</span>
+                            <span class="tech-badge">Supabase</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">ElevenLabs API</span>
+                            <span class="tech-badge">Netlify</span>
+                        </div>
 
-                <h3>What You Scoped In/Out Given Time Constraints</h3>
-                <p>[What did you include? What did you cut? How did time constraints affect your decisions?]</p>
-                <p><strong>Scoped In:</strong></p>
-                <ul>
-                    <li>[Feature included]</li>
-                    <li>[Feature included]</li>
-                </ul>
-                <p><strong>Scoped Out:</strong></p>
-                <ul>
-                    <li>[Feature cut]</li>
-                    <li>[Feature cut]</li>
-                </ul>
+                        <ul>
+                            <li><strong>Frontend Framework:</strong> React Native with Expo (Managed Workflow)</li>
+                            <li><strong>Navigation:</strong> Expo Router for tab-based and stack navigation</li>
+                            <li><strong>Database:</strong> PostgreSQL managed via Supabase for data storage, authentication, and real-time capabilities</li>
+                            <li><strong>Backend:</strong> Supabase Edge Functions and Supabase Auth</li>
+                            <li><strong>Local Storage:</strong> @react-native-async-storage/async-storage</li>
+                            <li><strong>Audio & Speech:</strong> expo-av for audio playback, expo-speech for system text-to-speech, and ElevenLabs API for advanced AI voice synthesis</li>
+                            <li><strong>Sensors:</strong> expo-sensors (Pedometer for step tracking) and expo-location for location services</li>
+                            <li><strong>Deployment:</strong> Netlify</li>
+                        </ul>
 
-                <hr>
+                        <hr>
 
-                <h2>5. Design Under Pressure</h2>
-                
-                <h3>How You Moved Fast</h3>
-                <p>[Describe your process for moving quickly. What shortcuts did you take? What processes did you skip? How did you maintain quality while moving fast?]</p>
+                        <h2>Challenges We Faced</h2>
+                        <p>Building a full-featured mobile app in a hackathon setting came with significant challenges:</p>
+                        <ul>
+                            <li><strong>Framework Compatibility:</strong> React Native and Expo framework version incompatibility required multiple attempts to resolve, depleting tokens</li>
+                            <li><strong>Debugging:</strong> Terminal errors required creative debugging approaches, including using screenshots</li>
+                            <li><strong>Last-Minute Changes:</strong> UI changes at the last minute occasionally broke the app, requiring rapid fixes</li>
+                            <li><strong>Version Control:</strong> GitHub integration presented learning curves for team coordination</li>
+                        </ul>
 
-                <h3>Key Design Decisions and Trade-offs</h3>
-                <p>[What were the key design decisions? What trade-offs did you make? Why?]</p>
-                <ul>
-                    <li><strong>Decision 1:</strong> [Trade-off and rationale]</li>
-                    <li><strong>Decision 2:</strong> [Trade-off and rationale]</li>
-                </ul>
+                        <hr>
 
-                <h3>Sketches to High-Fidelity</h3>
-                <p>[Show the progression from sketches to high-fidelity. How did you move quickly through fidelity levels?]</p>
+                        <h2>Accomplishments</h2>
+                        <p>We're proud of what we achieved:</p>
+                        <ul>
+                            <li>Building a beautiful, fully-functional mobile app for seniors and caregivers that enhances the lives of seniors</li>
+                            <li>Designed a brand identity and icon system that feels calming, clear, and trustworthy</li>
+                            <li>Successfully integrated voice AI for interactive companionship features</li>
+                            <li>Created a comprehensive caregiver portal for real-time monitoring</li>
+                        </ul>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Rapid sketches/wireframes]
-                    <br>Add images: assets/sketches.jpg, assets/wireframes.jpg
-                </div>
+                        <a href="https://everwellcompanion.netlify.app" class="demo-link" target="_blank">Try EverWell Live Demo →</a>
 
-                <h3>What You Prototyped vs. Designed</h3>
-                <p>[What did you actually prototype? What did you only design? How did you prioritize?]</p>
+                        <hr>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Final screens/prototype]
-                    <br>Add images: assets/final-screens.jpg
-                </div>
+                        <h2>What We Learned</h2>
+                        <ul>
+                            <li>Developing a full-length, sleek-looking app with cutting-edge technology using prompts and conversation with intermediate technical skills</li>
+                            <li>Problem solving and debugging approaches when working under time pressure</li>
+                            <li>Confidence to build more ambitious projects in the future</li>
+                            <li>The importance of designing for accessibility and empathy when building for senior users</li>
+                        </ul>
 
-                <hr>
+                        <hr>
 
-                <h2>6. The Solution</h2>
-                
-                <h3>App Walkthrough (Key Screens/Flows)</h3>
-                <p>[Walk through the key screens and flows. Show the main user journey.]</p>
+                        <h2>What's Next for EverWell</h2>
+                        <p>We have ambitious plans for the future of EverWell:</p>
+                        <ul>
+                            <li><strong>Fall Detection:</strong> Integrating automatic fall detection for enhanced safety</li>
+                            <li><strong>Personalized AI:</strong> Building memory and mood tracking into AI conversations for more meaningful interactions</li>
+                            <li><strong>Partnerships:</strong> Connecting with home healthcare providers and AARP networks</li>
+                            <li><strong>Multilingual Support:</strong> Expanding language options to serve diverse communities</li>
+                            <li><strong>Pilot Program:</strong> Launching a pilot with real caregivers and aging-in-place communities</li>
+                            <li><strong>iOS Launch:</strong> Publishing to the iOS App Store</li>
+                        </ul>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Key user flows]
-                    <br>Add images: assets/flow-1.jpg, assets/flow-2.jpg
-                </div>
+                        <hr>
 
-                <h3>Accessibility Features</h3>
-                <p>[Detail the accessibility features you included. How did you ensure the app was accessible to seniors?]</p>
-                <ul>
-                    <li>[Accessibility feature 1]</li>
-                    <li>[Accessibility feature 2]</li>
-                    <li>[Accessibility feature 3]</li>
-                </ul>
+                        <h2>Project Credits</h2>
+                        <p><strong>Design & Development</strong><br>
+                        Shanthi Acharya</p>
 
-                <h3>Design Principles Applied</h3>
-                <p>[What design principles did you apply? How did they guide your decisions?]</p>
-                <ul>
-                    <li>[Principle 1]</li>
-                    <li>[Principle 2]</li>
-                    <li>[Principle 3]</li>
-                </ul>
+                        <p><strong>Team Members</strong><br>
+                        Pooja Kohli - Front-end features (weather reporting, scheduling, notifications)</p>
 
-                <div class="asset-placeholder">
-                    [Placeholder: Demo video or prototype link]
-                    <br>Add video: assets/demo-video.mp4 or link to prototype
-                </div>
+                        <p><strong>Hackathon</strong><br>
+                        World's Largest Hackathon presented by Bolt • June 2025</p>
 
-                <hr>
-
-                <h2>7. Demo & Outcome</h2>
-                
-                <h3>How Did It Perform at Hackathon?</h3>
-                <p>[Describe the demo/presentation. How did it go? What was the response?]</p>
-
-                <h3>Feedback Received</h3>
-                <p>[What feedback did you receive? From judges? From other participants?]</p>
-
-                <blockquote>
-                    "[Add feedback quote]"
-                    <br><em>— Judge/Participant</em>
-                </blockquote>
-
-                <h3>Win/Placement/Response</h3>
-                <p>[Did you win? Place? What was the outcome? How did people respond?]</p>
-
-                <div class="asset-placeholder">
-                    [Placeholder: Feedback/outcome details]
-                    <br>Add images: assets/presentation.jpg, assets/award.jpg (if applicable)
-                </div>
-
-                <hr>
-
-                <h2>8. Reflection</h2>
-                
-                <h3>What I Learned About Designing Under Constraints</h3>
-                <p>[Reflect on designing under time constraints. What did you learn? What was valuable about the constraint?]</p>
-
-                <h3>What I Learned About Empathy for Different Users</h3>
-                <p>[Reflect on designing for seniors. What did you learn about empathy? How did this change your perspective?]</p>
-
-                <h3>What I Learned About Shipping Fast</h3>
-                <p>[What did you learn about rapid development and shipping quickly? What was valuable? What was challenging?]</p>
-
-                <h3>What I Learned About Team Collaboration</h3>
-                <p>[If you worked in a team, what did you learn about collaboration under pressure?]</p>
-
-                <h3>What I'd Do With More Time</h3>
-                <p>[What would you do if you had more time? What would you improve? What would you add?]</p>
-                <ul>
-                    <li>[Improvement 1]</li>
-                    <li>[Improvement 2]</li>
-                    <li>[Improvement 3]</li>
-                </ul>
-
-                <hr>
-
-                <h2>Project Credits</h2>
-                <p><strong>Design</strong><br>
-                Shanthi Acharya</p>
-
-                <p><strong>Team Members</strong><br>
-                [Add team members and their roles if applicable]</p>
-
-                <p><strong>Hackathon</strong><br>
-                [Hackathon name and date]</p>
-
-                <p><em>This hackathon project demonstrates the ability to design empathetically and ship quickly under pressure, while maintaining focus on user needs and accessibility.</em></p>
+                        <p><em>This hackathon project demonstrates the ability to design empathetically for senior users, build rapidly with modern technologies, and create meaningful solutions that connect families and caregivers.</em></p>
                     </div>
                 </div>
             </div>
