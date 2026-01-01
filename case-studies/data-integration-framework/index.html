@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Integration Framework - Shanthi Acharya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        nav .back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            width: 220px;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: sticky;
+            top: 140px;
+            align-self: flex-start;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .toc-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toc-nav {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            box-shadow: none;
+        }
+
+        .toc-nav__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toc-nav__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav__item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-nav__link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .toc-nav__link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .toc-nav__link:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .toc-nav__link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Adjust main content layout for TOC */
+        @media (min-width: 1024px) {
+            .main-content-wrapper {
+                display: block;
+            }
+
+            .content-with-toc {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .case-study-header {
+                width: 100%;
+                margin-bottom: 2rem;
+                margin-top: 0;
+                padding-top: 0;
+                scroll-margin-top: 140px;
+            }
+
+            .case-study-body {
+                scroll-margin-top: 140px;
+                margin-top: 0;
+                padding: 0 3rem 3rem 3rem;
+            }
+        }
+
+        /* Hide TOC on smaller screens */
+        @media (max-width: 1023px) {
+            .toc-container {
+                display: none;
+            }
+
+            .content-with-toc {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-header .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .case-study-body {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .case-study-body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        @media (min-width: 1024px) {
+            .case-study-body {
+                padding-top: 3rem;
+            }
+            
+            .case-study-body h2:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul, .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body .image-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .case-study-body .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            margin: 1rem 0;
+        }
+
+        .case-study-body .image-caption {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.75rem;
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        /* Goals Grid */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .goal-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .goal-card h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .goal-card p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        /* Design Areas */
+        .design-areas {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .design-area-card {
+            background: var(--background-white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .design-area-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue) 100%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .design-area-card__number {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-right: 1rem;
+        }
+
+        .design-area-card__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: inline;
+        }
+
+        .design-area-card__description {
+            margin-top: 1rem;
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .approach-step {
+            background: linear-gradient(135deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .approach-step__title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .approach-step__content {
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Role Card */
+        .role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .role-card h4 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        .role-card ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .role-card li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Outcome Card */
+        .outcome-card {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .outcome-card h3 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .outcome-card p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .case-study-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 2rem;
+            }
+
+            .case-study-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.6rem;
+            }
+
+            .case-study-body h3 {
+                font-size: 1.3rem;
+            }
+
+            .case-study-body h4 {
+                font-size: 1.1rem;
+            }
+
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav .container {
+                padding: 0 0.75rem;
+            }
+
+            .main-content {
+                padding: 0.75rem;
+            }
+
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .case-study-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 1.75rem;
+            }
+
+            .case-study-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.4rem;
+            }
+
+            .case-study-body h3 {
+                font-size: 1.2rem;
+            }
+
+            .case-study-body p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <div class="container">
+            <!-- Content with TOC -->
+            <div class="content-with-toc">
+                <!-- Table of Contents -->
+                <nav class="toc-container" id="tocContainer" aria-label="Table of contents">
+                    <div class="toc-nav" id="tocNav">
+                        <div class="toc-nav__title">Contents</div>
+                        <ul class="toc-nav__list" id="tocList"></ul>
+                    </div>
+                </nav>
+                
+                <div class="main-content">
+                    <div class="case-study-header">
+                        <h1>Data Integration Framework</h1>
+                        <p class="tagline">Self Service Data Integration with Flexibility and Transparency</p>
+                        <p class="subtitle">Product Design Leadership</p>
+                    </div>
+                    
+                    <div class="case-study-body">
+                        <h2>Background</h2>
+                        <p>Workday Prism Analytics is a data hub and analytics platform to acquire, prepare and store data for analysis. The existing data acquisition framework lacked flexibility, transparency and had performance issues. Customers were bringing in high volume and high frequency data which demanded a revamp of the current architecture for data containers.</p>
+
+                        <h2>Goals</h2>
+                        <p>Design the end-to-end experience for a self service data acquisition framework that will enhance data management capabilities by providing:</p>
+                        
+                        <div class="goals-grid">
+                            <div class="goal-card">
+                                <h4>Complete Data Transparency</h4>
+                                <p>Full visibility into data flows and transformations</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Data Validation</h4>
+                                <p>Robust validation to ensure data quality and integrity</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Powerful Schema Management</h4>
+                                <p>Flexible schema handling for diverse data sources</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Fine-Grained Access Control</h4>
+                                <p>Granular permissions and security at every level</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Comprehensive Monitoring</h4>
+                                <p>Real-time visibility into integration health and status</p>
+                            </div>
+                        </div>
+
+                        <h2>My Role</h2>
+                        <div class="role-card">
+                            <h4>UX Strategy & Design Leadership</h4>
+                            <ul>
+                                <li>Led UX efforts in defining the strategy and roadmap for data integration experience</li>
+                                <li>After Phase 1 launch, transitioned into management</li>
+                                <li>Hired and trained designers to work on subsequent phases of the roadmap</li>
+                                <li>Team co-led several customer workshops along with research team</li>
+                                <li>Provided design deliverables and worked with the scrum team until final launch</li>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <h2>Approach</h2>
+                        
+                        <div class="approach-steps">
+                            <div class="approach-step">
+                                <div class="approach-step__title">Competitive Analysis</div>
+                                <div class="approach-step__content">
+                                    Analyzed competitive landscape to understand industry best practices and identify opportunities for differentiation in the data integration space.
+                                </div>
+                            </div>
+                            
+                            <div class="approach-step">
+                                <div class="approach-step__title">Workshops</div>
+                                <div class="approach-step__content">
+                                    Conducted a Design Sprint with cross-functional team members with the goal of understanding and providing better problem framing. We collected different ideas from the group and converged to create high-level concept designs.
+                                </div>
+                            </div>
+                            
+                            <div class="approach-step">
+                                <div class="approach-step__title">Concept Design</div>
+                                <div class="approach-step__content">
+                                    Created concept designs to outline the flow for bringing in data with flexibility and provide a self-service experience to our customers without relying on IT teams.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2>Design Focus Areas</h2>
+                        <p>Our design efforts were broken down into creating experiences for 3 key areas:</p>
+
+                        <div class="design-areas">
+                            <div class="design-area-card">
+                                <span class="design-area-card__number">1</span>
+                                <span class="design-area-card__title">Creating Tables from Various Sources</span>
+                                <p class="design-area-card__description">
+                                    Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.
+                                </p>
+                            </div>
+                            
+                            <div class="design-area-card">
+                                <span class="design-area-card__number">2</span>
+                                <span class="design-area-card__title">Data Operations: Data Change Task</span>
+                                <p class="design-area-card__description">
+                                    Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.
+                                </p>
+                            </div>
+                            
+                            <div class="design-area-card">
+                                <span class="design-area-card__number">3</span>
+                                <span class="design-area-card__title">Connections & System Integration</span>
+                                <p class="design-area-card__description">
+                                    Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>System Thinking: Object Modelling</h3>
+                        <p>We had to consider the overall system and how the new connection object will interact with other objects in the catalog. By providing a system view, we communicated the behavior and interaction with other data catalog objects.</p>
+                        
+                        <div class="image-container">
+                            <img src="assets/objectmodellingdiagram.png" alt="Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities">
+                            <p class="image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
+                        </div>
+                        
+                        <blockquote>
+                            Connections provides reusability and flexibility in configuration of various data sources.
+                        </blockquote>
+
+                        <hr>
+
+                        <h2>Outcome</h2>
+                        <div class="outcome-card">
+                            <h3>#1 Strategic Project</h3>
+                            <p>Tables is the #1 strategic project and the future of much of the Workday Analytics Data platform and applications built on top of it. By providing a strong foundation and self-service analytics features, we improved customer satisfaction and adoption of our product and platform.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Generate IDs for h2 headings and build TOC
+            function initializeTOC() {
+                const caseStudyBody = document.querySelector('.case-study-body');
+                if (!caseStudyBody) return;
+
+                const headings = caseStudyBody.querySelectorAll('h2');
+                const tocList = document.getElementById('tocList');
+                const tocContainer = document.getElementById('tocContainer');
+                
+                if (!tocList || headings.length === 0) {
+                    if (tocContainer) tocContainer.style.display = 'none';
+                    return;
+                }
+
+                // Clear existing TOC
+                tocList.innerHTML = '';
+
+                // Process each heading
+                headings.forEach((heading, index) => {
+                    // Generate ID if not exists
+                    let id = heading.id;
+                    if (!id) {
+                        id = 'section-' + index + '-' + heading.textContent
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        heading.id = id;
+                    }
+
+                    // Create TOC link
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-nav__item';
+                    
+                    const link = document.createElement('a');
+                    link.className = 'toc-nav__link';
+                    link.href = '#' + id;
+                    link.textContent = heading.textContent;
+                    link.setAttribute('data-heading-id', id);
+                    
+                    // Smooth scroll on click
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHeading = document.getElementById(id);
+                        if (targetHeading) {
+                            targetHeading.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            updateActiveTOCLink(id);
+                        }
+                    });
+                    
+                    listItem.appendChild(link);
+                    tocList.appendChild(listItem);
+                });
+
+                // Show TOC container
+                if (tocContainer) {
+                    tocContainer.classList.add('visible');
+                }
+
+                // Initialize scroll spy
+                initializeScrollSpy(headings);
+            }
+
+            // Scroll spy using IntersectionObserver
+            function initializeScrollSpy(headings) {
+                if (headings.length === 0) return;
+
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-20% 0px -70% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateActiveTOCLink(entry.target.id);
+                        }
+                    });
+                }, observerOptions);
+
+                // Observe all headings
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        observer.observe(heading);
+                    }
+                });
+            }
+
+            // Update active TOC link
+            function updateActiveTOCLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc-nav__link');
+                tocLinks.forEach(link => {
+                    const headingId = link.getAttribute('data-heading-id');
+                    if (headingId === activeId) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeTOC);
+            } else {
+                initializeTOC();
+            }
+        })();
+    </script>
+</body>
+</html>
+
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workday Prism Analytics Platform Journey - Shanthi Acharya</title>
+    <title>Scaling Prism Analytics: Designing the Data Backbone That Powers Workday's Enterprise Growth - Shanthi Acharya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -189,6 +189,66 @@
 
         .toc-nav__link[aria-current="true"]::before {
             height: 100%;
+        }
+
+        /* Nested TOC items for pillars */
+        .toc-nav__item--parent > .toc-nav__link {
+            font-weight: 600;
+        }
+
+        .toc-nav__sublist {
+            list-style: none;
+            padding: 0;
+            margin: 0.25rem 0 0.5rem 0;
+        }
+
+        .toc-nav__subitem {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-nav__link--nested {
+            display: block;
+            padding: 0.4rem 0.75rem 0.4rem 1.75rem;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .toc-nav__link--nested::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--text-light);
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .toc-nav__link--nested:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .toc-nav__link--nested:hover::before {
+            background: var(--primary-blue);
+        }
+
+        .toc-nav__link--nested[aria-current="true"] {
+            color: var(--accent-teal);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link--nested[aria-current="true"]::before {
+            background: var(--accent-teal);
+            width: 6px;
+            height: 6px;
         }
 
         /* Adjust main content layout for TOC */
@@ -464,6 +524,1060 @@
             font-size: 0.95rem;
         }
 
+        /* Leadership Focus Areas */
+        .leadership-section {
+            margin-top: 2rem;
+        }
+
+        .leadership-intro {
+            font-size: 1.05rem;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .leadership-focus {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .leadership-focus {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .leadership-focus {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .focus-item {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .focus-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .focus-item__icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-teal) 0%, #00858f 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 107, 117, 0.25);
+        }
+
+        .focus-item__icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+            stroke: white;
+            fill: none;
+        }
+
+        .focus-item dt {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .focus-item dd {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin: 0;
+            line-height: 1.65;
+        }
+
+        /* Data Journey Flow */
+        .journey-container {
+            margin: 2rem 0;
+        }
+
+        .journey-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            text-align: center;
+            padding: 1.25rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0;
+        }
+
+        .journey-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .flow-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.75rem 0;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .flow-connector::before {
+            content: '';
+            width: 2px;
+            height: 20px;
+            background: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-connector::after {
+            content: '▼';
+            color: var(--accent-teal);
+            font-size: 0.7rem;
+            margin-top: 0.25rem;
+        }
+
+        .pillar-card {
+            background: var(--background-white);
+            border-radius: 16px;
+            padding: 1.75rem;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue) 100%);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .pillar-card__number {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.75rem;
+        }
+
+        .pillar-card__title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.25rem;
+            display: inline;
+        }
+
+        .pillar-card__subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            padding-left: 2.5rem;
+        }
+
+        .pillar-card__features {
+            background: var(--background-light);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin: 0;
+            list-style: none;
+        }
+
+        .pillar-card__features li {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            padding: 0.35rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pillar-card__features li::before {
+            content: '•';
+            color: var(--accent-teal);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Pillar Card Interactive Styles */
+        .pillar-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .pillar-card.active {
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 2px var(--accent-teal), 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .pillar-card__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pillar-card__header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .pillar-card__arrow {
+            font-size: 1.2rem;
+            color: var(--accent-teal);
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+
+        .pillar-card:hover .pillar-card__arrow {
+            transform: translateX(4px);
+        }
+
+        .pillar-card__cta {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-teal);
+            transition: color 0.2s ease;
+        }
+
+        .pillar-card:hover .pillar-card__cta {
+            color: var(--primary-blue);
+        }
+
+        /* Side Panel Overlay */
+        .side-panel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        .side-panel-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Side Panel */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--background-white);
+            box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .side-panel.visible {
+            transform: translateX(0);
+        }
+
+        .side-panel__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+        }
+
+        @media (min-width: 1024px) {
+            .side-panel__header {
+                padding: 1.5rem 3rem;
+            }
+        }
+
+        .side-panel__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .side-panel__subtitle {
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-top: 0.25rem;
+        }
+
+        .side-panel__close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .side-panel__close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .side-panel__content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            width: 100%;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 1024px) {
+            .side-panel__content {
+                padding: 2rem 3rem;
+            }
+        }
+
+        /* Side Panel TOC */
+        .side-panel__toc {
+            width: 200px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 1rem;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            .side-panel__toc {
+                display: block;
+            }
+        }
+
+        .side-panel__toc-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .side-panel__toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .side-panel__toc-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .side-panel__toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .side-panel__toc-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .side-panel__toc-link:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .side-panel__toc-link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .side-panel__toc-link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Side Panel Main Content */
+        .side-panel__main {
+            flex: 1;
+            min-width: 0;
+            max-width: 900px;
+        }
+
+        .side-panel__main section {
+            scroll-margin-top: 1rem;
+        }
+
+        .side-panel__hero {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .side-panel__section {
+            margin-bottom: 2.5rem;
+        }
+
+        .side-panel__section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-teal);
+        }
+
+        .side-panel__section p {
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        .side-panel__outcomes {
+            background: var(--background-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .side-panel__outcomes-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-teal);
+        }
+
+        .side-panel__outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+        }
+
+        .side-panel__metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .side-panel__metric-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-teal);
+        }
+
+        .side-panel__metric-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        .side-panel__prototype-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .side-panel__prototype-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.35);
+        }
+
+        /* Full Case Study Styles for Side Panel */
+        .side-panel__goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .side-panel__goal-card {
+            background: var(--background-light);
+            padding: 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .side-panel__goal-card h4 {
+            color: var(--primary-blue);
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .side-panel__goal-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .side-panel__role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .side-panel__role-card h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .side-panel__role-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+
+        .side-panel__role-card li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 2.5rem 0;
+            border-radius: 2px;
+        }
+
+        .side-panel__approach-steps {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .side-panel__approach-step {
+            background: linear-gradient(135deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .side-panel__approach-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .side-panel__approach-content {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__design-areas {
+            display: grid;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .side-panel__design-area {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .side-panel__design-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue) 100%);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .side-panel__design-number {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.75rem;
+        }
+
+        .side-panel__design-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: inline;
+        }
+
+        .side-panel__design-desc {
+            margin: 1rem 0 0 0;
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__subsection-title {
+            color: var(--accent-teal);
+            font-size: 1.25rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .side-panel__quote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .side-panel__quote cite {
+            display: block;
+            margin-top: 0.75rem;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--accent-teal);
+        }
+
+        .side-panel__quote--highlight {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-left-color: var(--accent-teal-light);
+        }
+
+        .side-panel__quote--highlight cite {
+            color: var(--accent-teal-light);
+        }
+
+        .side-panel__list {
+            margin: 1rem 0 1.5rem 1.5rem;
+            color: var(--text-medium);
+        }
+
+        .side-panel__list li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__list--checkmarks {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .side-panel__list--checkmarks li {
+            position: relative;
+            padding-left: 1.75rem;
+        }
+
+        .side-panel__list--checkmarks li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-weight: 700;
+        }
+
+        .side-panel__decisions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .side-panel__decision-card {
+            background: var(--background-light);
+            border-radius: 10px;
+            padding: 1.25rem;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .side-panel__decision-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .side-panel__decision-card p {
+            margin: 0;
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__interactions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-panel__interaction-card {
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .side-panel__interaction-card h4 {
+            color: var(--primary-blue);
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+        }
+
+        .side-panel__interaction-detail {
+            margin-bottom: 1rem;
+        }
+
+        .side-panel__interaction-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .side-panel__interaction-detail strong {
+            display: block;
+            color: var(--accent-teal);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__interaction-detail p {
+            margin: 0;
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .side-panel__impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-panel__impact-metric {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .side-panel__impact-value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-teal-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .side-panel__impact-metric p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+
+        .side-panel__outcome-card {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .side-panel__outcome-card h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .side-panel__outcome-card > p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .side-panel__outcomes-grid--light {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .side-panel__outcomes-grid--light .side-panel__metric {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .side-panel__outcomes-grid--light .side-panel__metric-value {
+            color: white;
+        }
+
+        .side-panel__outcomes-grid--light .side-panel__metric-label {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Side Panel Responsive */
+        @media (max-width: 768px) {
+            .side-panel__outcomes-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .side-panel__metric {
+                padding: 0.5rem;
+            }
+
+            .side-panel__metric-value {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Legacy styles kept for potential reuse */
+        .pillar-section {
+            margin-bottom: 1rem;
+        }
+
+        .pillar-section__title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-section p {
+            color: var(--text-medium);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .pillar-outcomes {
+            background: var(--background-light);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .pillar-outcomes__title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .pillar-outcomes__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .outcome-metric {
+            text-align: center;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .outcome-metric__value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-teal);
+        }
+
+        .outcome-metric__label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .outcomes-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px var(--shadow-md);
+        }
+
+        .outcomes-card__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .outcomes-card__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .outcomes-card__item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .outcomes-card__item:nth-child(4) {
+            grid-column: 1;
+        }
+
+        .outcomes-card__item-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .outcomes-card__item-desc {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+
+        @media (max-width: 600px) {
+            .outcomes-card__grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .outcomes-card__item:nth-child(4) {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .outcomes-card__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Timeline Cards */
         .timeline-card {
             background: var(--background-light);
@@ -616,178 +1730,188 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>Prism Analytics Platform Journey</h1>
-                        <p class="tagline">Transforming Enterprise Data at Scale</p>
-                        <p class="subtitle">2019 — 2025 | Product Design Leadership</p>
+                        <h1>Scaling Prism Analytics</h1>
+                        <p class="tagline">Designing the Data Backbone That Powers Workday's Enterprise Growth</p>
+                        <p class="subtitle">Product Design Leadership</p>
                         <img class="hero-video" src="assets/prism_product_platform.png" alt="Prism Analytics Platform Overview">
                     </div>
                     
                     <div class="case-study-body">
-                        <h2>The Journey</h2>
-                        <p>From critical challenges to delighted users - a 5-year transformation story. This case study documents the evolution of Workday's Prism Analytics platform, showing how strategic UX improvements transformed the user experience from frustration to delight.</p>
-
-                        <h3>Impact Metrics</h3>
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <div class="metric-value">50,000</div>
-                                <div class="metric-label">Users Impacted</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value">$2.5M</div>
-                                <div class="metric-label">Saved Annually</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value">10x</div>
-                                <div class="metric-label">Performance Improvement</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value">78</div>
-                                <div class="metric-label">NPS Score</div>
-                            </div>
-                        </div>
-
-                        <h3>The Emotional Journey</h3>
-                        <p>Our users' experience evolved significantly over the five years:</p>
+                        <h2>The Challenge</h2>
+                        <p> 
+                            When Workday first acquired the platform that became Prism Analytics, it lacked the scalability and robustness required for enterprise-grade operations. Over five years, I led the design evolution of the product across four critical pillars. By moving from file-based systems to high-performance table architectures and shifting from linear workflows to canvas-based UX, we transformed Prism into the essential data backbone for the Workday Accounting Center and HR Insights, significantly driving the "Fin Attach" rate for the sales organization.</p><p></p>
+                          
+                        <h3>My Role</h3>
+                        <p><strong>Player-Coach Design Lead</strong></p>
                         <ul>
-                            <li><strong>2019 - Critical:</strong> Initial state with high friction, IT dependency, and manual processes</li>
-                            <li><strong>2020 - Frustrated:</strong> Early improvements brought some automation, but the experience remained fragmented</li>
-                            <li><strong>2021 - Satisfied:</strong> Performance breakthrough with 10x speed improvement and better UX</li>
-                            <li><strong>2022 - Empowered:</strong> Unified platform with self-service capabilities and reduced tool sprawl</li>
-                            <li><strong>2025 - Delighted:</strong> AI integration enabling intelligent automation and predictive insights</li>
+                            <li>Led design strategy across 4 product pillars while shipping hands-on work WITH 5 Scrum teams</li>
+                            <li>Mentored and supported the growth of 10 designers, resulting in 2 promotions to senior level.</li>
+                            <li>Balanced strategic visioning with tactical execution &amp; prototyping</li>
+                            <li>Collaborated with product managers, engineers, researchers, and technical writers</li>
                         </ul>
+
+                        <div class="leadership-section">
+                            <h4>Leadership &amp; Process</h4>
+                            <p class="leadership-intro">Established a design culture that focused on:</p>
+                            
+                            <dl class="leadership-focus">
+                                <div class="focus-item">
+                                    <div class="focus-item__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                        </svg>
+                                    </div>
+                                    <dt>Multi-Release Visioning</dt>
+                                    <dd>Designing for the "North Star" while delivering incremental value across multi-year roadmaps.</dd>
+                                </div>
+                                <div class="focus-item">
+                                    <div class="focus-item__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="9" cy="7" r="4"/>
+                                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                        </svg>
+                                    </div>
+                                    <dt>Cross-Functional Synergy</dt>
+                                    <dd>Partnering with engineering to ensure "Table-based" performance met the UX requirements for speed.</dd>
+                                </div>
+                                <div class="focus-item">
+                                    <div class="focus-item__icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="3"/>
+                                            <circle cx="12" cy="4" r="2"/>
+                                            <circle cx="20" cy="12" r="2"/>
+                                            <circle cx="12" cy="20" r="2"/>
+                                            <circle cx="4" cy="12" r="2"/>
+                                            <line x1="12" y1="7" x2="12" y2="9"/>
+                                            <line x1="15" y1="12" x2="18" y2="12"/>
+                                            <line x1="12" y1="15" x2="12" y2="18"/>
+                                            <line x1="6" y1="12" x2="9" y2="12"/>
+                                        </svg>
+                                    </div>
+                                    <dt>Systems Thinking</dt>
+                                    <dd>Ensuring that a change in the "Integration" pillar was reflected intuitively in the "Monitoring" and "Management" pillars.</dd>
+                                </div>
+                            </dl>
+                        </div>
 
                         <hr>
 
                         <h2>Strategic Pillars</h2>
                         <p>Four foundational areas drove the transformation, each addressing critical user needs and business objectives.</p>
 
-                        <h3>Pillar 1: Data Integration</h3>
-                        <p><em>From Gatekeepers to Self-Service</em></p>
-                        <p>This pillar focused on removing IT dependencies and enabling business users to work with data independently.</p>
-
-                        <div class="project-card">
-                            <h4>Self-Service Report Builder</h4>
-                            <p>Enabled business users to create reports without IT assistance, reducing report creation time by 85%.</p>
-                            <div class="impact">Impact: 85% faster report creation</div>
+                        <div class="journey-container">
+                            <div class="journey-header">The User's Data Journey</div>
+                            
+                            <div class="journey-flow">
+                                <div class="flow-connector"></div>
+                                
+                                <!-- Pillar 1: Data Integration -->
+                                <div class="pillar-card" data-pillar-id="data-integration" onclick="openSidePanel('data-integration')">
+                                    <div class="pillar-card__header">
+                                        <div class="pillar-card__header-left">
+                                            <span class="pillar-card__number">1</span>
+                                            <span class="pillar-card__title">Data Integration</span>
+                                        </div>
+                                        <span class="pillar-card__arrow">→</span>
+                                    </div>
+                                    <p class="pillar-card__subtitle">The Entry Point</p>
+                                    <ul class="pillar-card__features">
+                                        <li>Table-based architecture</li>
+                                        <li>External connectors</li>
+                                        <li>Data Change Task configs</li>
+                                    </ul>
+                                    <span class="pillar-card__cta">View case study →</span>
+                                </div>
+                                
+                                <div class="flow-connector">Data flows to...</div>
+                                
+                                <!-- Pillar 2: Data Preparation -->
+                                <div class="pillar-card" data-pillar-id="data-preparation" onclick="openSidePanel('data-preparation')">
+                                    <div class="pillar-card__header">
+                                        <div class="pillar-card__header-left">
+                                            <span class="pillar-card__number">2</span>
+                                            <span class="pillar-card__title">Data Preparation</span>
+                                        </div>
+                                        <span class="pillar-card__arrow">→</span>
+                                    </div>
+                                    <p class="pillar-card__subtitle">The Transformation</p>
+                                    <ul class="pillar-card__features">
+                                        <li>Canvas-based visual flow</li>
+                                        <li>Node-level error visibility</li>
+                                        <li>Real-time data preview</li>
+                                    </ul>
+                                    <span class="pillar-card__cta">View case study →</span>
+                                </div>
+                                
+                                <div class="flow-connector">Prepared data needs...</div>
+                                
+                                <!-- Pillar 3: Data Management -->
+                                <div class="pillar-card" data-pillar-id="data-management" onclick="openSidePanel('data-management')">
+                                    <div class="pillar-card__header">
+                                        <div class="pillar-card__header-left">
+                                            <span class="pillar-card__number">3</span>
+                                            <span class="pillar-card__title">Data Management</span>
+                                        </div>
+                                        <span class="pillar-card__arrow">→</span>
+                                    </div>
+                                    <p class="pillar-card__subtitle">The Organization</p>
+                                    <ul class="pillar-card__features">
+                                        <li>Field-level lineage tracking</li>
+                                        <li>Workspace organization</li>
+                                        <li>ML-powered tagging/security</li>
+                                    </ul>
+                                    <span class="pillar-card__cta">View case study →</span>
+                                </div>
+                                
+                                <div class="flow-connector">All processes monitored by...</div>
+                                
+                                <!-- Pillar 4: Unified Monitoring -->
+                                <div class="pillar-card" data-pillar-id="unified-monitoring" onclick="openSidePanel('unified-monitoring')">
+                                    <div class="pillar-card__header">
+                                        <div class="pillar-card__header-left">
+                                            <span class="pillar-card__number">4</span>
+                                            <span class="pillar-card__title">Unified Monitoring</span>
+                                        </div>
+                                        <span class="pillar-card__arrow">→</span>
+                                    </div>
+                                    <p class="pillar-card__subtitle">The Control Center</p>
+                                    <ul class="pillar-card__features">
+                                        <li>Single pane of glass dashboard</li>
+                                        <li>Real-time job health tracking</li>
+                                        <li>Instant debugging &amp; actions</li>
+                                    </ul>
+                                    <span class="pillar-card__cta">View case study →</span>
+                                </div>
+                                
+                                <div class="flow-connector">Feeds back into...</div>
+                                
+                                <!-- Business Outcomes -->
+                                <div class="outcomes-card">
+                                    <div class="outcomes-card__title">Business Outcomes</div>
+                                    <div class="outcomes-card__grid">
+                                        <div class="outcomes-card__item">
+                                            <div class="outcomes-card__item-title">Increased FIN Attach Rate</div>
+                                            <div class="outcomes-card__item-desc">Customers more likely to purchase Workday Financials</div>
+                                        </div>
+                                        <div class="outcomes-card__item">
+                                            <div class="outcomes-card__item-title">Fortune 500 Adoption</div>
+                                            <div class="outcomes-card__item-desc">Transformed into enterprise-grade platform</div>
+                                        </div>
+                                        <div class="outcomes-card__item">
+                                            <div class="outcomes-card__item-title">Accounting Center Powered</div>
+                                            <div class="outcomes-card__item-desc">Essential backbone for financial analytics</div>
+                                        </div>
+                                        <div class="outcomes-card__item">
+                                            <div class="outcomes-card__item-title">HR Insights Enabled</div>
+                                            <div class="outcomes-card__item-desc">Deeper people analytics capabilities</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="project-card">
-                            <h4>Template Marketplace</h4>
-                            <p>Centralized repository of reusable report templates, achieving 70% template reuse rate across the organization.</p>
-                            <div class="impact">Impact: 70% reuse rate</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Natural Language Query</h4>
-                            <p>AI-powered query interface allowing users to ask questions in plain English without writing SQL.</p>
-                            <div class="impact">Impact: 0 SQL required</div>
-                        </div>
-
-                        <h3>Pillar 2: Data Preparation</h3>
-                        <p><em>From Breaking Points to Breakthrough</em></p>
-                        <p>Addressing performance bottlenecks that were causing user frustration and limiting platform adoption.</p>
-
-                        <div class="project-card">
-                            <h4>Incremental Processing Engine</h4>
-                            <p>Revolutionary processing architecture that only processes changed data, delivering 10x performance improvement.</p>
-                            <div class="impact">Impact: 10x performance</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Distributed Query Optimization</h4>
-                            <p>Intelligent query distribution across clusters, ensuring 99.99% uptime and handling massive data volumes.</p>
-                            <div class="impact">Impact: 99.99% uptime</div>
-                        </div>
-
-                        <h3>Pillar 3: Data Catalog</h3>
-                        <p><em>From Fragmentation to Flow</em></p>
-                        <p>Consolidating disparate tools into a unified experience that reduces cognitive load and context switching.</p>
-
-                        <div class="project-card">
-                            <h4>Analytics Workbench</h4>
-                            <p>Unified workspace consolidating 5 separate tools into one cohesive platform, dramatically reducing context switching.</p>
-                            <div class="impact">Impact: 5 tools → 1 platform</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Cross-Product Navigation</h4>
-                            <p>Seamless navigation between analytics products, reducing context switching by 60% and improving workflow efficiency.</p>
-                            <div class="impact">Impact: 60% reduced context switching</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Consistent Design System</h4>
-                            <p>Unified design language across all analytics products, reducing onboarding time and improving user confidence.</p>
-                            <div class="impact">Impact: 60% faster onboarding</div>
-                        </div>
-
-                        <h3>Pillar 4: Monitoring & Observability</h3>
-                        <p><em>From Manual to Magical</em></p>
-                        <p>Introducing AI-powered capabilities that automate routine tasks and provide intelligent assistance.</p>
-
-                        <div class="project-card">
-                            <h4>Anomaly Detection Engine</h4>
-                            <p>AI-powered system that automatically detects data anomalies and performance issues, alerting teams 90% faster than manual monitoring.</p>
-                            <div class="impact">Impact: 90% faster detection</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Calculation Copilot</h4>
-                            <p>Intelligent assistant that suggests optimal calculation formulas and validates logic, reducing calculation errors by 40%.</p>
-                            <div class="impact">Impact: 40% faster calculations</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Smart Data Lineage</h4>
-                            <p>Automated documentation of data flows and dependencies, reducing manual documentation effort by 80%.</p>
-                            <div class="impact">Impact: 80% documentation automated</div>
-                        </div>
-
-                        <div class="project-card">
-                            <h4>Predictive Pipeline Optimization</h4>
-                            <p>ML-driven system that predicts pipeline failures and optimizes resource allocation, reducing costs by 50%.</p>
-                            <div class="impact">Impact: 50% cost reduction</div>
-                        </div>
-
-                        <hr>
-
-                        <h2>Success Timeline</h2>
-                        <p>Key milestones in our transformation journey.</p>
-
-                        <div class="timeline-card">
-                            <div class="year">2020</div>
-                            <h4>Self-Service Revolution</h4>
-                            <p>Launched self-service report builder and template marketplace, reducing IT dependency by 70% and enabling business users to create reports independently.</p>
-                        </div>
-
-                        <div class="timeline-card">
-                            <div class="year">2021</div>
-                            <h4>Performance Breakthrough</h4>
-                            <p>Introduced incremental processing engine and distributed query optimization, achieving 10x performance improvement and 99.99% uptime.</p>
-                        </div>
-
-                        <div class="timeline-card">
-                            <div class="year">2022</div>
-                            <h4>Unified Platform Launch</h4>
-                            <p>Launched Analytics Workbench consolidating 5 tools into 1 platform, reducing context switching by 60% and onboarding time by 60%.</p>
-                        </div>
-
-                        <div class="timeline-card">
-                            <div class="year">2023-2024</div>
-                            <h4>AI Integration</h4>
-                            <p>Integrated AI-powered features including anomaly detection (90% faster), calculation copilot (40% faster calculations), and smart data lineage (80% documentation automated).</p>
-                        </div>
-
-                        <hr>
-
-                        <h2>Project Credits</h2>
-                        <p><strong>Design Leadership</strong><br>
-                        Shanthi Acharya, Design Manager</p>
-
-                        <p><strong>Organization</strong><br>
-                        Workday, Inc.</p>
-
-                        <p><em>This case study represents strategic UX work on the Prism Analytics Platform, showcasing how user-centered design transforms complex enterprise software into intuitive, powerful tools over a 5-year journey.</em></p>
                     </div>
                 </div>
             </div>
@@ -801,9 +1925,794 @@
         </div>
     </footer>
 
+    <!-- Side Panel Overlay -->
+    <div class="side-panel-overlay" id="sidePanelOverlay" onclick="closeSidePanel()"></div>
+    
+    <!-- Side Panel -->
+    <aside class="side-panel" id="sidePanel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle">
+        <div class="side-panel__header">
+            <div>
+                <h2 class="side-panel__title" id="sidePanelTitle">Pillar Title</h2>
+                <p class="side-panel__subtitle" id="sidePanelSubtitle">Subtitle</p>
+            </div>
+            <button class="side-panel__close" onclick="closeSidePanel()" aria-label="Close panel">×</button>
+        </div>
+        <div class="side-panel__content" id="sidePanelContent">
+            <!-- Dynamic content injected here -->
+        </div>
+    </aside>
+
     <script>
+        // Pillar content data for side panel
+        const pillarContent = {
+            'data-integration': {
+                title: 'Data Integration Framework',
+                subtitle: 'Self Service Data Integration with Flexibility and Transparency',
+                image: 'assets/placeholder.svg',
+                imageAlt: 'Data Integration Framework',
+                // Full case study content embedded
+                hasFullContent: true,
+                background: 'Workday Prism Analytics is a data hub and analytics platform to acquire, prepare and store data for analysis. The existing data acquisition framework lacked flexibility, transparency and had performance issues. Customers were bringing in high volume and high frequency data which demanded a revamp of the current architecture for data containers.',
+                goals: [
+                    { title: 'Complete Data Transparency', description: 'Full visibility into data flows and transformations' },
+                    { title: 'Data Validation', description: 'Robust validation to ensure data quality and integrity' },
+                    { title: 'Powerful Schema Management', description: 'Flexible schema handling for diverse data sources' },
+                    { title: 'Fine-Grained Access Control', description: 'Granular permissions and security at every level' },
+                    { title: 'Comprehensive Monitoring', description: 'Real-time visibility into integration health and status' }
+                ],
+                role: {
+                    title: 'UX Strategy & Design Leadership',
+                    responsibilities: [
+                        'Led UX efforts in defining the strategy and roadmap for data integration experience',
+                        'After Phase 1 launch, transitioned into management',
+                        'Hired and trained designers to work on subsequent phases of the roadmap',
+                        'Team co-led several customer workshops along with research team',
+                        'Provided design deliverables and worked with the scrum team until final launch'
+                    ]
+                },
+                approach: [
+                    { title: 'Competitive Analysis', content: 'Analyzed competitive landscape to understand industry best practices and identify opportunities for differentiation in the data integration space.' },
+                    { title: 'Workshops', content: 'Conducted a Design Sprint with cross-functional team members with the goal of understanding and providing better problem framing. We collected different ideas from the group and converged to create high-level concept designs.' },
+                    { title: 'Concept Design', content: 'Created concept designs to outline the flow for bringing in data with flexibility and provide a self-service experience to our customers without relying on IT teams.' }
+                ],
+                designFocusAreas: [
+                    { number: 1, title: 'Creating Tables from Various Sources', description: 'Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.' },
+                    { number: 2, title: 'Data Operations: Data Change Task', description: 'Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.' },
+                    { number: 3, title: 'Connections & System Integration', description: 'Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.' }
+                ],
+                systemThinking: 'We had to consider the overall system and how the new connection object will interact with other objects in the catalog. By providing a system view, we communicated the behavior and interaction with other data catalog objects.',
+                systemThinkingQuote: 'Connections provides reusability and flexibility in configuration of various data sources.',
+                outcomes: [
+                    { value: '#1', label: 'Strategic Project' },
+                    { value: 'Self-Service', label: 'No IT dependency' },
+                    { value: '3 Areas', label: 'Tables, DCT, Connections' }
+                ],
+                outcomeDescription: 'Tables is the #1 strategic project and the future of much of the Workday Analytics Data platform and applications built on top of it. By providing a strong foundation and self-service analytics features, we improved customer satisfaction and adoption of our product and platform.',
+                prototypeUrl: null
+            },
+            'data-preparation': {
+                title: 'Data Transform Interactive Prep Editor',
+                subtitle: 'Reimagining data preparation for power users and beginners',
+                image: 'assets/placeholder.svg',
+                imageAlt: 'Data Preparation Canvas',
+                hasFullContent: true,
+                contentType: 'data-prep',
+                context: {
+                    whatIs: 'Data preparation and transformation is the critical process of cleaning, reshaping, and combining datasets before analysis. Users need to handle tasks like cleaning data, transforming formats, combining datasets, and applying business logic—all while maintaining data quality and traceability.',
+                    whoUses: 'The tool serves both power users (data analysts, engineers) who need advanced transformation capabilities, and beginners (business analysts, citizen data scientists) who need intuitive interfaces. Each group has distinct needs: power users want flexibility and control, while beginners need guided workflows and clear feedback.',
+                    whatWasBroken: 'The existing editor suffered from a linear, step-by-step interface that obscured the overall data flow. Users couldn\'t visualize their transformation pipeline, debug errors efficiently, or understand the impact of changes. This led to costly mistakes, extended development times, and frustrated users who often had to restart their work.'
+                },
+                problemSpace: {
+                    painPoints: [
+                        'Limited visibility into transformation stages made debugging time-consuming',
+                        'No real-time data preview meant users couldn\'t validate changes until execution',
+                        'Error messages were cryptic and didn\'t point to specific transformation nodes',
+                        'Complex transformations required switching between multiple screens',
+                        'No ability to reorder or reorganize transformation steps visually'
+                    ],
+                    userQuote: {
+                        text: 'I spend more time figuring out where my data went wrong than actually transforming it.',
+                        attribution: 'Senior Data Analyst'
+                    },
+                    technicalConstraints: 'The redesign had to work within Workday\'s existing component library and maintain backward compatibility with saved transformations. Performance requirements demanded sub-second preview updates for datasets up to 100,000 rows.',
+                    competitorInsights: 'Competitor analysis revealed that leading tools use canvas-based visual interfaces with real-time previews. However, most sacrificed power-user features for simplicity. Our opportunity was to deliver both.'
+                },
+                designChallenge: {
+                    coreTension: 'The core challenge was balancing power and simplicity—creating an interface sophisticated enough for data engineers to build complex pipelines, yet intuitive enough for business analysts to use without training.',
+                    keyQuestions: [
+                        'How do we visualize complex transformation logic without overwhelming users?',
+                        'What level of abstraction provides the right balance of control and simplicity?',
+                        'How do we provide meaningful error feedback at each transformation stage?'
+                    ],
+                    visualComplexity: 'We adopted progressive disclosure principles: show the essential information by default, with details available on demand. The canvas provides overview; node selection reveals specifics.'
+                },
+                redesignProcess: {
+                    researchInsights: [
+                        'Users mental model aligned with a "recipe" metaphor—steps that transform ingredients',
+                        '80% of debugging time was spent locating the problematic transformation step',
+                        'Power users wanted keyboard shortcuts; beginners wanted drag-and-drop'
+                    ],
+                    designDecisions: [
+                        { decision: 'Canvas-based visual flow', rationale: 'Mirrors users\' mental model of data flowing through transformation stages, making complex pipelines scannable at a glance.' },
+                        { decision: 'Node-level error indicators', rationale: 'Reduces debugging time by immediately highlighting which transformation step contains issues.' },
+                        { decision: 'Real-time data preview panel', rationale: 'Enables users to validate transformations instantly, reducing the feedback loop from minutes to seconds.' }
+                    ]
+                },
+                solution: {
+                    keyImprovements: [
+                        'Visual pipeline representation showing data flow through transformation nodes',
+                        'Click any node to see real-time preview of data at that stage',
+                        'Inline error indicators with actionable suggestions',
+                        'Drag-and-drop node reordering with automatic connection updates',
+                        'Collapsible node groups for managing complex transformations'
+                    ],
+                    balancingApproach: 'We layered complexity: the canvas provides high-level visualization for everyone, while right-panel details serve power users. Keyboard shortcuts complement drag-and-drop. Expression builders offer both visual and code modes.'
+                },
+                interactionDetails: [
+                    {
+                        name: 'Node Selection & Preview',
+                        microInteractions: 'Clicking a node triggers a 200ms highlight animation while the preview panel updates. A subtle loading spinner appears only if data fetch exceeds 300ms.',
+                        statesAndTransitions: 'Nodes have four states: default, hover (cursor pointer + shadow), selected (teal border + elevated shadow), and error (red border + warning icon). Transitions use 150ms ease-out curves.',
+                        designThinking: 'Immediate visual feedback reduces perceived latency. The teal selection color connects to Workday\'s brand while providing sufficient contrast for accessibility.'
+                    },
+                    {
+                        name: 'Error Debugging Flow',
+                        microInteractions: 'Error nodes pulse gently (opacity 0.8-1.0) to draw attention without being disruptive. Clicking reveals an inline error panel with the specific issue and suggested fixes.',
+                        statesAndTransitions: 'Error state persists until the issue is resolved. The error panel includes a "Show affected data" button that highlights the specific rows causing issues.',
+                        designThinking: 'We moved from post-execution error logs to inline, contextual error display. This reduced the cognitive load of mapping error messages to transformation steps.'
+                    }
+                ],
+                impact: {
+                    efficiency: [
+                        { metric: '5x faster debugging', description: 'Node-level error visibility eliminates search time' },
+                        { metric: '40% fewer errors', description: 'Real-time preview catches issues before execution' },
+                        { metric: '60% faster onboarding', description: 'Visual interface reduces training requirements' }
+                    ],
+                    userQuote: {
+                        text: 'I can finally see what my data pipeline is doing. The visual flow changed everything about how I work.',
+                        attribution: 'Business Analyst'
+                    }
+                },
+                reflection: {
+                    keyLearnings: [
+                        'Visual representations dramatically reduce cognitive load for sequential processes',
+                        'Real-time feedback transforms user confidence and reduces costly errors',
+                        'Progressive disclosure successfully serves both novice and expert users'
+                    ],
+                    technicalConstraintLessons: 'Working within the existing component library forced creative solutions that actually improved consistency. Constraints drove innovation rather than limiting it.',
+                    nextIterations: 'Future iterations would add collaborative editing, version history visualization, and AI-powered transformation suggestions based on data patterns.'
+                },
+                outcomes: [
+                    { value: '5x', label: 'Faster debugging' },
+                    { value: '40%', label: 'Fewer errors' },
+                    { value: '85%', label: 'User satisfaction' }
+                ],
+                outcomeDescription: 'The redesigned Interactive Data Prep editor transformed how users approach data transformation—from a frustrating, error-prone process to an intuitive, visual experience that builds confidence and reduces time-to-insight.',
+                prototypeUrl: null
+            },
+            'data-management': {
+                title: 'Data Management',
+                subtitle: 'The Organization',
+                image: 'assets/placeholder.svg',
+                imageAlt: 'Data Management Lineage',
+                challenge: 'Enterprise customers needed to understand data lineage at the field level and manage data governance across thousands of datasets. Manual tagging was time-consuming and error-prone.',
+                solution: 'Built interactive lineage visualization with ML-powered auto-tagging, workspace organization, and granular security controls. Users can now trace any field back to its source instantly.',
+                outcomes: [
+                    { value: '90%', label: 'Auto-tagged' },
+                    { value: '3x', label: 'Faster audits' },
+                    { value: '100%', label: 'Compliance' }
+                ],
+                prototypeUrl: null
+            },
+            'unified-monitoring': {
+                title: 'Unified Monitoring',
+                subtitle: 'The Control Center',
+                image: 'assets/placeholder.svg',
+                imageAlt: 'Unified Monitoring Dashboard',
+                challenge: 'Data teams had no unified view of job health across integrations, preparations, and schedules. Debugging required switching between multiple screens, wasting valuable time.',
+                solution: 'Created a "single pane of glass" dashboard with real-time status, drill-down debugging, and one-click actions to retry or pause jobs. Proactive alerts notify teams before issues escalate.',
+                outcomes: [
+                    { value: '70%', label: 'Faster debugging' },
+                    { value: '1', label: 'Unified view' },
+                    { value: '24/7', label: 'Visibility' }
+                ],
+                prototypeUrl: null
+            }
+        };
+
+        // Current active pillar
+        let activePillarId = null;
+
+        // Open side panel with pillar content
+        function openSidePanel(pillarId) {
+            const content = pillarContent[pillarId];
+            if (!content) return;
+
+            activePillarId = pillarId;
+
+            // Update panel header
+            document.getElementById('sidePanelTitle').textContent = content.title;
+            document.getElementById('sidePanelSubtitle').textContent = content.subtitle;
+
+            // Render panel content
+            const panelContent = document.getElementById('sidePanelContent');
+            panelContent.innerHTML = renderPanelContent(content, pillarId);
+
+            // Initialize panel TOC scroll functionality
+            initializePanelTOC(pillarId);
+
+            // Show overlay and panel
+            document.getElementById('sidePanelOverlay').classList.add('visible');
+            document.getElementById('sidePanel').classList.add('visible');
+
+            // Update card active state
+            document.querySelectorAll('.pillar-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            const activeCard = document.querySelector(`.pillar-card[data-pillar-id="${pillarId}"]`);
+            if (activeCard) {
+                activeCard.classList.add('active');
+            }
+
+            // Update TOC active state
+            updatePillarTOCState(pillarId, true);
+
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close side panel
+        function closeSidePanel() {
+            document.getElementById('sidePanelOverlay').classList.remove('visible');
+            document.getElementById('sidePanel').classList.remove('visible');
+
+            // Remove active state from cards
+            document.querySelectorAll('.pillar-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // Update TOC
+            if (activePillarId) {
+                updatePillarTOCState(activePillarId, false);
+            }
+            activePillarId = null;
+
+            // Restore body scroll
+            document.body.style.overflow = '';
+        }
+
+        // Render panel content HTML with TOC
+        function renderPanelContent(content, pillarId) {
+            // Check if this is full content and determine which render function to use
+            if (content.hasFullContent) {
+                if (content.contentType === 'data-prep') {
+                    return renderDataPrepCaseStudy(content, pillarId);
+                }
+                return renderFullCaseStudy(content, pillarId);
+            }
+            
+            let outcomesHtml = content.outcomes.map(o => `
+                <div class="side-panel__metric">
+                    <span class="side-panel__metric-value">${o.value}</span>
+                    <span class="side-panel__metric-label">${o.label}</span>
+                </div>
+            `).join('');
+
+            let prototypeHtml = content.prototypeUrl ? `
+                <a href="${content.prototypeUrl}" class="side-panel__prototype-link" target="_blank" rel="noopener">
+                    ▶ View Interactive Prototype
+                </a>
+            ` : '';
+
+            // Define sections for TOC
+            const sections = [
+                { id: `${pillarId}-overview`, title: 'Overview' },
+                { id: `${pillarId}-challenge`, title: 'The Challenge' },
+                { id: `${pillarId}-solution`, title: 'Design Solution' },
+                { id: `${pillarId}-outcomes`, title: 'Key Outcomes' }
+            ];
+
+            // Generate TOC HTML
+            let tocHtml = sections.map(section => `
+                <li class="side-panel__toc-item">
+                    <a href="#${section.id}" class="side-panel__toc-link" data-section-id="${section.id}">${section.title}</a>
+                </li>
+            `).join('');
+
+            return `
+                <!-- Side Panel TOC -->
+                <nav class="side-panel__toc" aria-label="Case study sections">
+                    <div class="side-panel__toc-title">Contents</div>
+                    <ul class="side-panel__toc-list">
+                        ${tocHtml}
+                    </ul>
+                </nav>
+                
+                <!-- Side Panel Main Content -->
+                <div class="side-panel__main">
+                    <section id="${pillarId}-overview" class="side-panel__section">
+                <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                    </section>
+                
+                    <section id="${pillarId}-challenge" class="side-panel__section">
+                        <h2 class="side-panel__section-title">The Challenge</h2>
+                    <p>${content.challenge}</p>
+                    </section>
+                
+                    <section id="${pillarId}-solution" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Design Solution</h2>
+                    <p>${content.solution}</p>
+                    </section>
+                
+                    <section id="${pillarId}-outcomes" class="side-panel__outcomes">
+                        <h2 class="side-panel__outcomes-title">Key Outcomes</h2>
+                    <div class="side-panel__outcomes-grid">
+                        ${outcomesHtml}
+                    </div>
+                    </section>
+                
+                ${prototypeHtml}
+                </div>
+            `;
+        }
+        
+        // Render full case study content for data-integration
+        function renderFullCaseStudy(content, pillarId) {
+            // Goals grid
+            let goalsHtml = content.goals.map(goal => `
+                <div class="side-panel__goal-card">
+                    <h4>${goal.title}</h4>
+                    <p>${goal.description}</p>
+                </div>
+            `).join('');
+            
+            // Role responsibilities
+            let roleHtml = content.role.responsibilities.map(r => `<li>${r}</li>`).join('');
+            
+            // Approach steps
+            let approachHtml = content.approach.map(step => `
+                <div class="side-panel__approach-step">
+                    <div class="side-panel__approach-title">${step.title}</div>
+                    <div class="side-panel__approach-content">${step.content}</div>
+                </div>
+            `).join('');
+            
+            // Design focus areas
+            let designAreasHtml = content.designFocusAreas.map(area => `
+                <div class="side-panel__design-area">
+                    <span class="side-panel__design-number">${area.number}</span>
+                    <span class="side-panel__design-title">${area.title}</span>
+                    <p class="side-panel__design-desc">${area.description}</p>
+                </div>
+            `).join('');
+            
+            // Outcomes metrics
+            let outcomesHtml = content.outcomes.map(o => `
+                <div class="side-panel__metric">
+                    <span class="side-panel__metric-value">${o.value}</span>
+                    <span class="side-panel__metric-label">${o.label}</span>
+                </div>
+            `).join('');
+            
+            // Define sections for TOC
+            const sections = [
+                { id: `${pillarId}-background`, title: 'Background' },
+                { id: `${pillarId}-goals`, title: 'Goals' },
+                { id: `${pillarId}-role`, title: 'My Role' },
+                { id: `${pillarId}-approach`, title: 'Approach' },
+                { id: `${pillarId}-design-focus`, title: 'Design Focus Areas' },
+                { id: `${pillarId}-outcomes`, title: 'Outcome' }
+            ];
+            
+            // Generate TOC HTML
+            let tocHtml = sections.map(section => `
+                <li class="side-panel__toc-item">
+                    <a href="#${section.id}" class="side-panel__toc-link" data-section-id="${section.id}">${section.title}</a>
+                </li>
+            `).join('');
+            
+            return `
+                <!-- Side Panel TOC -->
+                <nav class="side-panel__toc" aria-label="Case study sections">
+                    <div class="side-panel__toc-title">Contents</div>
+                    <ul class="side-panel__toc-list">
+                        ${tocHtml}
+                    </ul>
+                </nav>
+                
+                <!-- Side Panel Main Content -->
+                <div class="side-panel__main">
+                    <section id="${pillarId}-background" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Background</h2>
+                        <p>${content.background}</p>
+                    </section>
+                    
+                    <section id="${pillarId}-goals" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Goals</h2>
+                        <p>Design the end-to-end experience for a self service data acquisition framework that will enhance data management capabilities by providing:</p>
+                        <div class="side-panel__goals-grid">
+                            ${goalsHtml}
+                        </div>
+                    </section>
+                    
+                    <section id="${pillarId}-role" class="side-panel__section">
+                        <div class="side-panel__role-card">
+                            <h3>${content.role.title}</h3>
+                            <ul>${roleHtml}</ul>
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-approach" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Approach</h2>
+                        <div class="side-panel__approach-steps">
+                            ${approachHtml}
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-design-focus" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Design Focus Areas</h2>
+                        <p>Our design efforts were broken down into creating experiences for 3 key areas:</p>
+                        <div class="side-panel__design-areas">
+                            ${designAreasHtml}
+                        </div>
+                        
+                        <h3 class="side-panel__subsection-title">System Thinking: Object Modelling</h3>
+                        <p>${content.systemThinking}</p>
+                        <blockquote class="side-panel__quote">${content.systemThinkingQuote}</blockquote>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-outcomes" class="side-panel__section">
+                        <div class="side-panel__outcome-card">
+                            <h3>#1 Strategic Project</h3>
+                            <p>${content.outcomeDescription}</p>
+                            <div class="side-panel__outcomes-grid side-panel__outcomes-grid--light">
+                                ${outcomesHtml}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Render Data Prep case study content
+        function renderDataPrepCaseStudy(content, pillarId) {
+            // Pain points list
+            let painPointsHtml = content.problemSpace.painPoints.map(point => `
+                <li>${point}</li>
+            `).join('');
+            
+            // Key questions list
+            let questionsHtml = content.designChallenge.keyQuestions.map(q => `
+                <li>${q}</li>
+            `).join('');
+            
+            // Research insights list
+            let insightsHtml = content.redesignProcess.researchInsights.map(i => `
+                <li>${i}</li>
+            `).join('');
+            
+            // Design decisions
+            let decisionsHtml = content.redesignProcess.designDecisions.map(d => `
+                <div class="side-panel__decision-card">
+                    <div class="side-panel__decision-title">${d.decision}</div>
+                    <p>${d.rationale}</p>
+                </div>
+            `).join('');
+            
+            // Key improvements list
+            let improvementsHtml = content.solution.keyImprovements.map(i => `
+                <li>${i}</li>
+            `).join('');
+            
+            // Interaction details
+            let interactionsHtml = content.interactionDetails.map((interaction, index) => `
+                <div class="side-panel__interaction-card">
+                    <h4>Interaction ${index + 1}: ${interaction.name}</h4>
+                    <div class="side-panel__interaction-detail">
+                        <strong>Micro-interactions:</strong>
+                        <p>${interaction.microInteractions}</p>
+                    </div>
+                    <div class="side-panel__interaction-detail">
+                        <strong>States & Transitions:</strong>
+                        <p>${interaction.statesAndTransitions}</p>
+                    </div>
+                    <div class="side-panel__interaction-detail">
+                        <strong>Design Thinking:</strong>
+                        <p>${interaction.designThinking}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Impact metrics
+            let impactMetricsHtml = content.impact.efficiency.map(e => `
+                <div class="side-panel__impact-metric">
+                    <div class="side-panel__impact-value">${e.metric}</div>
+                    <p>${e.description}</p>
+                </div>
+            `).join('');
+            
+            // Key learnings
+            let learningsHtml = content.reflection.keyLearnings.map(l => `
+                <li>${l}</li>
+            `).join('');
+            
+            // Outcomes metrics
+            let outcomesHtml = content.outcomes.map(o => `
+                <div class="side-panel__metric">
+                    <span class="side-panel__metric-value">${o.value}</span>
+                    <span class="side-panel__metric-label">${o.label}</span>
+                </div>
+            `).join('');
+            
+            // Define sections for TOC
+            const sections = [
+                { id: `${pillarId}-context`, title: 'Context' },
+                { id: `${pillarId}-problem`, title: 'Problem Space' },
+                { id: `${pillarId}-challenge`, title: 'Design Challenge' },
+                { id: `${pillarId}-process`, title: 'Redesign Process' },
+                { id: `${pillarId}-solution`, title: 'Solution' },
+                { id: `${pillarId}-interactions`, title: 'Interaction Details' },
+                { id: `${pillarId}-impact`, title: 'Impact' },
+                { id: `${pillarId}-reflection`, title: 'Reflection' }
+            ];
+            
+            // Generate TOC HTML
+            let tocHtml = sections.map(section => `
+                <li class="side-panel__toc-item">
+                    <a href="#${section.id}" class="side-panel__toc-link" data-section-id="${section.id}">${section.title}</a>
+                </li>
+            `).join('');
+            
+            return `
+                <!-- Side Panel TOC -->
+                <nav class="side-panel__toc" aria-label="Case study sections">
+                    <div class="side-panel__toc-title">Contents</div>
+                    <ul class="side-panel__toc-list">
+                        ${tocHtml}
+                    </ul>
+                </nav>
+                
+                <!-- Side Panel Main Content -->
+                <div class="side-panel__main">
+                    <section id="${pillarId}-context" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Context</h2>
+                        
+                        <h3 class="side-panel__subsection-title">What is data preparation/transformation?</h3>
+                        <p>${content.context.whatIs}</p>
+                        
+                        <h3 class="side-panel__subsection-title">Who uses this tool?</h3>
+                        <p>${content.context.whoUses}</p>
+                        
+                        <h3 class="side-panel__subsection-title">What was broken about the old editor?</h3>
+                        <p>${content.context.whatWasBroken}</p>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-problem" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Problem Space</h2>
+                        
+                        <h3 class="side-panel__subsection-title">User Pain Points</h3>
+                        <ul class="side-panel__list">
+                            ${painPointsHtml}
+                        </ul>
+                        
+                        <blockquote class="side-panel__quote">
+                            "${content.problemSpace.userQuote.text}"
+                            <cite>— ${content.problemSpace.userQuote.attribution}</cite>
+                        </blockquote>
+                        
+                        <h3 class="side-panel__subsection-title">Technical Constraints</h3>
+                        <p>${content.problemSpace.technicalConstraints}</p>
+                        
+                        <h3 class="side-panel__subsection-title">Competitor Insights</h3>
+                        <p>${content.problemSpace.competitorInsights}</p>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-challenge" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Design Challenge</h2>
+                        
+                        <h3 class="side-panel__subsection-title">How to Balance Power and Simplicity?</h3>
+                        <p>${content.designChallenge.coreTension}</p>
+                        
+                        <h3 class="side-panel__subsection-title">Key Questions</h3>
+                        <ul class="side-panel__list">
+                            ${questionsHtml}
+                        </ul>
+                        
+                        <h3 class="side-panel__subsection-title">Visual Complexity vs. Clarity</h3>
+                        <p>${content.designChallenge.visualComplexity}</p>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-process" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Redesign Process</h2>
+                        
+                        <h3 class="side-panel__subsection-title">Research Insights</h3>
+                        <ul class="side-panel__list">
+                            ${insightsHtml}
+                        </ul>
+                        
+                        <h3 class="side-panel__subsection-title">Key Design Decisions</h3>
+                        <div class="side-panel__decisions-grid">
+                            ${decisionsHtml}
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-solution" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Solution: The New Editor</h2>
+                        
+                        <h3 class="side-panel__subsection-title">Key Improvements</h3>
+                        <ul class="side-panel__list side-panel__list--checkmarks">
+                            ${improvementsHtml}
+                        </ul>
+                        
+                        <h3 class="side-panel__subsection-title">Balancing Power and Simplicity</h3>
+                        <p>${content.solution.balancingApproach}</p>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-interactions" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Interaction Design Details</h2>
+                        <div class="side-panel__interactions">
+                            ${interactionsHtml}
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-impact" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Impact</h2>
+                        
+                        <div class="side-panel__impact-grid">
+                            ${impactMetricsHtml}
+                        </div>
+                        
+                        <blockquote class="side-panel__quote side-panel__quote--highlight">
+                            "${content.impact.userQuote.text}"
+                            <cite>— ${content.impact.userQuote.attribution}</cite>
+                        </blockquote>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-reflection" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Reflection</h2>
+                        
+                        <h3 class="side-panel__subsection-title">Key Learnings</h3>
+                        <ul class="side-panel__list">
+                            ${learningsHtml}
+                        </ul>
+                        
+                        <h3 class="side-panel__subsection-title">Working Within Constraints</h3>
+                        <p>${content.reflection.technicalConstraintLessons}</p>
+                        
+                        <h3 class="side-panel__subsection-title">What I'd Iterate Next</h3>
+                        <p>${content.reflection.nextIterations}</p>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <section id="${pillarId}-outcomes" class="side-panel__section">
+                        <div class="side-panel__outcome-card">
+                            <h3>Key Outcomes</h3>
+                            <p>${content.outcomeDescription}</p>
+                            <div class="side-panel__outcomes-grid side-panel__outcomes-grid--light">
+                                ${outcomesHtml}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Initialize panel TOC with scroll spy and smooth scrolling
+        function initializePanelTOC(pillarId) {
+            const panelContent = document.getElementById('sidePanelContent');
+            const tocLinks = panelContent.querySelectorAll('.side-panel__toc-link');
+            const sections = panelContent.querySelectorAll('.side-panel__section, .side-panel__outcomes');
+            
+            // Set first link as active by default
+            if (tocLinks.length > 0) {
+                tocLinks[0].setAttribute('aria-current', 'true');
+            }
+            
+            // Add click handlers for smooth scrolling
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section-id');
+                    const targetSection = document.getElementById(sectionId);
+                    
+                    if (targetSection) {
+                        // Smooth scroll within the panel
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Update active state
+                        tocLinks.forEach(l => l.removeAttribute('aria-current'));
+                        this.setAttribute('aria-current', 'true');
+                    }
+                });
+            });
+            
+            // Scroll spy using IntersectionObserver within the panel
+            const observerOptions = {
+                root: panelContent,
+                rootMargin: '-20% 0px -70% 0px',
+                threshold: 0
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        tocLinks.forEach(link => {
+                            if (link.getAttribute('data-section-id') === sectionId) {
+                                link.setAttribute('aria-current', 'true');
+                            } else {
+                                link.removeAttribute('aria-current');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            sections.forEach(section => {
+                if (section.id) {
+                    observer.observe(section);
+                }
+            });
+        }
+
+        // Update pillar TOC active state
+        function updatePillarTOCState(pillarId, isActive) {
+            const tocLink = document.querySelector(`.toc-nav__link--nested[data-pillar-id="${pillarId}"]`);
+            if (tocLink) {
+                if (isActive) {
+                    // Remove active from all nested links first
+                    document.querySelectorAll('.toc-nav__link--nested').forEach(link => {
+                        link.removeAttribute('aria-current');
+                    });
+                    tocLink.setAttribute('aria-current', 'true');
+                } else {
+                    tocLink.removeAttribute('aria-current');
+                }
+            }
+        }
+
+        // Keyboard handler for Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && activePillarId) {
+                closeSidePanel();
+            }
+        });
+
         (function() {
             'use strict';
+
+            // Pillar data for TOC
+            const pillarsData = [
+                { id: 'data-integration', title: 'Data Integration' },
+                { id: 'data-preparation', title: 'Data Preparation' },
+                { id: 'data-management', title: 'Data Management' },
+                { id: 'unified-monitoring', title: 'Unified Monitoring' }
+            ];
 
             // Generate IDs for h2 headings and build TOC
             function initializeTOC() {
@@ -860,6 +2769,38 @@
                     });
                     
                     listItem.appendChild(link);
+                    
+                    // Check if this is the "Strategic Pillars" heading - add nested items
+                    if (heading.textContent.toLowerCase().includes('strategic pillars')) {
+                        listItem.classList.add('toc-nav__item--parent');
+                        
+                        // Create sublist for pillars
+                        const sublist = document.createElement('ul');
+                        sublist.className = 'toc-nav__sublist';
+                        
+                        pillarsData.forEach(pillar => {
+                            const subItem = document.createElement('li');
+                            subItem.className = 'toc-nav__subitem';
+                            
+                            const subLink = document.createElement('a');
+                            subLink.className = 'toc-nav__link--nested';
+                            subLink.href = '#' + pillar.id;
+                            subLink.textContent = pillar.title;
+                            subLink.setAttribute('data-pillar-id', pillar.id);
+                            
+                            // Click handler to open side panel
+                            subLink.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                openSidePanel(pillar.id);
+                            });
+                            
+                            subItem.appendChild(subLink);
+                            sublist.appendChild(subItem);
+                        });
+                        
+                        listItem.appendChild(sublist);
+                    }
+                    
                     tocList.appendChild(listItem);
                 });
 
@@ -895,6 +2836,46 @@
                     if (heading.id) {
                         observer.observe(heading);
                     }
+                });
+                
+                // Also observe pillar cards for nested TOC highlighting
+                initializePillarScrollSpy();
+            }
+            
+            // Scroll spy for pillar cards (only active when side panel is closed)
+            function initializePillarScrollSpy() {
+                const pillarCards = document.querySelectorAll('.pillar-card[data-pillar-id]');
+                if (pillarCards.length === 0) return;
+                
+                const pillarObserverOptions = {
+                    root: null,
+                    rootMargin: '-30% 0px -60% 0px',
+                    threshold: 0
+                };
+                
+                const pillarObserver = new IntersectionObserver(function(entries) {
+                    // Don't update TOC if side panel is open
+                    if (typeof activePillarId !== 'undefined' && activePillarId !== null) return;
+                    
+                    entries.forEach(entry => {
+                        const pillarId = entry.target.getAttribute('data-pillar-id');
+                        const tocLink = document.querySelector(`.toc-nav__link--nested[data-pillar-id="${pillarId}"]`);
+                        
+                        if (tocLink) {
+                            if (entry.isIntersecting) {
+                                // Remove active from all nested links
+                                document.querySelectorAll('.toc-nav__link--nested').forEach(link => {
+                                    link.removeAttribute('aria-current');
+                                });
+                                // Set this one as active
+                                tocLink.setAttribute('aria-current', 'true');
+                            }
+                        }
+                    });
+                }, pillarObserverOptions);
+                
+                pillarCards.forEach(card => {
+                    pillarObserver.observe(card);
                 });
             }
 
