@@ -100,25 +100,14 @@
             transform: translateY(-2px);
         }
 
-        /* Table of Contents */
+        /* Table of Contents - HIDDEN on main page, only used in side panel */
         .toc-container {
-            width: 220px;
-            flex-shrink: 0;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            position: sticky;
-            top: 140px;
-            align-self: flex-start;
-            max-height: calc(100vh - 160px);
-            overflow-y: auto;
-            margin-top: 0;
-            padding-top: 0;
+            display: none; /* Hidden on main page */
         }
 
-        .toc-container.visible {
-            opacity: 1;
-            transform: translateX(0);
+        /* Main page layout - single column without TOC */
+        .content-with-toc {
+            display: block !important;
         }
 
         .toc-nav {
@@ -251,18 +240,10 @@
             height: 6px;
         }
 
-        /* Adjust main content layout for TOC */
+        /* Main content layout - single column (no TOC on main page) */
         @media (min-width: 1024px) {
             .main-content-wrapper {
                 display: block;
-            }
-
-            .content-with-toc {
-                display: flex;
-                gap: 2rem;
-                align-items: flex-start;
-                margin-top: 0;
-                padding-top: 0;
             }
 
             .main-content {
@@ -270,6 +251,9 @@
                 min-width: 0;
                 margin-top: 0;
                 padding: 0;
+                max-width: 900px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .container {
@@ -296,18 +280,7 @@
             .case-study-body {
                 scroll-margin-top: 140px;
                 margin-top: 0;
-                padding: 0 3rem 3rem 3rem;
-            }
-        }
-
-        /* Hide TOC on smaller screens */
-        @media (max-width: 1023px) {
-            .toc-container {
-                display: none;
-            }
-
-            .content-with-toc {
-                display: block;
+                padding: 3rem;
             }
         }
 
@@ -479,11 +452,33 @@
         }
 
         .metric-card {
-            background: var(--background-light);
-            padding: 1.5rem;
-            border-radius: 12px;
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
             text-align: center;
             border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .metric-value {
@@ -495,27 +490,53 @@
 
         .metric-label {
             font-size: 1rem;
-            color: var(--text-light);
+            color: var(--text-medium);
             font-weight: 500;
         }
 
         /* Project Cards */
         .project-card {
-            background: var(--background-light);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-teal);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
             margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .project-card h4 {
             color: var(--primary-blue);
             margin-top: 0;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
         }
 
         .project-card p {
             margin-bottom: 0.75rem;
+            color: var(--text-medium);
+            line-height: 1.65;
         }
 
         .project-card .impact {
@@ -795,6 +816,15 @@
             color: var(--primary-blue);
         }
 
+        .pillar-card__image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-light);
+        }
+
         /* Side Panel Overlay */
         .side-panel-overlay {
             position: fixed;
@@ -837,9 +867,8 @@
 
         .side-panel__header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.5rem 2rem;
+            flex-direction: column;
+            padding: 1.25rem 2rem;
             border-bottom: 1px solid var(--border-light);
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
             color: white;
@@ -847,8 +876,23 @@
 
         @media (min-width: 1024px) {
             .side-panel__header {
-                padding: 1.5rem 3rem;
+                padding: 1.25rem 3rem;
             }
+        }
+
+        /* Header main row: title + actions */
+        .side-panel__header-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .side-panel__header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0;
         }
 
         .side-panel__title {
@@ -861,6 +905,34 @@
             font-size: 0.9rem;
             opacity: 0.85;
             margin-top: 0.25rem;
+        }
+
+        /* Pillar dropdown navigation */
+        .side-panel__pillar-nav {
+            flex-shrink: 0;
+        }
+
+        .side-panel__pillar-dropdown {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 160px;
+        }
+
+        .side-panel__pillar-dropdown:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .side-panel__pillar-dropdown option {
+            background: var(--primary-blue);
+            color: white;
         }
 
         .side-panel__close {
@@ -1088,22 +1160,48 @@
         }
 
         .side-panel__goal-card {
-            background: var(--background-light);
-            padding: 1.25rem;
-            border-radius: 10px;
-            border-left: 4px solid var(--accent-teal);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__goal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__goal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .side-panel__goal-card h4 {
             color: var(--primary-blue);
-            margin: 0 0 0.5rem 0;
-            font-size: 1rem;
-            font-weight: 600;
+            margin: 0 0 0.75rem 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .side-panel__goal-card p {
             margin: 0;
             font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.65;
             color: var(--text-light);
             line-height: 1.5;
         }
@@ -1111,15 +1209,34 @@
         .side-panel__role-card {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
             color: white;
-            border-radius: 12px;
-            padding: 1.75rem;
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .side-panel__role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
         }
 
         .side-panel__role-card h3 {
             color: white;
             margin: 0 0 1rem 0;
             font-size: 1.15rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .side-panel__role-card ul {
@@ -1225,11 +1342,33 @@
             line-height: 1.6;
         }
 
-        .side-panel__subsection-title {
-            color: var(--accent-teal);
-            font-size: 1.25rem;
+        .side-panel__section-title--sub {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 700;
             margin: 2rem 0 1rem 0;
-            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-teal);
+        }
+
+        .side-panel__image-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .side-panel__section-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .side-panel__image-caption {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.75rem;
         }
 
         .side-panel__quote {
@@ -1297,24 +1436,48 @@
         }
 
         .side-panel__decision-card {
-            background: var(--background-light);
-            border-radius: 10px;
-            padding: 1.25rem;
-            border-left: 4px solid var(--accent-teal);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__decision-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__decision-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .side-panel__decision-title {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            letter-spacing: -0.01em;
         }
 
         .side-panel__decision-card p {
             margin: 0;
             color: var(--text-medium);
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.65;
         }
 
         .side-panel__interactions {
@@ -1324,20 +1487,41 @@
         }
 
         .side-panel__interaction-card {
-            background: var(--background-white);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
             border: 1px solid var(--border-light);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 8px var(--shadow-sm);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__interaction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__interaction-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .side-panel__interaction-card h4 {
             color: var(--primary-blue);
             margin: 0 0 1rem 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-bottom: 2px solid var(--accent-teal);
-            padding-bottom: 0.5rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .side-panel__interaction-detail {
@@ -1397,9 +1581,28 @@
         .side-panel__outcome-card {
             background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 100%);
             color: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2rem;
             text-align: center;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__outcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, var(--primary-blue) 100%);
+        }
+
+        .side-panel__outcome-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
         }
 
         .side-panel__outcome-card h3 {
@@ -1434,6 +1637,84 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
+        /* Side Panel Footer Navigation */
+        .side-panel__footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+            border-top: 2px solid var(--border-light);
+            gap: 1rem;
+        }
+
+        .side-panel__nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: var(--background-white);
+            color: var(--text-medium);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .side-panel__nav-btn:hover:not(:disabled) {
+            background: var(--accent-teal);
+            color: white;
+            border-color: var(--accent-teal);
+        }
+
+        .side-panel__nav-btn:disabled {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .side-panel__nav-btn--prev {
+            padding-left: 1rem;
+        }
+
+        .side-panel__nav-btn--next {
+            padding-right: 1rem;
+        }
+
+        .side-panel__nav-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .side-panel__nav-title {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .side-panel__nav-btn:hover:not(:disabled) .side-panel__nav-label,
+        .side-panel__nav-btn:hover:not(:disabled) .side-panel__nav-title {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .side-panel__footer-nav {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .side-panel__nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         /* Side Panel Responsive */
         @media (max-width: 768px) {
             .side-panel__outcomes-grid {
@@ -1447,6 +1728,20 @@
 
             .side-panel__metric-value {
                 font-size: 1.25rem;
+            }
+
+            .side-panel__header-main {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .side-panel__header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .side-panel__pillar-dropdown {
+                flex: 1;
             }
         }
 
@@ -1520,6 +1815,24 @@
             width: 100%;
             max-width: 600px;
             box-shadow: 0 4px 20px var(--shadow-md);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcomes-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .outcomes-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
         }
 
         .outcomes-card__title {
@@ -1580,11 +1893,34 @@
 
         /* Timeline Cards */
         .timeline-card {
-            background: var(--background-light);
-            padding: 1.5rem;
-            border-radius: 12px;
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
             margin-bottom: 1.5rem;
-            border-left: 4px solid var(--primary-blue);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .timeline-card .year {
@@ -1598,6 +1934,652 @@
             color: var(--primary-blue);
             margin-top: 0;
             margin-bottom: 0.75rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        /* New Transform Canvas Styles */
+        
+        /* Hero Meta */
+        .side-panel__hero-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            background: var(--background-light);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-panel__hero-meta-item {
+            text-align: center;
+        }
+
+        .side-panel__hero-meta-label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__hero-meta-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        /* Hero Stats */
+        .side-panel__hero-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .side-panel__hero-stat {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .side-panel__hero-stat-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__hero-stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        /* Problem Cards */
+        .side-panel__problem-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .side-panel__problem-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__problem-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .side-panel__problem-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .side-panel__problem-desc {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Research Timeline */
+        .side-panel__timeline {
+            position: relative;
+            padding: 1.5rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-panel__timeline-track {
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary-blue), var(--accent-teal));
+            border-radius: 2px;
+        }
+
+        .side-panel__timeline-phases {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-panel__timeline-phase {
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .side-panel__timeline-marker {
+            position: absolute;
+            left: 4px;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-teal);
+            border: 3px solid var(--background-white);
+            border-radius: 50%;
+            box-shadow: 0 2px 6px var(--shadow-md);
+        }
+
+        .side-panel__timeline-date {
+            font-size: 0.75rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__timeline-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .side-panel__timeline-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .side-panel__phases-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .side-panel__phase-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__phase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__phase-card h4 {
+            font-size: 1.05rem;
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .side-panel__phase-card ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            text-align: left;
+        }
+
+        .side-panel__phase-card li {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.65;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Insight Cards */
+        .side-panel__insights-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .side-panel__insight-card {
+            display: flex;
+            gap: 1rem;
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__insight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__insight-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 107, 117, 0.25);
+        }
+
+        .side-panel__insight-content h4 {
+            font-size: 1.05rem;
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .side-panel__insight-content p {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin-bottom: 0.75rem;
+            line-height: 1.65;
+        }
+
+        .side-panel__insight-quote {
+            background: var(--background-light);
+            border-left: 3px solid var(--accent-teal);
+            padding: 0.75rem 1rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .side-panel__insight-quote cite {
+            display: block;
+            margin-top: 0.5rem;
+            font-style: normal;
+            font-size: 0.75rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        /* Persona Cards */
+        .side-panel__personas-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .side-panel__persona-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+
+        .side-panel__persona-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+            z-index: 1;
+        }
+
+        .side-panel__persona-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__persona-card--primary {
+            border: 2px solid var(--accent-teal);
+        }
+
+        .side-panel__persona-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: white;
+            padding: 1.25rem;
+            text-align: center;
+        }
+
+        .side-panel__persona-card--primary .side-panel__persona-header {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+        }
+
+        .side-panel__persona-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .side-panel__persona-role {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .side-panel__persona-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .side-panel__persona-body {
+            padding: 1rem;
+        }
+
+        .side-panel__persona-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .side-panel__persona-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .side-panel__persona-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__persona-section p {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Feature Cards */
+        .side-panel__features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .side-panel__feature-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .side-panel__feature-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        .side-panel__feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin: 0;
+            line-height: 1.65;
+        }
+
+        /* Scope Table */
+        .side-panel__scope-table-container {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+        }
+
+        .side-panel__scope-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .side-panel__scope-table thead {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .side-panel__scope-table th {
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .side-panel__scope-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-medium);
+        }
+
+        .side-panel__scope-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .side-panel__scope-table tbody tr:hover {
+            background: var(--background-light);
+        }
+
+        .side-panel__scope-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .side-panel__scope-badge--included {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+        }
+
+        .side-panel__scope-badge--future {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+        }
+
+        /* Impact Cards */
+        .side-panel__impact-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .side-panel__impact-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: white;
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__impact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .side-panel__impact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
+        }
+
+        .side-panel__impact-card--alt {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+        }
+
+        .side-panel__impact-card .side-panel__impact-value {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__impact-card .side-panel__impact-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Reflection Cards */
+        .side-panel__reflections-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .side-panel__reflection-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .side-panel__reflection-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .side-panel__reflection-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .side-panel__reflection-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .side-panel__reflection-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        .side-panel__reflection-content {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin: 0;
+            line-height: 1.65;
+        }
+
+        /* Section intro text */
+        .side-panel__section-intro {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
 
         /* Footer */
@@ -1809,6 +2791,7 @@
                                 
                                 <!-- Pillar 1: Data Integration -->
                                 <div class="pillar-card" data-pillar-id="data-integration" onclick="openSidePanel('data-integration')">
+                                    <img class="pillar-card__image" src="../data-integration-framework/assets/dataintegrationmultiplesources.png" alt="Data Integration Framework">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
                                             <span class="pillar-card__number">1</span>
@@ -1829,6 +2812,7 @@
                                 
                                 <!-- Pillar 2: Data Preparation -->
                                 <div class="pillar-card" data-pillar-id="data-preparation" onclick="openSidePanel('data-preparation')">
+                                    <img class="pillar-card__image" src="../data-prep-editor/assets/idpeditor.png" alt="Data Preparation Canvas">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
                                             <span class="pillar-card__number">2</span>
@@ -1849,6 +2833,7 @@
                                 
                                 <!-- Pillar 3: Data Management -->
                                 <div class="pillar-card" data-pillar-id="data-management" onclick="openSidePanel('data-management')">
+                                    <img class="pillar-card__image" src="../data-management/assets/cataloghome.png" alt="Data Management Catalog">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
                                             <span class="pillar-card__number">3</span>
@@ -1869,6 +2854,7 @@
                                 
                                 <!-- Pillar 4: Unified Monitoring -->
                                 <div class="pillar-card" data-pillar-id="unified-monitoring" onclick="openSidePanel('unified-monitoring')">
+                                    <img class="pillar-card__image" src="../unified-monitoring/assets/prismmanagementconsole.png" alt="Unified Monitoring Console">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
                                             <span class="pillar-card__number">4</span>
@@ -1931,11 +2917,26 @@
     <!-- Side Panel -->
     <aside class="side-panel" id="sidePanel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle">
         <div class="side-panel__header">
-            <div>
-                <h2 class="side-panel__title" id="sidePanelTitle">Pillar Title</h2>
-                <p class="side-panel__subtitle" id="sidePanelSubtitle">Subtitle</p>
+            <!-- Header row: Title + Dropdown + Close -->
+            <div class="side-panel__header-main">
+                <div>
+                    <h2 class="side-panel__title" id="sidePanelTitle">Pillar Title</h2>
+                    <p class="side-panel__subtitle" id="sidePanelSubtitle">Subtitle</p>
+                </div>
+                
+                <div class="side-panel__header-actions">
+                    <!-- Pillar dropdown navigation -->
+                    <select class="side-panel__pillar-dropdown" id="pillarDropdown" onchange="switchPillar(this.value)" aria-label="Navigate to pillar">
+                        <option value="data-integration">1. Data Integration</option>
+                        <option value="data-preparation">2. Data Preparation</option>
+                        <option value="data-management">3. Data Management</option>
+                        <option value="unified-monitoring">4. Unified Monitoring</option>
+                    </select>
+                    
+                    <!-- Close button -->
+                    <button class="side-panel__close" onclick="closeSidePanel()" aria-label="Close panel">×</button>
+                </div>
             </div>
-            <button class="side-panel__close" onclick="closeSidePanel()" aria-label="Close panel">×</button>
         </div>
         <div class="side-panel__content" id="sidePanelContent">
             <!-- Dynamic content injected here -->
@@ -1943,13 +2944,16 @@
     </aside>
 
     <script>
+        // Pillar order for navigation
+        const pillarOrder = ['data-integration', 'data-preparation', 'data-management', 'unified-monitoring'];
+
         // Pillar content data for side panel
         const pillarContent = {
             'data-integration': {
                 title: 'Data Integration Framework',
                 subtitle: 'Self Service Data Integration with Flexibility and Transparency',
-                image: 'assets/placeholder.svg',
-                imageAlt: 'Data Integration Framework',
+                image: '../data-integration-framework/assets/dataIntegrationmultiplesource.gif',
+                imageAlt: 'Data Integration Framework Overview',
                 // Full case study content embedded
                 hasFullContent: true,
                 background: 'Workday Prism Analytics is a data hub and analytics platform to acquire, prepare and store data for analysis. The existing data acquisition framework lacked flexibility, transparency and had performance issues. Customers were bringing in high volume and high frequency data which demanded a revamp of the current architecture for data containers.',
@@ -1980,7 +2984,9 @@
                     { number: 2, title: 'Data Operations: Data Change Task', description: 'Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.' },
                     { number: 3, title: 'Connections & System Integration', description: 'Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.' }
                 ],
-                systemThinking: 'We had to consider the overall system and how the new connection object will interact with other objects in the catalog. By providing a system view, we communicated the behavior and interaction with other data catalog objects.',
+                systemThinking: 'By focusing on Object-Oriented UX (OOUX) principles, we shift the conversation away from individual screens and toward a shared understanding of core objects, their attributes, and their complex interdependencies. This approach is inherently superior because it establishes consistent patterns and logical relationships early in the process, preventing the "drift" that often occurs when designers focus on aesthetics while engineers focus on data structures. Ultimately, this systemic alignment reduces technical debt and ensures that the final product is as intuitive to navigate as it is robust to build.',
+                systemThinkingImage: '../data-integration-framework/assets/objectmodellingdiagram.png',
+                systemThinkingImageAlt: 'Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities',
                 systemThinkingQuote: 'Connections provides reusability and flexibility in configuration of various data sources.',
                 outcomes: [
                     { value: '#1', label: 'Strategic Project' },
@@ -1991,32 +2997,79 @@
                 prototypeUrl: null
             },
             'data-preparation': {
-                title: 'Data Transform Interactive Prep Editor',
-                subtitle: 'Reimagining data preparation for power users and beginners',
-                image: 'assets/placeholder.svg',
+                title: 'Transform Canvas: Visual Pipeline Editor',
+                subtitle: 'Reimagining data preparation through visual context and intuitive navigation',
+                image: '../data-prep-editor/assets/idpeditor.png',
                 imageAlt: 'Data Preparation Canvas',
                 hasFullContent: true,
                 contentType: 'data-prep',
+                // Hero metadata
+                heroMeta: {
+                    role: 'Lead Product Designer',
+                    timeline: 'January - April 2023',
+                    team: '2 Designers, 1 Researcher',
+                    platform: 'Workday Prism Analytics'
+                },
+                heroStats: [
+                    { value: '70%', label: 'Debugging time reduction' },
+                    { value: '12+', label: 'Research sessions conducted' },
+                    { value: '2', label: 'Research phases completed' },
+                    { value: '95%', label: 'Concept validation score' }
+                ],
                 context: {
                     whatIs: 'Data preparation and transformation is the critical process of cleaning, reshaping, and combining datasets before analysis. Users need to handle tasks like cleaning data, transforming formats, combining datasets, and applying business logic—all while maintaining data quality and traceability.',
                     whoUses: 'The tool serves both power users (data analysts, engineers) who need advanced transformation capabilities, and beginners (business analysts, citizen data scientists) who need intuitive interfaces. Each group has distinct needs: power users want flexibility and control, while beginners need guided workflows and clear feedback.',
                     whatWasBroken: 'The existing editor suffered from a linear, step-by-step interface that obscured the overall data flow. Users couldn\'t visualize their transformation pipeline, debug errors efficiently, or understand the impact of changes. This led to costly mistakes, extended development times, and frustrated users who often had to restart their work.'
                 },
+                // The Challenge - 6 problem cards
+                problemCards: [
+                    { icon: '🔗', title: 'Hidden Relationships', description: 'Users couldn\'t see how stages connected to each other, making it difficult to understand data flow and dependencies between transformations.' },
+                    { icon: '🧭', title: 'Navigation Confusion', description: 'The linear step-based interface made it hard to jump between stages, forcing users to click through multiple screens.' },
+                    { icon: '⚠️', title: 'Buried Errors', description: 'Errors were hidden within individual stages, requiring users to manually check each step to identify and troubleshoot issues.' },
+                    { icon: '📚', title: 'Steep Learning Curve', description: 'New users struggled to understand the pipeline concept without visual representation, leading to longer onboarding times.' },
+                    { icon: '🔍', title: 'Limited Lineage Context', description: 'Users couldn\'t easily trace where data came from or where it went, making impact analysis nearly impossible.' },
+                    { icon: '🚨', title: 'Production Escalations', description: 'Complex pipelines frequently caused production issues due to misunderstood dependencies, driving up support tickets.' }
+                ],
                 problemSpace: {
                     painPoints: [
-                        'Limited visibility into transformation stages made debugging time-consuming',
-                        'No real-time data preview meant users couldn\'t validate changes until execution',
-                        'Error messages were cryptic and didn\'t point to specific transformation nodes',
-                        'Complex transformations required switching between multiple screens',
-                        'No ability to reorder or reorganize transformation steps visually'
+                        'Hidden relationships between pipeline stages obscured data flow',
+                        'Navigation confusion from linear step-based interface',
+                        'Buried errors required manual checking of each step',
+                        'Steep learning curve without visual representation',
+                        'Limited lineage context for impact analysis',
+                        'Production escalations from misunderstood dependencies'
                     ],
                     userQuote: {
-                        text: 'I spend more time figuring out where my data went wrong than actually transforming it.',
-                        attribution: 'Senior Data Analyst'
+                        text: 'I changed a field name and broke three things downstream. I didn\'t even know those stages existed until the errors appeared.',
+                        attribution: 'Implementation Consultant'
                     },
-                    technicalConstraints: 'The redesign had to work within Workday\'s existing component library and maintain backward compatibility with saved transformations. Performance requirements demanded sub-second preview updates for datasets up to 100,000 rows.',
-                    competitorInsights: 'Competitor analysis revealed that leading tools use canvas-based visual interfaces with real-time previews. However, most sacrificed power-user features for simplicity. Our opportunity was to deliver both.'
+                    technicalConstraints: 'The redesign had to work within Workday\'s existing component library and maintain backward compatibility with saved transformations.',
+                    competitorInsights: 'Competitor analysis revealed that leading tools use canvas-based visual interfaces. Our opportunity was to deliver visual context while maintaining power-user features.'
                 },
+                // Research Process - Timeline
+                researchTimeline: [
+                    { date: 'January 2023', title: 'Project Kickoff', description: 'Aligned stakeholders on research objectives' },
+                    { date: 'February 2023', title: 'Phase 1: Discovery', description: 'Foundational user interviews' },
+                    { date: 'March 2023', title: 'Phase 2: Validation', description: 'Concept testing with prototypes' },
+                    { date: 'April 2023', title: 'Final Report', description: 'Synthesis and recommendations' }
+                ],
+                researchPhases: [
+                    { title: 'Phase 1: Foundational User Interviews', items: ['6 in-depth interviews with existing users', 'Workflow observation and task analysis', 'Pain point identification and prioritization', 'Mental model mapping for data preparation'] },
+                    { title: 'Phase 2: Concept Validation', items: ['6+ moderated testing sessions', 'Interactive prototype evaluation', 'Task-based scenario testing', 'Preference testing for visual approaches'] }
+                ],
+                // Key Insights - 4 insights with quotes
+                keyInsights: [
+                    { number: 1, title: 'Expertise Impacts Approach', description: 'Prism experts and Data Engineering experts approach pipeline creation differently. Prism experts think in terms of the UI flow, while DE experts think in terms of data transformations.', quote: 'I think about what data I need at the end and work backwards, but the tool makes me build forwards step by step.', attribution: 'Senior Data Engineer' },
+                    { number: 2, title: 'Visual Representations are Essential', description: 'Users consistently drew diagrams on whiteboards to understand their pipelines before returning to the tool. The mental model was inherently visual.', quote: 'I always sketch out my pipeline on paper first. I can\'t keep all the connections in my head when I\'m just looking at a list.', attribution: 'IT Analyst' },
+                    { number: 3, title: 'Small UI Issues Compound', description: 'Individual friction points like extra clicks, hidden menus, and lack of keyboard shortcuts accumulated into significant productivity losses over time.', quote: 'It\'s not one big thing that\'s broken—it\'s death by a thousand paper cuts. Each task takes just a few extra clicks, but it adds up.', attribution: 'Prism Analyst' },
+                    { number: 4, title: 'Context Must Stay Visible', description: 'When editing a specific stage, users lost visibility of the overall pipeline context, forcing constant mental effort to remember where they were.', quote: 'I changed a field name and broke three things downstream. I didn\'t even know those stages existed until the errors appeared.', attribution: 'Implementation Consultant' }
+                ],
+                // Target Users - 3 personas
+                personas: [
+                    { name: 'Nina', role: 'IT Analyst', isPrimary: true, background: '5+ years in IT analytics. Comfortable with business data but not a developer. Relies on visual tools.', goals: 'Create and maintain data pipelines independently without requiring engineering support.', painPoints: 'Gets lost in complex pipelines; struggles to debug errors without seeing full context.' },
+                    { name: 'Marcus', role: 'Data Engineering Expert', isPrimary: false, background: '8+ years in data engineering. Expert in SQL and ETL. Prefers code but uses visual tools for collaboration.', goals: 'Build efficient, scalable pipelines quickly. Needs keyboard shortcuts and advanced features.', painPoints: 'Tool feels slow compared to code-based approaches; lacks power user features.' },
+                    { name: 'Priya', role: 'Implementation Consultant', isPrimary: false, background: '3+ years implementing Workday. Configures systems for clients. Deep product knowledge.', goals: 'Configure complex pipelines for clients efficiently and train them on usage.', painPoints: 'Hard to explain pipeline structure to clients; demo scenarios are difficult to set up.' }
+                ],
                 designChallenge: {
                     coreTension: 'The core challenge was balancing power and simplicity—creating an interface sophisticated enough for data engineers to build complex pipelines, yet intuitive enough for business analysts to use without training.',
                     keyQuestions: [
@@ -2024,76 +3077,110 @@
                         'What level of abstraction provides the right balance of control and simplicity?',
                         'How do we provide meaningful error feedback at each transformation stage?'
                     ],
-                    visualComplexity: 'We adopted progressive disclosure principles: show the essential information by default, with details available on demand. The canvas provides overview; node selection reveals specifics.'
+                    visualComplexity: 'We adopted progressive disclosure principles: show the essential information by default, with details available on demand.'
                 },
                 redesignProcess: {
                     researchInsights: [
-                        'Users mental model aligned with a "recipe" metaphor—steps that transform ingredients',
-                        '80% of debugging time was spent locating the problematic transformation step',
-                        'Power users wanted keyboard shortcuts; beginners wanted drag-and-drop'
+                        'Expertise impacts approach—Prism experts vs DE experts think differently',
+                        'Visual representations are essential—users draw diagrams on whiteboards',
+                        'Small UI issues compound into significant productivity losses',
+                        'Context must stay visible when editing individual stages'
                     ],
                     designDecisions: [
-                        { decision: 'Canvas-based visual flow', rationale: 'Mirrors users\' mental model of data flowing through transformation stages, making complex pipelines scannable at a glance.' },
-                        { decision: 'Node-level error indicators', rationale: 'Reduces debugging time by immediately highlighting which transformation step contains issues.' },
-                        { decision: 'Real-time data preview panel', rationale: 'Enables users to validate transformations instantly, reducing the feedback loop from minutes to seconds.' }
+                        { decision: 'Holistic Pipeline View', rationale: 'Zoomable, pannable canvas that shows all stages and their relationships at a glance.' },
+                        { decision: 'Inline Stage Editing', rationale: 'Edit stage configurations directly on the canvas without losing context of the overall pipeline.' },
+                        { decision: 'Surfaced Errors', rationale: 'Errors visually highlighted on the canvas with clear indicators for immediate troubleshooting.' }
                     ]
                 },
+                // Solution - 6 feature cards
+                solutionFeatures: [
+                    { icon: '🗺️', title: 'Holistic Pipeline View', description: 'See the entire pipeline structure at once with zoomable, pannable canvas that shows all stages and relationships.' },
+                    { icon: '✏️', title: 'Inline Stage Editing', description: 'Edit stage configurations directly on the canvas without losing context of the overall pipeline structure.' },
+                    { icon: '🚦', title: 'Surfaced Errors', description: 'Errors are visually highlighted on the canvas with clear indicators, making troubleshooting immediate and intuitive.' },
+                    { icon: '🌿', title: 'Expand/Collapse Branches', description: 'Manage complexity by collapsing branches you\'re not working on, focusing attention on relevant stages.' },
+                    { icon: '⌨️', title: 'Keyboard Navigation', description: 'Full keyboard support for power users to navigate, select, and edit stages without touching the mouse.' },
+                    { icon: '⚡', title: 'Real-Time Updates', description: 'Changes to one stage immediately reflect across the canvas, showing downstream impacts instantly.' }
+                ],
                 solution: {
                     keyImprovements: [
-                        'Visual pipeline representation showing data flow through transformation nodes',
-                        'Click any node to see real-time preview of data at that stage',
-                        'Inline error indicators with actionable suggestions',
-                        'Drag-and-drop node reordering with automatic connection updates',
-                        'Collapsible node groups for managing complex transformations'
+                        'Holistic pipeline view with zoomable, pannable canvas',
+                        'Inline stage editing without losing context',
+                        'Surfaced errors with visual indicators',
+                        'Expand/collapse branches for managing complexity',
+                        'Full keyboard navigation for power users',
+                        'Real-time updates showing downstream impacts'
                     ],
-                    balancingApproach: 'We layered complexity: the canvas provides high-level visualization for everyone, while right-panel details serve power users. Keyboard shortcuts complement drag-and-drop. Expression builders offer both visual and code modes.'
+                    balancingApproach: 'We layered complexity: the canvas provides high-level visualization for everyone, while right-panel details serve power users. Keyboard shortcuts complement drag-and-drop.'
                 },
+                // Release Scope
+                releaseScope: [
+                    { feature: 'Visual Pipeline Canvas', description: 'Interactive diagram showing all stages and connections', status: 'included', release: '23R2' },
+                    { feature: 'Stage Status Indicators', description: 'Visual error and warning indicators on each stage', status: 'included', release: '23R2' },
+                    { feature: 'Click-to-Edit Stages', description: 'Open stage editor panel by clicking any stage', status: 'included', release: '23R2' },
+                    { feature: 'Zoom and Pan Controls', description: 'Navigate large pipelines with mouse and keyboard', status: 'included', release: '23R2' },
+                    { feature: 'Stage Grouping', description: 'Group related stages into collapsible containers', status: 'included', release: '23R2' },
+                    { feature: 'Keyboard Shortcuts', description: 'Navigate and edit using keyboard only', status: 'included', release: '23R2' },
+                    { feature: 'Mini-Map Navigation', description: 'Overview map for quick navigation', status: 'future', release: 'Future' },
+                    { feature: 'Collaborative Editing', description: 'Real-time multi-user editing capabilities', status: 'future', release: 'Future' },
+                    { feature: 'Version History', description: 'Visual diff and restore for pipeline versions', status: 'future', release: 'Future' },
+                    { feature: 'AI-Suggested Stages', description: 'Intelligent recommendations for transformations', status: 'future', release: 'Future' }
+                ],
                 interactionDetails: [
                     {
                         name: 'Node Selection & Preview',
-                        microInteractions: 'Clicking a node triggers a 200ms highlight animation while the preview panel updates. A subtle loading spinner appears only if data fetch exceeds 300ms.',
-                        statesAndTransitions: 'Nodes have four states: default, hover (cursor pointer + shadow), selected (teal border + elevated shadow), and error (red border + warning icon). Transitions use 150ms ease-out curves.',
-                        designThinking: 'Immediate visual feedback reduces perceived latency. The teal selection color connects to Workday\'s brand while providing sufficient contrast for accessibility.'
+                        microInteractions: 'Clicking a node triggers a 200ms highlight animation while the preview panel updates.',
+                        statesAndTransitions: 'Nodes have four states: default, hover, selected (teal border), and error (red border). Transitions use 150ms ease-out curves.',
+                        designThinking: 'Immediate visual feedback reduces perceived latency. The teal selection color connects to Workday\'s brand.'
                     },
                     {
                         name: 'Error Debugging Flow',
-                        microInteractions: 'Error nodes pulse gently (opacity 0.8-1.0) to draw attention without being disruptive. Clicking reveals an inline error panel with the specific issue and suggested fixes.',
-                        statesAndTransitions: 'Error state persists until the issue is resolved. The error panel includes a "Show affected data" button that highlights the specific rows causing issues.',
-                        designThinking: 'We moved from post-execution error logs to inline, contextual error display. This reduced the cognitive load of mapping error messages to transformation steps.'
+                        microInteractions: 'Error nodes pulse gently to draw attention without being disruptive. Clicking reveals inline error panel.',
+                        statesAndTransitions: 'Error state persists until resolved. The panel includes "Show affected data" to highlight problematic rows.',
+                        designThinking: 'Moved from post-execution logs to inline, contextual error display, reducing cognitive load.'
                     }
                 ],
                 impact: {
                     efficiency: [
-                        { metric: '5x faster debugging', description: 'Node-level error visibility eliminates search time' },
-                        { metric: '40% fewer errors', description: 'Real-time preview catches issues before execution' },
-                        { metric: '60% faster onboarding', description: 'Visual interface reduces training requirements' }
+                        { metric: '70%', description: 'Reduction in debugging time' },
+                        { metric: '+25', description: 'NPS score increase' },
+                        { metric: '40%', description: 'Fewer support tickets' },
+                        { metric: '3x', description: 'Self-serve pipeline creation' }
                     ],
                     userQuote: {
-                        text: 'I can finally see what my data pipeline is doing. The visual flow changed everything about how I work.',
-                        attribution: 'Business Analyst'
+                        text: 'The new canvas view completely changed how I work. I can finally see my whole pipeline and understand what\'s happening at each step. Debugging used to take hours—now it takes minutes.',
+                        attribution: 'Customer, IT Analyst at Fortune 500 company'
                     }
                 },
+                // Reflections - 4 learning cards
+                reflectionCards: [
+                    { icon: '🔬', title: 'Research Methodology Matters', content: 'Splitting research into discovery and validation phases allowed us to deeply understand problems before jumping to solutions.' },
+                    { icon: '👥', title: 'Persona-Driven Design', content: 'Having Nina as our primary persona kept the team aligned on who we were designing for. When debates arose, we asked "What would Nina need?"' },
+                    { icon: '👁️', title: 'Visual Context is Power', content: 'Users\' natural instinct to draw diagrams told us everything. When users create their own visualizations, the tool should provide that.' },
+                    { icon: '🎯', title: 'Phased Delivery Builds Trust', content: 'Delivering a focused 23R2 scope with clear future enhancements built stakeholder trust and enabled better capacity planning.' }
+                ],
                 reflection: {
                     keyLearnings: [
-                        'Visual representations dramatically reduce cognitive load for sequential processes',
-                        'Real-time feedback transforms user confidence and reduces costly errors',
-                        'Progressive disclosure successfully serves both novice and expert users'
+                        'Research methodology matters—discovery and validation phases reveal deeper insights',
+                        'Persona-driven design keeps teams aligned on user needs',
+                        'Visual context is power—when users draw diagrams, the tool should provide them',
+                        'Phased delivery builds trust with stakeholders'
                     ],
-                    technicalConstraintLessons: 'Working within the existing component library forced creative solutions that actually improved consistency. Constraints drove innovation rather than limiting it.',
-                    nextIterations: 'Future iterations would add collaborative editing, version history visualization, and AI-powered transformation suggestions based on data patterns.'
+                    technicalConstraintLessons: 'Working within the existing component library forced creative solutions that actually improved consistency.',
+                    nextIterations: 'Future iterations will add collaborative editing, version history, and AI-powered suggestions.'
                 },
                 outcomes: [
-                    { value: '5x', label: 'Faster debugging' },
-                    { value: '40%', label: 'Fewer errors' },
-                    { value: '85%', label: 'User satisfaction' }
+                    { value: '70%', label: 'Debugging reduction' },
+                    { value: '+25', label: 'NPS increase' },
+                    { value: '40%', label: 'Fewer tickets' },
+                    { value: '3x', label: 'Self-serve' }
                 ],
-                outcomeDescription: 'The redesigned Interactive Data Prep editor transformed how users approach data transformation—from a frustrating, error-prone process to an intuitive, visual experience that builds confidence and reduces time-to-insight.',
+                outcomeDescription: 'The Transform Canvas delivered measurable improvements across key metrics, validated through post-launch research and production monitoring.',
                 prototypeUrl: null
             },
             'data-management': {
                 title: 'Data Management',
                 subtitle: 'The Organization',
-                image: 'assets/placeholder.svg',
+                image: '../data-management/assets/cataloghome.png',
                 imageAlt: 'Data Management Lineage',
                 challenge: 'Enterprise customers needed to understand data lineage at the field level and manage data governance across thousands of datasets. Manual tagging was time-consuming and error-prone.',
                 solution: 'Built interactive lineage visualization with ML-powered auto-tagging, workspace organization, and granular security controls. Users can now trace any field back to its source instantly.',
@@ -2107,7 +3194,7 @@
             'unified-monitoring': {
                 title: 'Unified Monitoring',
                 subtitle: 'The Control Center',
-                image: 'assets/placeholder.svg',
+                image: '../unified-monitoring/assets/prismmanagementconsole.png',
                 imageAlt: 'Unified Monitoring Dashboard',
                 challenge: 'Data teams had no unified view of job health across integrations, preparations, and schedules. Debugging required switching between multiple screens, wasting valuable time.',
                 solution: 'Created a "single pane of glass" dashboard with real-time status, drill-down debugging, and one-click actions to retry or pause jobs. Proactive alerts notify teams before issues escalate.',
@@ -2133,6 +3220,9 @@
             // Update panel header
             document.getElementById('sidePanelTitle').textContent = content.title;
             document.getElementById('sidePanelSubtitle').textContent = content.subtitle;
+
+            // Update navigation elements (breadcrumb, dropdown, prev/next)
+            updatePillarNavigation(pillarId);
 
             // Render panel content
             const panelContent = document.getElementById('sidePanelContent');
@@ -2179,6 +3269,86 @@
 
             // Restore body scroll
             document.body.style.overflow = '';
+        }
+
+        // Switch pillar via dropdown
+        function switchPillar(pillarId) {
+            if (pillarId && pillarId !== activePillarId) {
+                openSidePanel(pillarId);
+                // Scroll panel content to top
+                document.getElementById('sidePanelContent').scrollTop = 0;
+            }
+        }
+
+        // Navigate to prev/next pillar
+        function navigatePillar(direction) {
+            const currentIndex = pillarOrder.indexOf(activePillarId);
+            let newIndex;
+            
+            if (direction === 'prev') {
+                newIndex = currentIndex - 1;
+            } else {
+                newIndex = currentIndex + 1;
+            }
+            
+            if (newIndex >= 0 && newIndex < pillarOrder.length) {
+                openSidePanel(pillarOrder[newIndex]);
+                // Scroll panel content to top
+                document.getElementById('sidePanelContent').scrollTop = 0;
+            }
+        }
+
+        // Update navigation state (dropdown selection)
+        function updatePillarNavigation(pillarId) {
+            // Update dropdown
+            document.getElementById('pillarDropdown').value = pillarId;
+        }
+
+        // Generate footer navigation HTML
+        function generateFooterNavigation(pillarId) {
+            const currentIndex = pillarOrder.indexOf(pillarId);
+            
+            let prevHtml = '';
+            let nextHtml = '';
+            
+            // Previous button
+            if (currentIndex > 0) {
+                const prevPillar = pillarContent[pillarOrder[currentIndex - 1]];
+                prevHtml = `
+                    <button class="side-panel__nav-btn side-panel__nav-btn--prev" onclick="navigatePillar('prev')">
+                        <span>←</span>
+                        <div>
+                            <div class="side-panel__nav-label">Previous</div>
+                            <div class="side-panel__nav-title">${prevPillar.title}</div>
+                        </div>
+                    </button>
+                `;
+            } else {
+                prevHtml = '<div></div>'; // Empty placeholder for spacing
+            }
+            
+            // Next button
+            if (currentIndex < pillarOrder.length - 1) {
+                const nextPillar = pillarContent[pillarOrder[currentIndex + 1]];
+                nextHtml = `
+                    <button class="side-panel__nav-btn side-panel__nav-btn--next" onclick="navigatePillar('next')">
+                        <div>
+                            <div class="side-panel__nav-label">Next</div>
+                            <div class="side-panel__nav-title">${nextPillar.title}</div>
+                        </div>
+                        <span>→</span>
+                    </button>
+                `;
+            } else {
+                nextHtml = '<div></div>'; // Empty placeholder for spacing
+            }
+            
+            return `
+                <div class="side-panel__footer-nav">
+                    ${prevHtml}
+                    ${nextHtml}
+                </div>
+            `;
         }
 
         // Render panel content HTML with TOC
@@ -2252,6 +3422,9 @@
                     </section>
                 
                 ${prototypeHtml}
+                
+                    <!-- Footer Navigation -->
+                    ${generateFooterNavigation(pillarId)}
                 </div>
             `;
         }
@@ -2322,6 +3495,9 @@
                 
                 <!-- Side Panel Main Content -->
                 <div class="side-panel__main">
+                    <!-- Hero Image -->
+                    <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                    
                     <section id="${pillarId}-background" class="side-panel__section">
                         <h2 class="side-panel__section-title">Background</h2>
                         <p>${content.background}</p>
@@ -2360,8 +3536,14 @@
                             ${designAreasHtml}
                         </div>
                         
-                        <h3 class="side-panel__subsection-title">System Thinking: Object Modelling</h3>
+                        <h3 class="side-panel__section-title--sub">System Thinking: Object Modelling</h3>
                         <p>${content.systemThinking}</p>
+                        ${content.systemThinkingImage ? `
+                            <div class="side-panel__image-container">
+                                <img src="${content.systemThinkingImage}" alt="${content.systemThinkingImageAlt || 'Object Modeling Diagram'}" class="side-panel__section-image">
+                                <p class="side-panel__image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
+                            </div>
+                        ` : ''}
                         <blockquote class="side-panel__quote">${content.systemThinkingQuote}</blockquote>
                     </section>
                     
@@ -2376,72 +3558,125 @@
                             </div>
                         </div>
                     </section>
+                    
+                    <!-- Footer Navigation -->
+                    ${generateFooterNavigation(pillarId)}
                 </div>
             `;
         }
 
         // Render Data Prep case study content
         function renderDataPrepCaseStudy(content, pillarId) {
-            // Pain points list
-            let painPointsHtml = content.problemSpace.painPoints.map(point => `
-                <li>${point}</li>
-            `).join('');
-            
-            // Key questions list
-            let questionsHtml = content.designChallenge.keyQuestions.map(q => `
-                <li>${q}</li>
-            `).join('');
-            
-            // Research insights list
-            let insightsHtml = content.redesignProcess.researchInsights.map(i => `
-                <li>${i}</li>
-            `).join('');
-            
-            // Design decisions
-            let decisionsHtml = content.redesignProcess.designDecisions.map(d => `
-                <div class="side-panel__decision-card">
-                    <div class="side-panel__decision-title">${d.decision}</div>
-                    <p>${d.rationale}</p>
+            // Hero stats
+            let heroStatsHtml = content.heroStats.map(stat => `
+                <div class="side-panel__hero-stat">
+                    <span class="side-panel__hero-stat-value">${stat.value}</span>
+                    <span class="side-panel__hero-stat-label">${stat.label}</span>
                 </div>
             `).join('');
-            
-            // Key improvements list
-            let improvementsHtml = content.solution.keyImprovements.map(i => `
-                <li>${i}</li>
+
+            // Problem cards (6 cards)
+            let problemCardsHtml = content.problemCards.map(card => `
+                <div class="side-panel__problem-card">
+                    <div class="side-panel__problem-icon">${card.icon}</div>
+                    <h4 class="side-panel__problem-title">${card.title}</h4>
+                    <p class="side-panel__problem-desc">${card.description}</p>
+                </div>
             `).join('');
-            
-            // Interaction details
-            let interactionsHtml = content.interactionDetails.map((interaction, index) => `
-                <div class="side-panel__interaction-card">
-                    <h4>Interaction ${index + 1}: ${interaction.name}</h4>
-                    <div class="side-panel__interaction-detail">
-                        <strong>Micro-interactions:</strong>
-                        <p>${interaction.microInteractions}</p>
-                    </div>
-                    <div class="side-panel__interaction-detail">
-                        <strong>States & Transitions:</strong>
-                        <p>${interaction.statesAndTransitions}</p>
-                    </div>
-                    <div class="side-panel__interaction-detail">
-                        <strong>Design Thinking:</strong>
-                        <p>${interaction.designThinking}</p>
+
+            // Research timeline
+            let timelineHtml = content.researchTimeline.map(phase => `
+                <div class="side-panel__timeline-phase">
+                    <div class="side-panel__timeline-marker"></div>
+                    <div class="side-panel__timeline-date">${phase.date}</div>
+                    <div class="side-panel__timeline-title">${phase.title}</div>
+                    <div class="side-panel__timeline-desc">${phase.description}</div>
+                </div>
+            `).join('');
+
+            // Research phases detail
+            let phasesHtml = content.researchPhases.map(phase => `
+                <div class="side-panel__phase-card">
+                    <h4>${phase.title}</h4>
+                    <ul>${phase.items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>
+            `).join('');
+
+            // Key insights (4 insights with quotes)
+            let insightsHtml = content.keyInsights.map(insight => `
+                <div class="side-panel__insight-card">
+                    <div class="side-panel__insight-number">${insight.number}</div>
+                    <div class="side-panel__insight-content">
+                        <h4>${insight.title}</h4>
+                        <p>${insight.description}</p>
+                        <blockquote class="side-panel__insight-quote">
+                            "${insight.quote}"
+                            <cite>— ${insight.attribution}</cite>
+                        </blockquote>
                     </div>
                 </div>
             `).join('');
-            
-            // Impact metrics
-            let impactMetricsHtml = content.impact.efficiency.map(e => `
-                <div class="side-panel__impact-metric">
-                    <div class="side-panel__impact-value">${e.metric}</div>
-                    <p>${e.description}</p>
+
+            // Personas (3 personas)
+            let personasHtml = content.personas.map(persona => `
+                <div class="side-panel__persona-card ${persona.isPrimary ? 'side-panel__persona-card--primary' : ''}">
+                    <div class="side-panel__persona-header">
+                        <div class="side-panel__persona-name">${persona.name}</div>
+                        <div class="side-panel__persona-role">${persona.role}</div>
+                        ${persona.isPrimary ? '<span class="side-panel__persona-badge">Primary</span>' : ''}
+                    </div>
+                    <div class="side-panel__persona-body">
+                        <div class="side-panel__persona-section">
+                            <div class="side-panel__persona-label">Background</div>
+                            <p>${persona.background}</p>
+                        </div>
+                        <div class="side-panel__persona-section">
+                            <div class="side-panel__persona-label">Goals</div>
+                            <p>${persona.goals}</p>
+                        </div>
+                        <div class="side-panel__persona-section">
+                            <div class="side-panel__persona-label">Pain Points</div>
+                            <p>${persona.painPoints}</p>
+                        </div>
+                    </div>
                 </div>
             `).join('');
-            
-            // Key learnings
-            let learningsHtml = content.reflection.keyLearnings.map(l => `
-                <li>${l}</li>
+
+            // Solution features (6 features)
+            let featuresHtml = content.solutionFeatures.map(feature => `
+                <div class="side-panel__feature-card">
+                    <div class="side-panel__feature-icon">${feature.icon}</div>
+                    <h4 class="side-panel__feature-title">${feature.title}</h4>
+                    <p class="side-panel__feature-desc">${feature.description}</p>
+                </div>
             `).join('');
-            
+
+            // Release scope table
+            let scopeRowsHtml = content.releaseScope.map(item => `
+                <tr>
+                    <td><strong>${item.feature}</strong></td>
+                    <td>${item.description}</td>
+                    <td><span class="side-panel__scope-badge side-panel__scope-badge--${item.status}">${item.status === 'included' ? '✓ ' + item.release : '◇ ' + item.release}</span></td>
+                </tr>
+            `).join('');
+
+            // Impact metrics (4 metrics)
+            let impactMetricsHtml = content.impact.efficiency.map((e, i) => `
+                <div class="side-panel__impact-card ${i % 2 === 1 ? 'side-panel__impact-card--alt' : ''}">
+                    <span class="side-panel__impact-value">${e.metric}</span>
+                    <span class="side-panel__impact-label">${e.description}</span>
+                </div>
+            `).join('');
+
+            // Reflection cards (4 cards)
+            let reflectionCardsHtml = content.reflectionCards.map(card => `
+                <div class="side-panel__reflection-card">
+                    <div class="side-panel__reflection-icon">${card.icon}</div>
+                    <h4 class="side-panel__reflection-title">${card.title}</h4>
+                    <p class="side-panel__reflection-content">${card.content}</p>
+                </div>
+            `).join('');
+
             // Outcomes metrics
             let outcomesHtml = content.outcomes.map(o => `
                 <div class="side-panel__metric">
@@ -2450,16 +3685,17 @@
                 </div>
             `).join('');
             
-            // Define sections for TOC
+            // Define sections for TOC (updated to match new structure)
             const sections = [
-                { id: `${pillarId}-context`, title: 'Context' },
-                { id: `${pillarId}-problem`, title: 'Problem Space' },
-                { id: `${pillarId}-challenge`, title: 'Design Challenge' },
-                { id: `${pillarId}-process`, title: 'Redesign Process' },
-                { id: `${pillarId}-solution`, title: 'Solution' },
-                { id: `${pillarId}-interactions`, title: 'Interaction Details' },
-                { id: `${pillarId}-impact`, title: 'Impact' },
-                { id: `${pillarId}-reflection`, title: 'Reflection' }
+                { id: `${pillarId}-hero`, title: 'Overview' },
+                { id: `${pillarId}-challenge`, title: 'The Challenge' },
+                { id: `${pillarId}-research`, title: 'Research Process' },
+                { id: `${pillarId}-insights`, title: 'Key Insights' },
+                { id: `${pillarId}-users`, title: 'Target Users' },
+                { id: `${pillarId}-solution`, title: 'The Solution' },
+                { id: `${pillarId}-scope`, title: 'Release Scope' },
+                { id: `${pillarId}-impact`, title: 'Results & Impact' },
+                { id: `${pillarId}-reflections`, title: 'Reflections' }
             ];
             
             // Generate TOC HTML
@@ -2480,106 +3716,125 @@
                 
                 <!-- Side Panel Main Content -->
                 <div class="side-panel__main">
-                    <section id="${pillarId}-context" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Context</h2>
-                        
-                        <h3 class="side-panel__subsection-title">What is data preparation/transformation?</h3>
-                        <p>${content.context.whatIs}</p>
-                        
-                        <h3 class="side-panel__subsection-title">Who uses this tool?</h3>
-                        <p>${content.context.whoUses}</p>
-                        
-                        <h3 class="side-panel__subsection-title">What was broken about the old editor?</h3>
-                        <p>${content.context.whatWasBroken}</p>
+                    <!-- 1. Hero Section -->
+                    <section id="${pillarId}-hero" class="side-panel__section">
+                        <div class="side-panel__hero-meta">
+                            <div class="side-panel__hero-meta-item">
+                                <span class="side-panel__hero-meta-label">Role</span>
+                                <span class="side-panel__hero-meta-value">${content.heroMeta.role}</span>
+                            </div>
+                            <div class="side-panel__hero-meta-item">
+                                <span class="side-panel__hero-meta-label">Timeline</span>
+                                <span class="side-panel__hero-meta-value">${content.heroMeta.timeline}</span>
+                            </div>
+                            <div class="side-panel__hero-meta-item">
+                                <span class="side-panel__hero-meta-label">Team</span>
+                                <span class="side-panel__hero-meta-value">${content.heroMeta.team}</span>
+                            </div>
+                            <div class="side-panel__hero-meta-item">
+                                <span class="side-panel__hero-meta-label">Platform</span>
+                                <span class="side-panel__hero-meta-value">${content.heroMeta.platform}</span>
+                            </div>
+                        </div>
+                        <div class="side-panel__hero-stats-grid">
+                            ${heroStatsHtml}
+                        </div>
                     </section>
                     
                     <div class="side-panel__divider"></div>
                     
-                    <section id="${pillarId}-problem" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Problem Space</h2>
-                        
-                        <h3 class="side-panel__subsection-title">User Pain Points</h3>
-                        <ul class="side-panel__list">
-                            ${painPointsHtml}
-                        </ul>
-                        
-                        <blockquote class="side-panel__quote">
-                            "${content.problemSpace.userQuote.text}"
-                            <cite>— ${content.problemSpace.userQuote.attribution}</cite>
-                        </blockquote>
-                        
-                        <h3 class="side-panel__subsection-title">Technical Constraints</h3>
-                        <p>${content.problemSpace.technicalConstraints}</p>
-                        
-                        <h3 class="side-panel__subsection-title">Competitor Insights</h3>
-                        <p>${content.problemSpace.competitorInsights}</p>
-                    </section>
-                    
-                    <div class="side-panel__divider"></div>
-                    
+                    <!-- 2. The Challenge -->
                     <section id="${pillarId}-challenge" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Design Challenge</h2>
-                        
-                        <h3 class="side-panel__subsection-title">How to Balance Power and Simplicity?</h3>
-                        <p>${content.designChallenge.coreTension}</p>
-                        
-                        <h3 class="side-panel__subsection-title">Key Questions</h3>
-                        <ul class="side-panel__list">
-                            ${questionsHtml}
-                        </ul>
-                        
-                        <h3 class="side-panel__subsection-title">Visual Complexity vs. Clarity</h3>
-                        <p>${content.designChallenge.visualComplexity}</p>
+                        <h2 class="side-panel__section-title">The Challenge</h2>
+                        <p class="side-panel__section-intro">The existing data preparation editor presented users with a fragmented, step-based interface that obscured the relationships between transformation stages.</p>
+                        <div class="side-panel__problem-cards-grid">
+                            ${problemCardsHtml}
+                        </div>
                     </section>
                     
                     <div class="side-panel__divider"></div>
                     
-                    <section id="${pillarId}-process" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Redesign Process</h2>
-                        
-                        <h3 class="side-panel__subsection-title">Research Insights</h3>
-                        <ul class="side-panel__list">
+                    <!-- 3. Research Process -->
+                    <section id="${pillarId}-research" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Research Process</h2>
+                        <p class="side-panel__section-intro">We conducted a comprehensive two-phase research study from January to April 2023.</p>
+                        <div class="side-panel__timeline">
+                            <div class="side-panel__timeline-track"></div>
+                            <div class="side-panel__timeline-phases">
+                                ${timelineHtml}
+                            </div>
+                        </div>
+                        <div class="side-panel__phases-grid">
+                            ${phasesHtml}
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <!-- 4. Key Insights -->
+                    <section id="${pillarId}-insights" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Key Insights</h2>
+                        <p class="side-panel__section-intro">Our research revealed four critical insights that shaped the design direction.</p>
+                        <div class="side-panel__insights-list">
                             ${insightsHtml}
-                        </ul>
-                        
-                        <h3 class="side-panel__subsection-title">Key Design Decisions</h3>
-                        <div class="side-panel__decisions-grid">
-                            ${decisionsHtml}
                         </div>
                     </section>
                     
                     <div class="side-panel__divider"></div>
                     
+                    <!-- 5. Target Users -->
+                    <section id="${pillarId}-users" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Target Users</h2>
+                        <p class="side-panel__section-intro">We identified three distinct user personas with different needs and workflows.</p>
+                        <div class="side-panel__personas-grid">
+                            ${personasHtml}
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <!-- 6. The Solution -->
                     <section id="${pillarId}-solution" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Solution: The New Editor</h2>
+                        <h2 class="side-panel__section-title">The Solution</h2>
+                        <p class="side-panel__section-intro">Transform Canvas provides a visual, interactive representation of the entire data pipeline.</p>
                         
-                        <h3 class="side-panel__subsection-title">Key Improvements</h3>
-                        <ul class="side-panel__list side-panel__list--checkmarks">
-                            ${improvementsHtml}
-                        </ul>
-                        
-                        <h3 class="side-panel__subsection-title">Balancing Power and Simplicity</h3>
-                        <p>${content.solution.balancingApproach}</p>
-                    </section>
-                    
-                    <div class="side-panel__divider"></div>
-                    
-                    <section id="${pillarId}-interactions" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Interaction Design Details</h2>
-                        <div class="side-panel__interactions">
-                            ${interactionsHtml}
+                        <h3 class="side-panel__section-title--sub">Key Features</h3>
+                        <div class="side-panel__features-grid">
+                            ${featuresHtml}
                         </div>
                     </section>
                     
                     <div class="side-panel__divider"></div>
                     
+                    <!-- 7. Release Scope -->
+                    <section id="${pillarId}-scope" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Release Scope</h2>
+                        <p class="side-panel__section-intro">The Transform Canvas was delivered as part of the 23R2 release cycle.</p>
+                        <div class="side-panel__scope-table-container">
+                            <table class="side-panel__scope-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${scopeRowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    
+                    <div class="side-panel__divider"></div>
+                    
+                    <!-- 8. Results & Impact -->
                     <section id="${pillarId}-impact" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Impact</h2>
-                        
-                        <div class="side-panel__impact-grid">
+                        <h2 class="side-panel__section-title">Results & Impact</h2>
+                        <p class="side-panel__section-intro">The Transform Canvas delivered measurable improvements across key metrics.</p>
+                        <div class="side-panel__impact-cards-grid">
                             ${impactMetricsHtml}
                         </div>
-                        
                         <blockquote class="side-panel__quote side-panel__quote--highlight">
                             "${content.impact.userQuote.text}"
                             <cite>— ${content.impact.userQuote.attribution}</cite>
@@ -2588,19 +3843,13 @@
                     
                     <div class="side-panel__divider"></div>
                     
-                    <section id="${pillarId}-reflection" class="side-panel__section">
-                        <h2 class="side-panel__section-title">Reflection</h2>
-                        
-                        <h3 class="side-panel__subsection-title">Key Learnings</h3>
-                        <ul class="side-panel__list">
-                            ${learningsHtml}
-                        </ul>
-                        
-                        <h3 class="side-panel__subsection-title">Working Within Constraints</h3>
-                        <p>${content.reflection.technicalConstraintLessons}</p>
-                        
-                        <h3 class="side-panel__subsection-title">What I'd Iterate Next</h3>
-                        <p>${content.reflection.nextIterations}</p>
+                    <!-- 9. Reflections -->
+                    <section id="${pillarId}-reflections" class="side-panel__section">
+                        <h2 class="side-panel__section-title">Reflections</h2>
+                        <p class="side-panel__section-intro">Key principles and learnings from this project.</p>
+                        <div class="side-panel__reflections-grid">
+                            ${reflectionCardsHtml}
+                        </div>
                     </section>
                     
                     <div class="side-panel__divider"></div>
@@ -2614,6 +3863,9 @@
                             </div>
                         </div>
                     </section>
+                    
+                    <!-- Footer Navigation -->
+                    ${generateFooterNavigation(pillarId)}
                 </div>
             `;
         }

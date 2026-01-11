@@ -221,6 +221,7 @@
             height: 100px;
             border-radius: 50%;
             object-fit: cover;
+            object-position: center 20%;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             border: 3px solid white;
         }
@@ -321,13 +322,18 @@
         .at-a-glance-section {
             background: var(--background-light);
             padding: 40px 2rem;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .highlights-grid {
-            display: grid;
+            display: grid !important;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
 
         .highlight-card {
@@ -336,25 +342,14 @@
             padding: 1.75rem;
             border: 1px solid var(--border-light);
             box-shadow: 0 4px 20px var(--shadow-md);
-            transition: all 0.3s ease, opacity 0.6s ease, transform 0.6s ease;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            /* Animation initial state */
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .highlight-card.visible {
+            /* Ensure visibility */
+            display: block;
+            visibility: visible;
             opacity: 1;
-            transform: translateY(0);
         }
-
-        /* Staggered animation delays */
-        .highlight-card:nth-child(1) { transition-delay: 0s; }
-        .highlight-card:nth-child(2) { transition-delay: 0.1s; }
-        .highlight-card:nth-child(3) { transition-delay: 0.2s; }
-        .highlight-card:nth-child(4) { transition-delay: 0.3s; }
-        .highlight-card:nth-child(5) { transition-delay: 0.4s; }
 
         .highlight-card::before {
             content: '';
@@ -386,6 +381,9 @@
             color: white;
         }
 
+        .highlight-icon.experience {
+            background-color: var(--accent-teal);
+        }
 
         .highlight-stat {
             font-size: 1.5rem;
@@ -1572,7 +1570,7 @@
             <p class="greeting">Hello, I'm</p>
             <h1>Shanthi Acharya</h1>
             <p class="subtitle">Product Design Leader</p>
-            <p>Product Design Leader designing enterprise platforms and AI-powered tools for complex, data-driven workflows</p>
+            <p>Building Enterprise Platforms and AI-powered tools that transform complex, data-driven workflows into intuitive experiences</p>
             <div class="profile-image">
                 <img src="images/profile-photo.jpg" alt="Shanthi Acharya">
             </div>
@@ -1604,14 +1602,25 @@
             <div class="highlights-grid">
                 <div class="highlight-card">
                     <div class="highlight-icon experience">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
                             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                         </svg>
                     </div>
-                    <div class="highlight-stat">15+</div>
+                    <div class="highlight-stat">20</div>
                     <div class="highlight-label">Years of Enterprise Experience</div>
                     <p class="highlight-description">Designing complex B2B platforms for data analytics, IoT, and enterprise workflows</p>
+                </div>
+
+                <div class="highlight-card">
+                    <div class="highlight-icon products">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L4.5 6.5v11L12 22l7.5-4.5v-11L12 2zm0 2.311l5.5 3.3v7.778L12 18.689l-5.5-3.3V8.611L12 4.311zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="highlight-stat">30+</div>
+                    <div class="highlight-label">Products Shipped</div>
+                    <p class="highlight-description">10+ built from 0→1. Multi-release cross-functional partner.</p>
                 </div>
 
                 <div class="highlight-card">
@@ -1642,20 +1651,9 @@
                             <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
                         </svg>
                     </div>
-                    <div class="highlight-stat">Speaker</div>
-                    <div class="highlight-label">Conference Presenter</div>
-                    <p class="highlight-description">'Double Diamond in the Age of AI' at Workday RAD AI Summit 2025 & Orbit Xplore for emerging designers</p>
-                </div>
-
-                <div class="highlight-card">
-                    <div class="highlight-icon writing">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                        </svg>
-                    </div>
-                    <div class="highlight-stat">Writer</div>
-                    <div class="highlight-label">Medium Author</div>
-                    <p class="highlight-description">Publishing articles on UX design, data visualization, and AI in the design process</p>
+                    <div class="highlight-stat">Thought Leader</div>
+                    <div class="highlight-label">Conference Presenter & Author</div>
+                    <p class="highlight-description">'Double Diamond in the Age of AI' at Workday AI Summit 2025. Author on Medium covering UX design, data visualization, and AI.</p>
                 </div>
             </div>
 
@@ -1698,13 +1696,13 @@
                         </svg>
                         early stage startup
                     </span>
-                    <h3>Unified Data Platform - Supaflow</h3>
+                    <h3>Unified Data Movement Platform</h3>
                     <p class="hero-subtitle">Ingestion, transformation, activation, and orchestration - all in one place</p>
-                    <p>Led the complete UX vision and strategy for Supaflow, a unified data movement platform that handles ingestion, transformation (dbt Core™), activation, and orchestration—all in one solution.</p>
+                    <p>Led the complete UX vision and strategy for Supaflow, a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
                     <span class="hero-cta">View case study →</span>
                 </div>
                 <div class="hero-project-right">
-                    <img src="case-studies/analytics-data-platform/assets/demo.png" alt="Unified Data Platform - Supaflow">
+                    <img src="case-studies/analytics-data-platform/assets/demo.png" alt="Unified Data Movement Platform">
                 </div>
             </a>
 
@@ -1729,8 +1727,8 @@
                 </div>
                 <div class="alternating-project-right">
                     <span class="hero-company-tag">WORKDAY</span>
-                    <h3>AI-Augmented Design System: Rapid Prototyping Infrastructure for Data Preparation Workflows</h3>
-                    <p class="hero-subtitle">Production-ready React components with intelligent state management for complex analytics scenarios</p>
+                    <h3>AI-Augmented Design System</h3>
+                    <p class="hero-subtitle">Rapid Prototyping Infrastructure for Analytics Scenarios</p>
                     <p>Developed a comprehensive design system featuring AI-enhanced prototyping capabilities, enabling rapid iteration on data preparation interfaces with intelligent state management and production-ready React components.</p>
                     <span class="hero-cta">View case study →</span>
                 </div>
@@ -1739,6 +1737,22 @@
             <!-- More Projects Section -->
             <h3 class="more-projects-title">More Projects</h3>
             <div class="projects-grid">
+                <a href="case-studies/gartner-magic-quadrant/" class="project-card clickable" data-tags="Sales Enablement Demo Design Enterprise Workday">
+                    <div class="project-header">
+                        <img src="case-studies/gartner-magic-quadrant/assets/gartner-mq-2025.png" alt="2025 Gartner Magic Quadrant for Cloud ERP" class="project-header-image">
+                        <span class="project-type-tag">WORKDAY</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">2025 Gartner® Magic Quadrant™ Demo Vignettes</h4>
+                        <p>Led design effort for demo vignettes that contributed to Workday Financials achieving #1 rating in Gartner's 2025 Magic Quadrant for Cloud ERP—the top artifact in sales cycles.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">Sales Enablement</span>
+                            <span class="tag">Demo Design</span>
+                            <span class="tag">#1 Leader</span>
+                        </div>
+                    </div>
+                </a>
+
                 <a href="case-studies/subscription-management/" class="project-card clickable" data-tags="Information Architecture JTBD Research UX Strategy Enterprise Software">
                     <div class="project-header">
                         <img src="case-studies/subscription-management/assets/subscription-management.jpg" alt="Subscription Management" class="project-header-image">
@@ -2021,24 +2035,6 @@
             });
         });
 
-        // Intersection Observer for scroll-triggered animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const highlightObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all highlight cards
-        document.querySelectorAll('.highlight-card').forEach(card => {
-            highlightObserver.observe(card);
-        });
 
         // Project filtering by tags
         const selectedTags = new Set();

@@ -287,6 +287,15 @@
             font-weight: 400;
         }
 
+        .hero-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
+        }
+
         .case-study-body {
             background: var(--background-white);
             padding: 3rem;
@@ -416,22 +425,49 @@
         }
 
         .goal-card {
-            background: var(--background-light);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-teal);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .goal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .goal-card h4 {
             color: var(--primary-blue);
             margin-top: 0;
             margin-bottom: 0.75rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
         }
 
         .goal-card p {
             margin-bottom: 0;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.65;
         }
 
         /* Design Areas */
@@ -442,12 +478,18 @@
         }
 
         .design-area-card {
-            background: var(--background-white);
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
             border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px var(--shadow-md);
+            padding: 1.75rem 1.5rem 1.5rem;
+            box-shadow: 0 4px 16px var(--shadow-sm);
             border: 1px solid var(--border-light);
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         .design-area-card::before {
@@ -457,36 +499,42 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue) 100%);
-            border-radius: 16px 16px 0 0;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .design-area-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
         .design-area-card__number {
-            display: inline-block;
-            background: var(--accent-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent-teal), var(--primary-blue));
             color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 32px;
-            font-weight: 700;
-            font-size: 1rem;
-            margin-right: 1rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0, 107, 117, 0.25);
         }
 
         .design-area-card__title {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--primary-blue);
-            display: inline;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.75rem;
         }
 
         .design-area-card__description {
-            margin-top: 1rem;
+            margin-top: 0;
             color: var(--text-medium);
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 0.9rem;
+            line-height: 1.65;
         }
 
         /* Approach Steps */
@@ -524,14 +572,34 @@
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
             color: white;
             border-radius: 16px;
-            padding: 2rem;
+            padding: 1.75rem 1.5rem 1.5rem;
             margin: 2rem 0;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
         }
 
         .role-card h4 {
             color: white;
             margin-top: 0;
             margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         .role-card ul {
@@ -549,9 +617,28 @@
             background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 100%);
             color: white;
             border-radius: 16px;
-            padding: 2.5rem;
+            padding: 2rem;
             margin: 2rem 0;
             text-align: center;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .outcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, var(--primary-blue) 100%);
+        }
+
+        .outcome-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
         }
 
         .outcome-card h3 {
@@ -559,6 +646,7 @@
             margin-top: 0;
             margin-bottom: 1rem;
             font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .outcome-card p {
@@ -566,6 +654,94 @@
             font-size: 1.15rem;
             line-height: 1.8;
             margin-bottom: 0;
+        }
+
+        /* Pillar Navigation */
+        .pillar-nav {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .pillar-nav__label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+        }
+
+        .pillar-nav__links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pillar-nav__current {
+            font-weight: 600;
+            color: var(--accent-teal);
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 199, 177, 0.1);
+            border-radius: 6px;
+        }
+
+        .pillar-nav__link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+        }
+
+        .pillar-nav__link:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .pillar-nav__home {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pillar-nav__home:hover {
+            color: var(--primary-blue);
+        }
+
+        @media (max-width: 768px) {
+            .pillar-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .pillar-nav__links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .pillar-nav__home {
+                width: 100%;
+                padding-top: 1rem;
+                border-top: 1px solid var(--border-light);
+            }
         }
 
         /* Footer */
@@ -672,10 +848,10 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="../../index.html" class="logo">Shanthi Acharya</a>
-            <a href="../../index.html" class="back-btn">
-                ← Back to Portfolio
+            <a href="../workday-prism-analytics-platform/" class="back-btn">
+                ← Back to Prism Case Study
             </a>
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
         </div>
     </nav>
 
@@ -697,6 +873,7 @@
                         <h1>Data Integration Framework</h1>
                         <p class="tagline">Self Service Data Integration with Flexibility and Transparency</p>
                         <p class="subtitle">Product Design Leadership</p>
+                        <img class="hero-video" src="assets/dataIntegrationmultiplesource.gif" alt="Data Integration Framework Overview">
                     </div>
                     
                     <div class="case-study-body">
@@ -743,6 +920,16 @@
 
                         <hr>
 
+                        <h3>System Thinking: Object Modelling</h3>
+                        <p>By focusing on Object-Oriented UX (OOUX) principles, we shift the conversation away from individual screens and toward a shared understanding of core objects, their attributes, and their complex interdependencies. This approach is inherently superior because it establishes consistent patterns and logical relationships early in the process, preventing the "drift" that often occurs when designers focus on aesthetics while engineers focus on data structures. Ultimately, this systemic alignment reduces technical debt and ensures that the final product is as intuitive to navigate as it is robust to build.</p>
+                        
+                        <div class="image-container">
+                            <img src="assets/objectmodellingdiagram.png" alt="Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities">
+                            <p class="image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
+                        </div>
+
+                        <hr>
+
                         <h2>Approach</h2>
                         
                         <div class="approach-steps">
@@ -767,8 +954,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <hr>
 
                         <h2>Design Focus Areas</h2>
                         <p>Our design efforts were broken down into creating experiences for 3 key areas:</p>
@@ -799,13 +984,7 @@
                             </div>
                         </div>
 
-                        <h3>System Thinking: Object Modelling</h3>
-                        <p>We had to consider the overall system and how the new connection object will interact with other objects in the catalog. By providing a system view, we communicated the behavior and interaction with other data catalog objects.</p>
-                        
-                        <div class="image-container">
-                            <img src="assets/objectmodellingdiagram.png" alt="Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities">
-                            <p class="image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
-                        </div>
+                       
                         
                         <blockquote>
                             Connections provides reusability and flexibility in configuration of various data sources.
@@ -819,6 +998,23 @@
                             <p>Tables is the #1 strategic project and the future of much of the Workday Analytics Data platform and applications built on top of it. By providing a strong foundation and self-service analytics features, we improved customer satisfaction and adoption of our product and platform.</p>
                         </div>
 
+                    </div>
+
+                    <!-- Pillar Navigation -->
+                    <div class="pillar-nav">
+                        <div class="pillar-nav__label">Prism Analytics Pillars</div>
+                        <div class="pillar-nav__links">
+                            <span class="pillar-nav__current">1. Data Integration</span>
+                            <a href="../data-prep-editor/" class="pillar-nav__link">2. Data Preparation</a>
+                            <a href="../data-management/" class="pillar-nav__link">3. Data Management</a>
+                            <a href="../unified-monitoring/" class="pillar-nav__link">4. Unified Monitoring</a>
+                        </div>
+                        <a href="../../index.html" class="pillar-nav__home">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            Back to Portfolio
+                        </a>
                     </div>
                 </div>
             </div>

@@ -46,6 +46,94 @@ All pages include:
 - Mobile-responsive menu toggle
 - Footer with copyright
 
+## Prism Analytics Case Study Architecture (IMPORTANT)
+
+The `workday-prism-analytics-platform` case study uses a **dynamic JavaScript-based side panel** pattern that is different from other case studies. Understanding this architecture is critical to avoid confusion when making updates.
+
+### How the Side Panel Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  workday-prism-analytics-platform/index.html                    │
+│  ┌──────────────────────┐    ┌──────────────────────────────┐  │
+│  │   pillarContent {}   │───▶│  render*CaseStudy()          │  │
+│  │   (JavaScript data)  │    │  (renders HTML to side panel)│  │
+│  └──────────────────────┘    └──────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │ DOES NOT LOAD
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  case-studies/data-prep-editor/index.html                       │
+│  (Standalone page - only accessed via direct URL navigation)    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Key Point:** The side panel does NOT load individual case study HTML files. Content is rendered from a JavaScript object.
+
+### Where to Make Updates
+
+| What you want to update | Where to edit |
+|------------------------|---------------|
+| Side panel content (via Prism Platform) | `workday-prism-analytics-platform/index.html` → `pillarContent['pillar-name']` object |
+| Side panel rendering/structure | `workday-prism-analytics-platform/index.html` → `render*CaseStudy()` function |
+| Side panel component styles | `workday-prism-analytics-platform/index.html` → `<style>` section |
+| Standalone case study page | `case-studies/[project-name]/index.html` |
+| Portfolio card title/description | `vibrant_portfolio.html` → project card section |
+
+### Pillar Content Structure
+
+The `pillarContent` object (around line 2050+) contains data for each pillar:
+
+- `'data-integration'` - Data Integration Framework content
+- `'data-preparation'` - Transform Canvas content (uses `renderDataPrepCaseStudy()`)
+- `'data-management'` - Data Management content
+- `'unified-monitoring'` - Unified Monitoring content
+
+### Data Preparation Content Object
+
+The `data-preparation` pillar has this structure:
+
+```javascript
+pillarContent['data-preparation'] = {
+    title: 'Transform Canvas: Visual Pipeline Editor',
+    subtitle: '...',
+    heroMeta: { role, timeline, team, platform },
+    heroStats: [{ value, label }, ...],      // 4 key metrics
+    problemCards: [{ icon, title, description }, ...],  // 6 challenge cards
+    researchTimeline: [{ date, title, description }, ...],
+    researchPhases: [{ title, items: [] }, ...],
+    keyInsights: [{ number, title, description, quote, attribution }, ...],
+    personas: [{ name, role, isPrimary, background, goals, painPoints }, ...],
+    solutionFeatures: [{ icon, title, description }, ...],  // 6 features
+    releaseScope: [{ feature, description, status, release }, ...],
+    impact: { efficiency: [], userQuote: {} },
+    reflectionCards: [{ icon, title, content }, ...],
+    outcomes: [{ value, label }, ...]
+};
+```
+
+### Render Functions
+
+- `renderDataPrepCaseStudy()` - Renders Transform Canvas (data-preparation) with full 9-section structure
+- `renderFullCaseStudy()` - Renders Data Integration Framework with goals/approach/design areas
+- `renderPanelContent()` - Default renderer for simpler pillars
+
+### Adding New Sections to Side Panel
+
+1. Add new data fields to the `pillarContent` object
+2. Update the appropriate `render*CaseStudy()` function to generate HTML
+3. Add CSS styles for new components in the `<style>` section
+4. Update TOC sections array in the render function
+
+### Files to Keep in Sync
+
+When updating the Transform Canvas case study, you may need to update multiple places:
+
+1. **Side panel content**: `workday-prism-analytics-platform/index.html` → `pillarContent['data-preparation']`
+2. **Standalone page**: `case-studies/data-prep-editor/index.html` (if it should match)
+3. **Portfolio card**: `vibrant_portfolio.html` → project card title/description
+
 ## Key Features
 
 ### Main Portfolio Page (`vibrant_portfolio.html`)
