@@ -537,6 +537,29 @@
             line-height: 1.65;
         }
 
+        .design-area-card__demo {
+            margin-top: 1.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .design-area-card__demo img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .design-area-card__demo .demo-caption {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.75rem;
+            margin-bottom: 0;
+        }
+
         /* Approach Steps */
         .approach-steps {
             display: grid;
@@ -565,6 +588,64 @@
             color: var(--text-medium);
             font-size: 1rem;
             line-height: 1.7;
+        }
+
+        .approach-step__media {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .approach-step__media img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .approach-step__media .image-caption {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.75rem;
+            margin-bottom: 0;
+        }
+
+        /* Workshop Gallery */
+        .workshop-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .workshop-gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: transform 0.3s ease;
+        }
+
+        .workshop-gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 768px) {
+            .workshop-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Concept Video */
+        .concept-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
         }
 
         /* Role Card */
@@ -848,10 +929,10 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="../workday-prism-analytics-platform/" class="back-btn">
-                ← Back to Prism Case Study
-            </a>
             <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
         </div>
     </nav>
 
@@ -938,6 +1019,10 @@
                                 <div class="approach-step__content">
                                     Analyzed competitive landscape to understand industry best practices and identify opportunities for differentiation in the data integration space.
                                 </div>
+                                <div class="approach-step__media">
+                                    <img src="assets/competitve_analysis.png" alt="Competitive analysis comparing data integration solutions across the industry">
+                                    <p class="image-caption">Competitive landscape analysis of data integration platforms</p>
+                                </div>
                             </div>
                             
                             <div class="approach-step">
@@ -945,12 +1030,27 @@
                                 <div class="approach-step__content">
                                     Conducted a Design Sprint with cross-functional team members with the goal of understanding and providing better problem framing. We collected different ideas from the group and converged to create high-level concept designs.
                                 </div>
+                                <div class="approach-step__media">
+                                    <div class="workshop-gallery">
+                                        <img src="assets/workshop01.png" alt="Design workshop session 1 - team collaboration and ideation">
+                                        <img src="assets/workshop02.png" alt="Design workshop session 2 - concept exploration">
+                                        <img src="assets/workshop03.png" alt="Design workshop session 3 - solution convergence">
+                                    </div>
+                                    <p class="image-caption">Cross-functional design sprint workshops with stakeholders</p>
+                                </div>
                             </div>
                             
                             <div class="approach-step">
                                 <div class="approach-step__title">Concept Design</div>
                                 <div class="approach-step__content">
                                     Created concept designs to outline the flow for bringing in data with flexibility and provide a self-service experience to our customers without relying on IT teams.
+                                </div>
+                                <div class="approach-step__media">
+                                    <video controls playsinline class="concept-video">
+                                        <source src="assets/conceptwalkthrough.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <p class="image-caption">Concept walkthrough demonstrating the self-service data integration flow</p>
                                 </div>
                             </div>
                         </div>
@@ -965,6 +1065,10 @@
                                 <p class="design-area-card__description">
                                     Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.
                                 </p>
+                                <div class="design-area-card__demo">
+                                    <img src="assets/prismdcttablefromsource.gif" alt="Demo: Creating tables from various data sources">
+                                    <p class="demo-caption">Table creation workflow from external data sources</p>
+                                </div>
                             </div>
                             
                             <div class="design-area-card">
@@ -973,6 +1077,14 @@
                                 <p class="design-area-card__description">
                                     Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.
                                 </p>
+                                <div class="design-area-card__demo">
+                                    <img src="assets/prismdctexpressioneditor.gif" alt="Demo: Expression editor for data transformations">
+                                    <p class="demo-caption">Expression editor for data transformations</p>
+                                </div>
+                                <div class="design-area-card__demo">
+                                    <img src="assets/primsdctautosuggestion.gif" alt="Demo: Auto-suggestion feature for data operations">
+                                    <p class="demo-caption">Intelligent auto-suggestion for faster data configuration</p>
+                                </div>
                             </div>
                             
                             <div class="design-area-card">
@@ -981,6 +1093,10 @@
                                 <p class="design-area-card__description">
                                     Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.
                                 </p>
+                                <div class="design-area-card__demo">
+                                    <img src="assets/prismconnectors.gif" alt="Demo: Creating and managing reusable connections">
+                                    <p class="demo-caption">Reusable connections for various data sources</p>
+                                </div>
                             </div>
                         </div>
 
@@ -1146,5 +1262,4 @@
     </script>
 </body>
 </html>
-
 

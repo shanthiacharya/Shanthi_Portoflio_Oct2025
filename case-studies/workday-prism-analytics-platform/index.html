@@ -251,7 +251,7 @@
                 min-width: 0;
                 margin-top: 0;
                 padding: 0;
-                max-width: 900px;
+                max-width: 100%;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -694,7 +694,7 @@
             border-radius: 16px;
             padding: 1.75rem;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px;
             box-shadow: 0 4px 20px var(--shadow-md);
             border: 1px solid var(--border-light);
             position: relative;
@@ -741,34 +741,25 @@
             padding-left: 2.5rem;
         }
 
-        .pillar-card__features {
-            background: var(--background-light);
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            margin: 0;
-            list-style: none;
-        }
-
-        .pillar-card__features li {
-            color: var(--text-medium);
+        .pillar-card__description {
+            color: var(--text-light);
             font-size: 0.95rem;
-            padding: 0.35rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .pillar-card__features li::before {
-            content: '•';
-            color: var(--accent-teal);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         /* Pillar Card Interactive Styles */
         .pillar-card {
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .pillar-card:hover {
@@ -818,7 +809,7 @@
 
         .pillar-card__image {
             width: 100%;
-            height: 140px;
+            height: 200px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 1rem;
@@ -907,52 +898,29 @@
             margin-top: 0.25rem;
         }
 
-        /* Pillar dropdown navigation */
-        .side-panel__pillar-nav {
-            flex-shrink: 0;
-        }
-
-        .side-panel__pillar-dropdown {
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.15);
+        /* Back button - primary style */
+        .side-panel__back-btn {
+            background: var(--accent-teal);
             color: white;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            min-width: 160px;
-        }
-
-        .side-panel__pillar-dropdown:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .side-panel__pillar-dropdown option {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .side-panel__close {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease;
-            flex-shrink: 0;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 199, 177, 0.3);
         }
 
-        .side-panel__close:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .side-panel__back-btn:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 199, 177, 0.4);
         }
 
         .side-panel__content {
@@ -1054,7 +1022,7 @@
         .side-panel__main {
             flex: 1;
             min-width: 0;
-            max-width: 900px;
+            max-width: 100%;
         }
 
         .side-panel__main section {
@@ -1062,6 +1030,11 @@
         }
 
         .side-panel__hero {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .side-panel__hero-video {
             width: 100%;
             border-radius: 12px;
             margin-bottom: 1.5rem;
@@ -1288,6 +1261,44 @@
             line-height: 1.6;
         }
 
+        .side-panel__approach-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* Single image takes full width */
+        .side-panel__approach-images:has(img:only-child) {
+            grid-template-columns: 1fr;
+        }
+
+        .side-panel__approach-images img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .side-panel__approach-images img:only-child {
+            max-width: 100%;
+        }
+
+        .side-panel__approach-images img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px var(--shadow-md);
+        }
+
+        .side-panel__approach-video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
         .side-panel__design-areas {
             display: grid;
             gap: 1.25rem;
@@ -1340,6 +1351,27 @@
             color: var(--text-medium);
             font-size: 0.95rem;
             line-height: 1.6;
+        }
+
+        .side-panel__design-area-media {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .side-panel__design-area-media img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .side-panel__design-area-media video {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
         }
 
         .side-panel__section-title--sub {
@@ -1703,6 +1735,67 @@
             color: white;
         }
 
+        /* Next Project Link - for navigating to external case studies */
+        .side-panel__next-project {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--accent-teal);
+            background: linear-gradient(135deg, rgba(0, 199, 177, 0.08) 0%, rgba(0, 199, 177, 0.02) 100%);
+            color: var(--text-dark);
+            font-family: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .side-panel__next-project:hover {
+            background: var(--accent-teal);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 199, 177, 0.3);
+        }
+
+        .side-panel__next-project-content {
+            flex: 1;
+        }
+
+        .side-panel__next-project-label {
+            font-size: 0.75rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .side-panel__next-project:hover .side-panel__next-project-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .side-panel__next-project-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .side-panel__next-project:hover .side-panel__next-project-title {
+            color: white;
+        }
+
+        .side-panel__next-project-arrow {
+            font-size: 1.25rem;
+            color: var(--accent-teal);
+            transition: transform 0.3s ease;
+        }
+
+        .side-panel__next-project:hover .side-panel__next-project-arrow {
+            color: white;
+            transform: translateX(4px);
+        }
+
         @media (max-width: 768px) {
             .side-panel__footer-nav {
                 flex-direction: column;
@@ -1712,6 +1805,10 @@
             .side-panel__nav-btn {
                 width: 100%;
                 justify-content: center;
+            }
+
+            .side-panel__next-project {
+                padding: 0.875rem 1.25rem;
             }
         }
 
@@ -1737,11 +1834,7 @@
 
             .side-panel__header-actions {
                 width: 100%;
-                justify-content: space-between;
-            }
-
-            .side-panel__pillar-dropdown {
-                flex: 1;
+                justify-content: flex-end;
             }
         }
 
@@ -2726,7 +2819,7 @@
                         <h3>My Role</h3>
                         <p><strong>Player-Coach Design Lead</strong></p>
                         <ul>
-                            <li>Led design strategy across 4 product pillars while shipping hands-on work WITH 5 Scrum teams</li>
+                            <li>Led design strategy across 4 product pillars while shipping hands-on work with 5 Scrum teams</li>
                             <li>Mentored and supported the growth of 10 designers, resulting in 2 promotions to senior level.</li>
                             <li>Balanced strategic visioning with tactical execution &amp; prototyping</li>
                             <li>Collaborated with product managers, engineers, researchers, and technical writers</li>
@@ -2790,7 +2883,7 @@
                                 <div class="flow-connector"></div>
                                 
                                 <!-- Pillar 1: Data Integration -->
-                                <div class="pillar-card" data-pillar-id="data-integration" onclick="openSidePanel('data-integration')">
+                                <a href="../data-integration-framework/" class="pillar-card" data-pillar-id="data-integration">
                                     <img class="pillar-card__image" src="../data-integration-framework/assets/dataintegrationmultiplesources.png" alt="Data Integration Framework">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
@@ -2800,18 +2893,14 @@
                                         <span class="pillar-card__arrow">→</span>
                                     </div>
                                     <p class="pillar-card__subtitle">The Entry Point</p>
-                                    <ul class="pillar-card__features">
-                                        <li>Table-based architecture</li>
-                                        <li>External connectors</li>
-                                        <li>Data Change Task configs</li>
-                                    </ul>
+                                    <p class="pillar-card__description">Self-service data ingestion with table-based architecture, external connectors, and flexible Data Change Task configurations.</p>
                                     <span class="pillar-card__cta">View case study →</span>
-                                </div>
+                                </a>
                                 
                                 <div class="flow-connector">Data flows to...</div>
                                 
                                 <!-- Pillar 2: Data Preparation -->
-                                <div class="pillar-card" data-pillar-id="data-preparation" onclick="openSidePanel('data-preparation')">
+                                <a href="../data-prep-editor/" class="pillar-card" data-pillar-id="data-preparation">
                                     <img class="pillar-card__image" src="../data-prep-editor/assets/idpeditor.png" alt="Data Preparation Canvas">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
@@ -2821,18 +2910,14 @@
                                         <span class="pillar-card__arrow">→</span>
                                     </div>
                                     <p class="pillar-card__subtitle">The Transformation</p>
-                                    <ul class="pillar-card__features">
-                                        <li>Canvas-based visual flow</li>
-                                        <li>Node-level error visibility</li>
-                                        <li>Real-time data preview</li>
-                                    </ul>
+                                    <p class="pillar-card__description">Visual canvas-based transformation with node-level error visibility and real-time data preview for intuitive data prep.</p>
                                     <span class="pillar-card__cta">View case study →</span>
-                                </div>
+                                </a>
                                 
                                 <div class="flow-connector">Prepared data needs...</div>
                                 
                                 <!-- Pillar 3: Data Management -->
-                                <div class="pillar-card" data-pillar-id="data-management" onclick="openSidePanel('data-management')">
+                                <a href="../data-management/" class="pillar-card" data-pillar-id="data-management">
                                     <img class="pillar-card__image" src="../data-management/assets/cataloghome.png" alt="Data Management Catalog">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
@@ -2842,18 +2927,14 @@
                                         <span class="pillar-card__arrow">→</span>
                                     </div>
                                     <p class="pillar-card__subtitle">The Organization</p>
-                                    <ul class="pillar-card__features">
-                                        <li>Field-level lineage tracking</li>
-                                        <li>Workspace organization</li>
-                                        <li>ML-powered tagging/security</li>
-                                    </ul>
+                                    <p class="pillar-card__description">Enterprise data catalog with field-level lineage tracking, workspace organization, and ML-powered tagging.</p>
                                     <span class="pillar-card__cta">View case study →</span>
-                                </div>
+                                </a>
                                 
                                 <div class="flow-connector">All processes monitored by...</div>
                                 
                                 <!-- Pillar 4: Unified Monitoring -->
-                                <div class="pillar-card" data-pillar-id="unified-monitoring" onclick="openSidePanel('unified-monitoring')">
+                                <a href="../unified-monitoring/" class="pillar-card" data-pillar-id="unified-monitoring">
                                     <img class="pillar-card__image" src="../unified-monitoring/assets/prismmanagementconsole.png" alt="Unified Monitoring Console">
                                     <div class="pillar-card__header">
                                         <div class="pillar-card__header-left">
@@ -2863,13 +2944,9 @@
                                         <span class="pillar-card__arrow">→</span>
                                     </div>
                                     <p class="pillar-card__subtitle">The Control Center</p>
-                                    <ul class="pillar-card__features">
-                                        <li>Single pane of glass dashboard</li>
-                                        <li>Real-time job health tracking</li>
-                                        <li>Instant debugging &amp; actions</li>
-                                    </ul>
+                                    <p class="pillar-card__description">Single pane of glass dashboard for real-time job health tracking and instant debugging capabilities.</p>
                                     <span class="pillar-card__cta">View case study →</span>
-                                </div>
+                                </a>
                                 
                                 <div class="flow-connector">Feeds back into...</div>
                                 
@@ -2917,7 +2994,7 @@
     <!-- Side Panel -->
     <aside class="side-panel" id="sidePanel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle">
         <div class="side-panel__header">
-            <!-- Header row: Title + Dropdown + Close -->
+            <!-- Header row: Title + Back Button -->
             <div class="side-panel__header-main">
                 <div>
                     <h2 class="side-panel__title" id="sidePanelTitle">Pillar Title</h2>
@@ -2925,16 +3002,10 @@
                 </div>
                 
                 <div class="side-panel__header-actions">
-                    <!-- Pillar dropdown navigation -->
-                    <select class="side-panel__pillar-dropdown" id="pillarDropdown" onchange="switchPillar(this.value)" aria-label="Navigate to pillar">
-                        <option value="data-integration">1. Data Integration</option>
-                        <option value="data-preparation">2. Data Preparation</option>
-                        <option value="data-management">3. Data Management</option>
-                        <option value="unified-monitoring">4. Unified Monitoring</option>
-                    </select>
-                    
-                    <!-- Close button -->
-                    <button class="side-panel__close" onclick="closeSidePanel()" aria-label="Close panel">×</button>
+                    <!-- Back button -->
+                    <button class="side-panel__back-btn" onclick="closeSidePanel()" aria-label="Back to overview">
+                        ← Back
+                    </button>
                 </div>
             </div>
         </div>
@@ -2952,8 +3023,8 @@
             'data-integration': {
                 title: 'Data Integration Framework',
                 subtitle: 'Self Service Data Integration with Flexibility and Transparency',
-                image: '../data-integration-framework/assets/dataIntegrationmultiplesource.gif',
-                imageAlt: 'Data Integration Framework Overview',
+                video: '../data-integration-framework/assets/dataIntegrationmultiplesources.mp4',
+                videoAlt: 'Data Integration Framework Overview',
                 // Full case study content embedded
                 hasFullContent: true,
                 background: 'Workday Prism Analytics is a data hub and analytics platform to acquire, prepare and store data for analysis. The existing data acquisition framework lacked flexibility, transparency and had performance issues. Customers were bringing in high volume and high frequency data which demanded a revamp of the current architecture for data containers.',
@@ -2975,20 +3046,18 @@
                     ]
                 },
                 approach: [
-                    { title: 'Competitive Analysis', content: 'Analyzed competitive landscape to understand industry best practices and identify opportunities for differentiation in the data integration space.' },
-                    { title: 'Workshops', content: 'Conducted a Design Sprint with cross-functional team members with the goal of understanding and providing better problem framing. We collected different ideas from the group and converged to create high-level concept designs.' },
-                    { title: 'Concept Design', content: 'Created concept designs to outline the flow for bringing in data with flexibility and provide a self-service experience to our customers without relying on IT teams.' }
+                    { title: 'Competitive Analysis', content: 'Analyzed competitive landscape to understand industry best practices and identify opportunities for differentiation in the data integration space.', images: ['../data-integration-framework/assets/competitve_analysis.png'] },
+                    { title: 'Workshops', content: 'Conducted a Design Sprint with cross-functional team members with the goal of understanding and providing better problem framing. We collected different ideas from the group and converged to create high-level concept designs.', images: ['../data-integration-framework/assets/workshop01.png', '../data-integration-framework/assets/workshop02.png', '../data-integration-framework/assets/workshop03.png'] },
+                    { title: 'System Thinking: Object Modelling', content: 'By focusing on Object-Oriented UX (OOUX) principles, we shift the conversation away from individual screens and toward a shared understanding of core objects, their attributes, and their complex interdependencies. This approach is inherently superior because it establishes consistent patterns and logical relationships early in the process, preventing the "drift" that often occurs when designers focus on aesthetics while engineers focus on data structures. Ultimately, this systemic alignment reduces technical debt and ensures that the final product is as intuitive to navigate as it is robust to build.', images: ['../data-integration-framework/assets/objectmodellingdiagram.png'] },
+                    { title: 'Concept Design', content: 'Created concept designs to outline the flow for bringing in data with flexibility and provide a self-service experience to our customers without relying on IT teams.', video: '../data-integration-framework/assets/conceptwalkthrough.mp4' }
                 ],
+            
                 designFocusAreas: [
-                    { number: 1, title: 'Creating Tables from Various Sources', description: 'Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.' },
-                    { number: 2, title: 'Data Operations: Data Change Task', description: 'Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.' },
-                    { number: 3, title: 'Connections & System Integration', description: 'Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.' }
+                    { number: 1, title: 'Connections & System Integration', description: 'Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.', videos: ['../data-integration-framework/assets/prismconnectors.mp4'] },
+                    { number: 2, title: 'Creating Tables from Various Sources', description: 'Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.', videos: ['../data-integration-framework/assets/prismdcttablefromsource.mp4'] },
+                    { number: 3, title: 'Data Operations: Data Change Task', description: 'Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.', videos: ['../data-integration-framework/assets/primsdctautosuggestion.mp4', '../data-integration-framework/assets/prismdctexpressioneditor.mp4'] }
                 ],
-                systemThinking: 'By focusing on Object-Oriented UX (OOUX) principles, we shift the conversation away from individual screens and toward a shared understanding of core objects, their attributes, and their complex interdependencies. This approach is inherently superior because it establishes consistent patterns and logical relationships early in the process, preventing the "drift" that often occurs when designers focus on aesthetics while engineers focus on data structures. Ultimately, this systemic alignment reduces technical debt and ensures that the final product is as intuitive to navigate as it is robust to build.',
-                systemThinkingImage: '../data-integration-framework/assets/objectmodellingdiagram.png',
-                systemThinkingImageAlt: 'Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities',
-                systemThinkingQuote: 'Connections provides reusability and flexibility in configuration of various data sources.',
-                outcomes: [
+                    outcomes: [
                     { value: '#1', label: 'Strategic Project' },
                     { value: 'Self-Service', label: 'No IT dependency' },
                     { value: '3 Areas', label: 'Tables, DCT, Connections' }
@@ -3010,12 +3079,6 @@
                     team: '2 Designers, 1 Researcher',
                     platform: 'Workday Prism Analytics'
                 },
-                heroStats: [
-                    { value: '70%', label: 'Debugging time reduction' },
-                    { value: '12+', label: 'Research sessions conducted' },
-                    { value: '2', label: 'Research phases completed' },
-                    { value: '95%', label: 'Concept validation score' }
-                ],
                 context: {
                     whatIs: 'Data preparation and transformation is the critical process of cleaning, reshaping, and combining datasets before analysis. Users need to handle tasks like cleaning data, transforming formats, combining datasets, and applying business logic—all while maintaining data quality and traceability.',
                     whoUses: 'The tool serves both power users (data analysts, engineers) who need advanced transformation capabilities, and beginners (business analysts, citizen data scientists) who need intuitive interfaces. Each group has distinct needs: power users want flexibility and control, while beginners need guided workflows and clear feedback.',
@@ -3221,9 +3284,6 @@
             document.getElementById('sidePanelTitle').textContent = content.title;
             document.getElementById('sidePanelSubtitle').textContent = content.subtitle;
 
-            // Update navigation elements (breadcrumb, dropdown, prev/next)
-            updatePillarNavigation(pillarId);
-
             // Render panel content
             const panelContent = document.getElementById('sidePanelContent');
             panelContent.innerHTML = renderPanelContent(content, pillarId);
@@ -3271,15 +3331,6 @@
             document.body.style.overflow = '';
         }
 
-        // Switch pillar via dropdown
-        function switchPillar(pillarId) {
-            if (pillarId && pillarId !== activePillarId) {
-                openSidePanel(pillarId);
-                // Scroll panel content to top
-                document.getElementById('sidePanelContent').scrollTop = 0;
-            }
-        }
-
         // Navigate to prev/next pillar
         function navigatePillar(direction) {
             const currentIndex = pillarOrder.indexOf(activePillarId);
@@ -3298,18 +3349,13 @@
             }
         }
 
-        // Update navigation state (dropdown selection)
-        function updatePillarNavigation(pillarId) {
-            // Update dropdown
-            document.getElementById('pillarDropdown').value = pillarId;
-        }
-
         // Generate footer navigation HTML
         function generateFooterNavigation(pillarId) {
             const currentIndex = pillarOrder.indexOf(pillarId);
             
             let prevHtml = '';
             let nextHtml = '';
+            let nextProjectHtml = '';
             
             // Previous button
             if (currentIndex > 0) {
@@ -3327,7 +3373,7 @@
                 prevHtml = '<div></div>'; // Empty placeholder for spacing
             }
             
-            // Next button
+            // Next button (within pillars)
             if (currentIndex < pillarOrder.length - 1) {
                 const nextPillar = pillarContent[pillarOrder[currentIndex + 1]];
                 nextHtml = `
@@ -3343,11 +3389,23 @@
                 nextHtml = '<div></div>'; // Empty placeholder for spacing
             }
             
+            // Next Project link - always shown at the bottom
+            nextProjectHtml = `
+                <a href="../data-prep-editor/" class="side-panel__next-project">
+                    <div class="side-panel__next-project-content">
+                        <div class="side-panel__next-project-label">Next Project</div>
+                        <div class="side-panel__next-project-title">AI-Augmented Design System</div>
+                    </div>
+                    <span class="side-panel__next-project-arrow">→</span>
+                </a>
+            `;
+            
             return `
                 <div class="side-panel__footer-nav">
                     ${prevHtml}
                     ${nextHtml}
                 </div>
+                ${nextProjectHtml}
             `;
         }
 
@@ -3401,7 +3459,13 @@
                 <!-- Side Panel Main Content -->
                 <div class="side-panel__main">
                     <section id="${pillarId}-overview" class="side-panel__section">
-                <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                ${content.video ? `
+                    <video class="side-panel__hero-video" controls>
+                        <source src="${content.video}" type="video/mp4">
+                    </video>
+                ` : `
+                    <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                `}
                     </section>
                 
                     <section id="${pillarId}-challenge" class="side-panel__section">
@@ -3447,6 +3511,20 @@
                 <div class="side-panel__approach-step">
                     <div class="side-panel__approach-title">${step.title}</div>
                     <div class="side-panel__approach-content">${step.content}</div>
+                    ${step.images ? `
+                        <div class="side-panel__approach-images">
+                            ${step.images.map(img => `<img src="${img}" alt="${step.title}">`).join('')}
+                        </div>
+                    ` : ''}
+                    ${step.video ? `
+                        <video class="side-panel__approach-video" controls>
+                            <source src="${step.video}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    ` : ''}
+                    ${step.quote ? `
+                        <blockquote class="side-panel__quote">${step.quote}</blockquote>
+                    ` : ''}
                 </div>
             `).join('');
             
@@ -3456,6 +3534,21 @@
                     <span class="side-panel__design-number">${area.number}</span>
                     <span class="side-panel__design-title">${area.title}</span>
                     <p class="side-panel__design-desc">${area.description}</p>
+                    ${area.images ? `
+                        <div class="side-panel__design-area-media">
+                            ${area.images.map(img => `<img src="${img}" alt="${area.title}">`).join('')}
+                        </div>
+                    ` : ''}
+                    ${area.videos ? `
+                        <div class="side-panel__design-area-media">
+                            ${area.videos.map(vid => `
+                                <video controls>
+                                    <source src="${vid}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            `).join('')}
+                        </div>
+                    ` : ''}
                 </div>
             `).join('');
             
@@ -3495,8 +3588,14 @@
                 
                 <!-- Side Panel Main Content -->
                 <div class="side-panel__main">
-                    <!-- Hero Image -->
-                    <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                    <!-- Hero Image/Video -->
+                    ${content.video ? `
+                        <video class="side-panel__hero-video" controls>
+                            <source src="${content.video}" type="video/mp4">
+                        </video>
+                    ` : `
+                        <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                    `}
                     
                     <section id="${pillarId}-background" class="side-panel__section">
                         <h2 class="side-panel__section-title">Background</h2>
@@ -3512,6 +3611,7 @@
                     </section>
                     
                     <section id="${pillarId}-role" class="side-panel__section">
+                        <h2 class="side-panel__section-title">My Role</h2>
                         <div class="side-panel__role-card">
                             <h3>${content.role.title}</h3>
                             <ul>${roleHtml}</ul>
@@ -3535,16 +3635,6 @@
                         <div class="side-panel__design-areas">
                             ${designAreasHtml}
                         </div>
-                        
-                        <h3 class="side-panel__section-title--sub">System Thinking: Object Modelling</h3>
-                        <p>${content.systemThinking}</p>
-                        ${content.systemThinkingImage ? `
-                            <div class="side-panel__image-container">
-                                <img src="${content.systemThinkingImage}" alt="${content.systemThinkingImageAlt || 'Object Modeling Diagram'}" class="side-panel__section-image">
-                                <p class="side-panel__image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
-                            </div>
-                        ` : ''}
-                        <blockquote class="side-panel__quote">${content.systemThinkingQuote}</blockquote>
                     </section>
                     
                     <div class="side-panel__divider"></div>
@@ -3567,14 +3657,6 @@
 
         // Render Data Prep case study content
         function renderDataPrepCaseStudy(content, pillarId) {
-            // Hero stats
-            let heroStatsHtml = content.heroStats.map(stat => `
-                <div class="side-panel__hero-stat">
-                    <span class="side-panel__hero-stat-value">${stat.value}</span>
-                    <span class="side-panel__hero-stat-label">${stat.label}</span>
-                </div>
-            `).join('');
-
             // Problem cards (6 cards)
             let problemCardsHtml = content.problemCards.map(card => `
                 <div class="side-panel__problem-card">
@@ -3718,27 +3800,13 @@
                 <div class="side-panel__main">
                     <!-- 1. Hero Section -->
                     <section id="${pillarId}-hero" class="side-panel__section">
-                        <div class="side-panel__hero-meta">
-                            <div class="side-panel__hero-meta-item">
-                                <span class="side-panel__hero-meta-label">Role</span>
-                                <span class="side-panel__hero-meta-value">${content.heroMeta.role}</span>
-                            </div>
-                            <div class="side-panel__hero-meta-item">
-                                <span class="side-panel__hero-meta-label">Timeline</span>
-                                <span class="side-panel__hero-meta-value">${content.heroMeta.timeline}</span>
-                            </div>
-                            <div class="side-panel__hero-meta-item">
-                                <span class="side-panel__hero-meta-label">Team</span>
-                                <span class="side-panel__hero-meta-value">${content.heroMeta.team}</span>
-                            </div>
-                            <div class="side-panel__hero-meta-item">
-                                <span class="side-panel__hero-meta-label">Platform</span>
-                                <span class="side-panel__hero-meta-value">${content.heroMeta.platform}</span>
-                            </div>
-                        </div>
-                        <div class="side-panel__hero-stats-grid">
-                            ${heroStatsHtml}
-                        </div>
+                        ${content.video ? `
+                            <video class="side-panel__hero-video" controls>
+                                <source src="${content.video}" type="video/mp4">
+                            </video>
+                        ` : `
+                            <img src="${content.image}" alt="${content.imageAlt}" class="side-panel__hero">
+                        `}
                     </section>
                     
                     <div class="side-panel__divider"></div>

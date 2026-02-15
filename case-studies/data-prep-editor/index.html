@@ -258,31 +258,45 @@
 
         /* Hero Section */
         .case-study-header {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 50%, var(--accent-teal) 100%);
+            background: var(--background-white);
             padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px var(--shadow-md);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
             margin-bottom: 2rem;
             text-align: center;
-            border: none;
+            border: 1px solid var(--border-light);
             width: 100%;
-            color: white;
         }
 
         .case-study-header h1 {
-            font-size: 2.8rem;
-            color: white;
-            margin-bottom: 0.75rem;
-            line-height: 1.2;
-            font-weight: 800;
-            letter-spacing: -0.03em;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .case-study-header .tagline {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
             font-weight: 400;
-            margin-bottom: 2rem;
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
         }
 
         /* Hero Metadata */
@@ -864,8 +878,8 @@
         }
 
         .persona-card__avatar {
-            width: 64px;
-            height: 64px;
+            width: 80px;
+            height: 80px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             margin: 0 auto 1rem;
@@ -873,6 +887,16 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .persona-card__avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
         }
 
         .persona-card__name {
@@ -1461,16 +1485,531 @@
                 font-size: 1rem;
             }
         }
+
+        /* Goals Grid - consistent with data-integration-framework */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .goal-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+        }
+
+        .goal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+        }
+
+        .goal-card h4 {
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .goal-card p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 768px) {
+            .goals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Role Card - consistent with data-integration-framework */
+        .role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
+        }
+
+        .role-card h4 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .role-card ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .role-card li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Approach Steps - consistent with data-integration-framework */
+        .approach-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .approach-step {
+            background: linear-gradient(135deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .approach-step__title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .approach-step__content {
+            color: var(--text-medium);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Image Container - for Before/After comparison */
+        .image-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            margin: 1rem 0;
+        }
+
+        .image-caption {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.75rem;
+        }
+
+        /* Before-After Comparison Grid */
+        .before-after-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .before-after-card {
+            background: var(--background-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .before-after-card__header {
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .before-after-card--before .before-after-card__header {
+            background: var(--background-gray);
+            color: var(--text-medium);
+        }
+
+        .before-after-card--after .before-after-card__header {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+            color: white;
+        }
+
+        .before-after-card__content {
+            padding: 1.5rem;
+        }
+
+        .before-after-card__content ul {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .before-after-card__content li {
+            margin-bottom: 0.75rem;
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .before-after-card__content li:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .before-after-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Figma-style Annotated Image */
+        .annotated-image {
+            position: relative;
+            display: inline-block;
+            margin: 2rem 0;
+            width: 100%;
+        }
+
+        .annotated-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            display: block;
+        }
+
+        .annotation-marker {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .marker-number {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #FF6B35 0%, #E85A24 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+            border: 2px solid white;
+            flex-shrink: 0;
+        }
+
+        .marker-label {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .marker-label::before {
+            content: '';
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+        }
+
+        /* Annotation legend below image */
+        .annotation-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--background-light);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .legend-number {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35 0%, #E85A24 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        .legend-text strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Responsive annotations */
+        @media (max-width: 768px) {
+            .annotation-marker {
+                transform: scale(0.85);
+            }
+            
+            .marker-label {
+                display: none;
+            }
+
+            .annotation-legend {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Image Carousel */
+        .image-carousel {
+            position: relative;
+            margin: 2rem 0;
+            width: 100%;
+        }
+
+        .carousel-slides {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .carousel-slide {
+            display: none;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .carousel-slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .carousel-slide .annotated-image {
+            margin: 0;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot:hover {
+            background: rgba(0, 61, 130, 0.3);
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-blue);
+            transform: scale(1.1);
+        }
+
+        .carousel-slide-label {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Zoomable Image (Click for Lightbox) */
+        .zoomable-image {
+            position: relative;
+            border-radius: 12px;
+            cursor: zoom-in;
+        }
+
+        .zoomable-image:hover {
+            opacity: 0.95;
+        }
+
+        /* Zoom hint indicator */
+        .zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 15;
+        }
+
+        .zoomable-image:hover .zoom-hint {
+            opacity: 1;
+        }
+
+        .zoom-hint svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            padding: 2rem;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+            animation: lightboxFadeIn 0.25s ease;
+        }
+
+        @keyframes lightboxFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .lightbox-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <a href="../data-integration-framework/" class="back-btn">
-                ← Back to Data Integration
-            </a>
             <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
         </div>
     </nav>
 
@@ -1488,157 +2027,281 @@
                 </nav>
                 
                 <div class="main-content">
-                    <!-- Hero Section -->
                     <div class="case-study-header">
                         <h1>Transform Canvas: Visual Pipeline Editor</h1>
                         <p class="tagline">Reimagining data preparation through visual context and intuitive navigation</p>
-                        
-                        <div class="hero-meta">
-                            <div class="hero-meta__item">
-                                <span class="hero-meta__label">Role</span>
-                                <span class="hero-meta__value">Lead Product Designer</span>
-                            </div>
-                            <div class="hero-meta__item">
-                                <span class="hero-meta__label">Timeline</span>
-                                <span class="hero-meta__value">January - April 2023</span>
-                            </div>
-                            <div class="hero-meta__item">
-                                <span class="hero-meta__label">Team</span>
-                                <span class="hero-meta__value">2 Designers, 1 Researcher</span>
-                            </div>
-                            <div class="hero-meta__item">
-                                <span class="hero-meta__label">Platform</span>
-                                <span class="hero-meta__value">Workday Prism Analytics</span>
-                            </div>
-                        </div>
-
-                        <div class="hero-stats">
-                            <div class="hero-stat">
-                                <span class="hero-stat__number">70%</span>
-                                <span class="hero-stat__label">Debugging time reduction</span>
-                            </div>
-                            <div class="hero-stat">
-                                <span class="hero-stat__number">12+</span>
-                                <span class="hero-stat__label">Research sessions conducted</span>
-                            </div>
-                            <div class="hero-stat">
-                                <span class="hero-stat__number">2</span>
-                                <span class="hero-stat__label">Research phases completed</span>
-                            </div>
-                            <div class="hero-stat">
-                                <span class="hero-stat__number">95%</span>
-                                <span class="hero-stat__label">Concept validation score</span>
-                            </div>
-                        </div>
+                        <p class="subtitle">Product Design Leadership</p>
+                        <img class="hero-video" src="assets/idpeditor.png" alt="Transform Canvas Visual Pipeline Editor">
                     </div>
                     
                     <div class="case-study-body">
-                        <!-- The Challenge Section -->
-                        <h2 id="challenge">The Challenge</h2>
+                        <!-- Background Section -->
+                        <h2 id="background">Background</h2>
+
+                        <h3>Data Preparation Journey</h3>
+                        <div class="image-container">
+                            <img src="assets/dataprepjourneysteps.png" alt="Data Preparation Journey">
+                        </div>
+
                         <p class="section-intro">The existing data preparation editor presented users with a fragmented, step-based interface that obscured the relationships between transformation stages. Users struggled to understand their pipeline's structure, locate errors, and navigate efficiently through complex data workflows.</p>
 
-                        <div class="problem-cards">
-                            <div class="problem-card">
-                                <div class="problem-card__icon">🔗</div>
-                                <h4 class="problem-card__title">Hidden Relationships</h4>
-                                <p class="problem-card__description">Users couldn't see how stages connected to each other, making it difficult to understand data flow and dependencies between transformations.</p>
+                        <h3>Existing Data Preparation Editor</h3>
+                        <div class="image-carousel" id="oldEditorCarousel">
+                            <div class="carousel-slides">
+                                <!-- Slide 1: Old Editor with annotations -->
+                                <div class="carousel-slide active" data-slide="0">
+                                    <div class="zoomable-image">
+                                        <div class="annotated-image">
+                                            <img src="assets/idpoldeditor.png" alt="Existing Data Preparation Editor - Stage List View">
+                                            <!-- Annotation markers positioned on problem areas -->
+                                            <div class="annotation-marker" style="top: 18%; left: 1%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Linear stage list</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 45%; left: 1%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">No visual connections</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 72%; left: 1%;">
+                                                <span class="marker-number">3</span>
+                                                <span class="marker-label">Errors not visible</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 8%; left: 55%;">
+                                                <span class="marker-number">4</span>
+                                                <span class="marker-label">Limited context</span>
+                                            </div>
+                                        </div>
+                                        <div class="zoom-hint">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                                            Click to zoom
+                                        </div>
+                                    </div>
+                                    <p class="carousel-slide-label">Stage List View - Linear navigation hides relationships</p>
+                                </div>
+                                
+                                <!-- Slide 2: Change Pipeline view -->
+                                <div class="carousel-slide" data-slide="1">
+                                    <div class="zoomable-image">
+                                        <div class="annotated-image">
+                                            <img src="assets/idpeditorchangepipeline.png" alt="Existing Data Preparation Editor - Multiple Pipelines View">
+                                            <!-- Annotation markers for pipeline switching and hidden errors -->
+                                            <div class="annotation-marker" style="top: 13%; left: 1%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Manual pipeline switch</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 22%; left: 1%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Disconnected pipelines</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 8%; left: 70%;">
+                                                <span class="marker-number">3</span>
+                                                <span class="marker-label">Hidden errors</span>
+                                            </div>
+                                        </div>
+                                        <div class="zoom-hint">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                                            Click to zoom
+                                        </div>
+                                    </div>
+                                    <p class="carousel-slide-label">Additional Pipelines View - Manual switching required, errors hidden</p>
+                                </div>
                             </div>
                             
-                            <div class="problem-card">
-                                <div class="problem-card__icon">🧭</div>
-                                <h4 class="problem-card__title">Navigation Confusion</h4>
-                                <p class="problem-card__description">The linear step-based interface made it hard to jump between stages, forcing users to click through multiple screens to find what they needed.</p>
+                            <div class="carousel-dots">
+                                <button class="carousel-dot active" data-slide="0" aria-label="View slide 1"></button>
+                                <button class="carousel-dot" data-slide="1" aria-label="View slide 2"></button>
                             </div>
-                            
-                            <div class="problem-card">
-                                <div class="problem-card__icon">⚠️</div>
-                                <h4 class="problem-card__title">Buried Errors</h4>
-                                <p class="problem-card__description">Errors were hidden within individual stages, requiring users to manually check each step to identify and troubleshoot issues.</p>
+                        </div>
+
+                        <div class="annotation-legend">
+                            <div class="legend-item">
+                                <span class="legend-number">1</span>
+                                <div class="legend-text">
+                                    <strong>Linear Stage List</strong>
+                                    Flat list hides relationships between pipeline stages
+                                </div>
                             </div>
-                            
-                            <div class="problem-card">
-                                <div class="problem-card__icon">📚</div>
-                                <h4 class="problem-card__title">Steep Learning Curve</h4>
-                                <p class="problem-card__description">New users struggled to understand the pipeline concept without visual representation, leading to longer onboarding times and support requests.</p>
+                            <div class="legend-item">
+                                <span class="legend-number">2</span>
+                                <div class="legend-text">
+                                    <strong>No Visual Connections</strong>
+                                    Users can't see data flow or dependencies
+                                </div>
                             </div>
-                            
-                            <div class="problem-card">
-                                <div class="problem-card__icon">🔍</div>
-                                <h4 class="problem-card__title">Limited Lineage Context</h4>
-                                <p class="problem-card__description">Users couldn't easily trace where data came from or where it went, making impact analysis for changes nearly impossible.</p>
+                            <div class="legend-item">
+                                <span class="legend-number">3</span>
+                                <div class="legend-text">
+                                    <strong>Errors Not Surfaced</strong>
+                                    Must click into each stage to find issues
+                                </div>
                             </div>
-                            
-                            <div class="problem-card">
-                                <div class="problem-card__icon">🚨</div>
-                                <h4 class="problem-card__title">Production Escalations</h4>
-                                <p class="problem-card__description">Complex pipelines frequently caused production issues due to misunderstood dependencies, driving up support ticket volume.</p>
+                            <div class="legend-item">
+                                <span class="legend-number">4</span>
+                                <div class="legend-text">
+                                    <strong>Limited Context</strong>
+                                    Data grid shows one stage; no pipeline overview
+                                </div>
                             </div>
                         </div>
 
                         <hr>
 
-                        <!-- Research Process Section -->
-                        <h2 id="research">Research Process</h2>
-                        <p class="section-intro">We conducted a comprehensive two-phase research study from January to April 2023, combining foundational user interviews with concept validation testing to deeply understand user needs and validate our design direction.</p>
-
-                        <div class="research-timeline">
-                            <div class="timeline-track">
-                                <div class="timeline-progress"></div>
+                        <!-- Goals Section -->
+                        <h2 id="goals">Goals</h2>
+                        <p class="section-intro">Transform the data preparation experience by providing a visual, intuitive interface that empowers users to understand, navigate, and manage complex data pipelines with confidence.</p>
+                        
+                        <div class="goals-grid">
+                            <div class="goal-card">
+                                <h4>Visual Pipeline Representation</h4>
+                                <p>Provide a holistic view of the entire data pipeline, making relationships and data flow immediately visible</p>
                             </div>
-                            <div class="timeline-phases">
-                                <div class="timeline-phase">
-                                    <div class="timeline-phase__marker"></div>
-                                    <div class="timeline-phase__date">January 2023</div>
-                                    <div class="timeline-phase__title">Project Kickoff</div>
-                                    <div class="timeline-phase__description">Aligned stakeholders on research objectives</div>
-                                </div>
-                                <div class="timeline-phase">
-                                    <div class="timeline-phase__marker"></div>
-                                    <div class="timeline-phase__date">February 2023</div>
-                                    <div class="timeline-phase__title">Phase 1: Discovery</div>
-                                    <div class="timeline-phase__description">Foundational user interviews</div>
-                                </div>
-                                <div class="timeline-phase">
-                                    <div class="timeline-phase__marker"></div>
-                                    <div class="timeline-phase__date">March 2023</div>
-                                    <div class="timeline-phase__title">Phase 2: Validation</div>
-                                    <div class="timeline-phase__description">Concept testing with prototypes</div>
-                                </div>
-                                <div class="timeline-phase">
-                                    <div class="timeline-phase__marker"></div>
-                                    <div class="timeline-phase__date">April 2023</div>
-                                    <div class="timeline-phase__title">Final Report</div>
-                                    <div class="timeline-phase__description">Synthesis and recommendations</div>
-                                </div>
+                            <div class="goal-card">
+                                <h4>Reduced Debugging Time</h4>
+                                <p>Surface errors and issues directly on the canvas, eliminating the need to hunt through individual stages</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Intuitive Navigation</h4>
+                                <p>Enable users to quickly jump between stages and maintain context while editing</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Self-Service for All Users</h4>
+                                <p>Empower IT analysts to build and maintain pipelines independently without engineering support</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Improved Onboarding</h4>
+                                <p>Reduce the learning curve for new users through visual representation of data concepts</p>
                             </div>
                         </div>
 
-                        <div class="timeline-details">
-                            <div class="timeline-detail-card">
-                                <h4>Phase 1: Foundational User Interviews</h4>
-                                <ul>
-                                    <li>6 in-depth interviews with existing users</li>
-                                    <li>Workflow observation and task analysis</li>
-                                    <li>Pain point identification and prioritization</li>
-                                    <li>Mental model mapping for data preparation</li>
-                                </ul>
+                        <h2 id="role">My Role</h2>
+                        <div class="role-card">
+                            <h4>Design Leadership & Research Partnership</h4>
+                            <ul>
+                                <li>Led end-to-end UX design for the Transform Canvas visual editor</li>
+                                <li>Partnered with UX Research team to conduct two-phase user research study</li>
+                                <li>Facilitated concept validation sessions with 12+ users across discovery and validation phases</li>
+                                <li>Collaborated with engineering to define technical constraints and feasibility</li>
+                                <li>Created comprehensive design specifications and interactive prototypes</li>
+                                <li>Worked with product management to prioritize features for 23R2 release scope</li>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <!-- Target Users Section -->
+                        <h2 id="users">Target Users</h2>
+                        <p class="section-intro">Based on our research, we identified three distinct user personas with different needs, technical backgrounds, and workflow patterns. Nina, the IT Analyst, represents our primary target user.</p>
+
+                        <div class="persona-cards">
+                            <div class="persona-card persona-card--primary">
+                                <div class="persona-card__header">
+                                    <div class="persona-card__avatar">
+                                        <img src="../../images/personas/inia_hritanalyst.jpg" alt="Nina, IT Analyst">
+                                    </div>
+                                    <div class="persona-card__name">Nina</div>
+                                    <div class="persona-card__role">IT Analyst</div>
+                                    <span class="persona-card__badge">Primary Persona</span>
+                                </div>
+                                <div class="persona-card__body">
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Background</div>
+                                        <div class="persona-card__section-content">5+ years in IT analytics. Comfortable with business data but not a developer. Relies on visual tools.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Goals</div>
+                                        <div class="persona-card__section-content">Create and maintain data pipelines independently without requiring engineering support.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Pain Points</div>
+                                        <div class="persona-card__section-content">Gets lost in complex pipelines; struggles to debug errors without seeing full context.</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="timeline-detail-card">
-                                <h4>Phase 2: Concept Validation</h4>
-                                <ul>
-                                    <li>6+ moderated testing sessions</li>
-                                    <li>Interactive prototype evaluation</li>
-                                    <li>Task-based scenario testing</li>
-                                    <li>Preference testing for visual approaches</li>
-                                </ul>
+
+                            <div class="persona-card">
+                                <div class="persona-card__header">
+                                    <div class="persona-card__avatar">
+                                        <img src="../../images/personas/brandon_dataengineer.jpg" alt="Marcus, Data Engineering Expert">
+                                    </div>
+                                    <div class="persona-card__name">Marcus</div>
+                                    <div class="persona-card__role">Data Engineering Expert</div>
+                                </div>
+                                <div class="persona-card__body">
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Background</div>
+                                        <div class="persona-card__section-content">8+ years in data engineering. Expert in SQL and ETL. Prefers code but uses visual tools for collaboration.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Goals</div>
+                                        <div class="persona-card__section-content">Build efficient, scalable pipelines quickly. Needs keyboard shortcuts and advanced features.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Pain Points</div>
+                                        <div class="persona-card__section-content">Tool feels slow compared to code-based approaches; lacks power user features.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="persona-card">
+                                <div class="persona-card__header">
+                                    <div class="persona-card__avatar">
+                                        <img src="../../images/personas/priay_implementer.png" alt="Priya, Implementation Consultant">
+                                    </div>
+                                    <div class="persona-card__name">Priya</div>
+                                    <div class="persona-card__role">Implementation Consultant</div>
+                                </div>
+                                <div class="persona-card__body">
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Background</div>
+                                        <div class="persona-card__section-content">3+ years implementing Workday. Configures systems for clients. Deep product knowledge.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Goals</div>
+                                        <div class="persona-card__section-content">Configure complex pipelines for clients efficiently and train them on usage.</div>
+                                    </div>
+                                    <div class="persona-card__section">
+                                        <div class="persona-card__section-title">Pain Points</div>
+                                        <div class="persona-card__section-content">Hard to explain pipeline structure to clients; demo scenarios are difficult to set up.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <hr>
 
-                        <!-- Key Insights Section -->
-                        <h2 id="insights">Key Insights</h2>
-                        <p class="section-intro">Our research revealed four critical insights that shaped the design direction for the Transform Canvas, each supported by direct user feedback and observed behaviors.</p>
+                        <!-- Process Section -->
+                        <h2 id="process">Process</h2>
+                        <p class="section-intro">Our design process combined rigorous user research with iterative concept development, allowing us to deeply understand user needs before crafting solutions.</p>
+
+                        <div class="approach-steps">
+                            <div class="approach-step">
+                                <div class="approach-step__title">Phase 1: Discovery Research</div>
+                                <div class="approach-step__content">
+                                    Conducted 6 in-depth interviews with existing users to understand workflows, identify pain points, and map mental models for data preparation.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Phase 2: Concept Validation</div>
+                                <div class="approach-step__content">
+                                    Facilitated 6+ moderated testing sessions with interactive prototypes, conducting task-based scenario testing and preference testing for visual approaches.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Phase 3: Design & Iteration</div>
+                                <div class="approach-step__content">
+                                    Created comprehensive design specifications and worked with engineering to refine solutions based on technical constraints and user feedback.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Phase 4: Release Planning</div>
+                                <div class="approach-step__content">
+                                    Collaborated with product management to prioritize features for the 23R2 release, balancing user needs with development capacity.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Key Research Insights</h3>
+                        <p>Our research revealed four critical insights that shaped the design direction:</p>
 
                         <div class="insight-cards">
                             <div class="insight-card">
@@ -1690,88 +2353,9 @@
                             </div>
                         </div>
 
-                        <hr>
+                        <h3>The Solution: Transform Canvas</h3>
+                        <p>Transform Canvas provides a visual, interactive representation of the entire data pipeline, allowing users to see all stages, their connections, and status at a glance while maintaining the ability to drill into any stage for detailed editing.</p>
 
-                        <!-- Target Users Section -->
-                        <h2 id="users">Target Users</h2>
-                        <p class="section-intro">Based on our research, we identified three distinct user personas with different needs, technical backgrounds, and workflow patterns. Nina, the IT Analyst, represents our primary target user.</p>
-
-                        <div class="persona-cards">
-                            <div class="persona-card persona-card--primary">
-                                <div class="persona-card__header">
-                                    <div class="persona-card__avatar">👩‍💼</div>
-                                    <div class="persona-card__name">Nina</div>
-                                    <div class="persona-card__role">IT Analyst</div>
-                                    <span class="persona-card__badge">Primary Persona</span>
-                                </div>
-                                <div class="persona-card__body">
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Background</div>
-                                        <div class="persona-card__section-content">5+ years in IT analytics. Comfortable with business data but not a developer. Relies on visual tools.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Goals</div>
-                                        <div class="persona-card__section-content">Create and maintain data pipelines independently without requiring engineering support.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Pain Points</div>
-                                        <div class="persona-card__section-content">Gets lost in complex pipelines; struggles to debug errors without seeing full context.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="persona-card">
-                                <div class="persona-card__header">
-                                    <div class="persona-card__avatar">👨‍💻</div>
-                                    <div class="persona-card__name">Marcus</div>
-                                    <div class="persona-card__role">Data Engineering Expert</div>
-                                </div>
-                                <div class="persona-card__body">
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Background</div>
-                                        <div class="persona-card__section-content">8+ years in data engineering. Expert in SQL and ETL. Prefers code but uses visual tools for collaboration.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Goals</div>
-                                        <div class="persona-card__section-content">Build efficient, scalable pipelines quickly. Needs keyboard shortcuts and advanced features.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Pain Points</div>
-                                        <div class="persona-card__section-content">Tool feels slow compared to code-based approaches; lacks power user features.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="persona-card">
-                                <div class="persona-card__header">
-                                    <div class="persona-card__avatar">🛠️</div>
-                                    <div class="persona-card__name">Priya</div>
-                                    <div class="persona-card__role">Implementation Consultant</div>
-                                </div>
-                                <div class="persona-card__body">
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Background</div>
-                                        <div class="persona-card__section-content">3+ years implementing Workday. Configures systems for clients. Deep product knowledge.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Goals</div>
-                                        <div class="persona-card__section-content">Configure complex pipelines for clients efficiently and train them on usage.</div>
-                                    </div>
-                                    <div class="persona-card__section">
-                                        <div class="persona-card__section-title">Pain Points</div>
-                                        <div class="persona-card__section-content">Hard to explain pipeline structure to clients; demo scenarios are difficult to set up.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <!-- The Solution Section -->
-                        <h2 id="solution">The Solution</h2>
-                        <p class="section-intro">Transform Canvas provides a visual, interactive representation of the entire data pipeline, allowing users to see all stages, their connections, and status at a glance while maintaining the ability to drill into any stage for detailed editing.</p>
-
-                        <h3>Pipeline Canvas Overview</h3>
                         <div class="canvas-diagram">
                             <div class="canvas-pipeline">
                                 <div class="canvas-stage">
@@ -1850,11 +2434,8 @@
                             </div>
                         </div>
 
-                        <hr>
-
-                        <!-- Release Scope Section -->
-                        <h2 id="scope">Release Scope</h2>
-                        <p class="section-intro">The Transform Canvas was delivered as part of the 23R2 release cycle. We prioritized features that addressed the most critical user pain points while planning future enhancements for subsequent releases.</p>
+                        <h3>Release Scope</h3>
+                        <p>The Transform Canvas was delivered as part of the 23R2 release cycle. We prioritized features that addressed the most critical user pain points while planning future enhancements for subsequent releases.</p>
 
                         <div class="scope-table-container">
                             <table class="scope-table">
@@ -1918,6 +2499,41 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <hr>
+
+                        <!-- Before & After Section -->
+                        <h2 id="before-after">Before & After</h2>
+                        <p class="section-intro">The Transform Canvas fundamentally changed how users interact with data pipelines, replacing a fragmented step-based interface with a unified visual experience.</p>
+
+                        <div class="before-after-grid">
+                            <div class="before-after-card before-after-card--before">
+                                <div class="before-after-card__header">Before: Step-Based Editor</div>
+                                <div class="before-after-card__content">
+                                    <ul>
+                                        <li>Linear, sequential navigation through stages</li>
+                                        <li>No visibility of pipeline relationships</li>
+                                        <li>Errors hidden within individual stages</li>
+                                        <li>Users had to mentally track dependencies</li>
+                                        <li>Required multiple clicks to navigate between stages</li>
+                                        <li>No way to see downstream impact of changes</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="before-after-card before-after-card--after">
+                                <div class="before-after-card__header">After: Transform Canvas</div>
+                                <div class="before-after-card__content">
+                                    <ul>
+                                        <li>Visual, holistic view of entire pipeline</li>
+                                        <li>Clear representation of all connections</li>
+                                        <li>Errors surfaced directly on canvas</li>
+                                        <li>Dependencies visible at a glance</li>
+                                        <li>One-click navigation to any stage</li>
+                                        <li>Real-time updates show change impacts</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
                         <hr>
@@ -2139,5 +2755,126 @@
             }
         })();
     </script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // Image Carousel Functionality
+            function initializeCarousels() {
+                const carousels = document.querySelectorAll('.image-carousel');
+                
+                carousels.forEach(carousel => {
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    const dots = carousel.querySelectorAll('.carousel-dot');
+                    
+                    if (slides.length === 0 || dots.length === 0) return;
+
+                    // Dot click handler
+                    dots.forEach(dot => {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            switchSlide(carousel, slideIndex);
+                        });
+                    });
+
+                    function switchSlide(carousel, index) {
+                        const slides = carousel.querySelectorAll('.carousel-slide');
+                        const dots = carousel.querySelectorAll('.carousel-dot');
+
+                        // Update slides
+                        slides.forEach((slide, i) => {
+                            if (i === index) {
+                                slide.classList.add('active');
+                            } else {
+                                slide.classList.remove('active');
+                            }
+                        });
+
+                        // Update dots
+                        dots.forEach((dot, i) => {
+                            if (i === index) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }
+
+            // Lightbox Zoom Functionality
+            function initializeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImg');
+                const lightboxClose = document.getElementById('lightboxClose');
+                const zoomables = document.querySelectorAll('.zoomable-image');
+
+                if (!lightbox || !lightboxImg) return;
+
+                // Open lightbox when clicking on zoomable images
+                zoomables.forEach(zoomable => {
+                    zoomable.addEventListener('click', function(e) {
+                        // Don't open if clicking on annotation markers
+                        if (e.target.closest('.annotation-marker')) return;
+
+                        // Find the main image in this zoomable container
+                        const img = this.querySelector('.annotated-image img') || this.querySelector('img');
+                        if (img) {
+                            lightboxImg.src = img.src;
+                            lightboxImg.alt = img.alt;
+                            lightbox.classList.add('active');
+                            document.body.style.overflow = 'hidden'; // Prevent scrolling
+                        }
+                    });
+                });
+
+                // Close lightbox function
+                function closeLightbox() {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                    lightboxImg.src = '';
+                }
+
+                // Close on overlay click
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox || e.target === lightboxImg) {
+                        closeLightbox();
+                    }
+                });
+
+                // Close on X button click
+                if (lightboxClose) {
+                    lightboxClose.addEventListener('click', closeLightbox);
+                }
+
+                // Close on ESC key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            // Initialize when DOM is ready
+            function init() {
+                initializeCarousels();
+                initializeLightbox();
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" alt="Zoomed image" id="lightboxImg">
+        <span class="lightbox-hint">Click anywhere or press ESC to close</span>
+    </div>
 </body>
 </html>
