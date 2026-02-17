@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Management - Shanthi Acharya</title>
+    <title>Workday Data Catalog Redesign - Shanthi Acharya</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -82,7 +83,7 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
@@ -92,11 +93,29 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -576,27 +595,206 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>Data Management</h1>
-                        <p class="tagline">Field-Level Lineage, Workspace Organization, and ML-Powered Security</p>
+                        <h1>Workday Data Catalog Redesign</h1>
+                        <p class="tagline"> Empowering Workday platform with a bi-directional flow of insights at scale</p>
                         <p class="subtitle">Product Design Leadership</p>
-                        <img class="hero-video" src="assets/cataloghome.png" alt="Data Management Catalog Overview">
+                        <img class="hero-image" src="assets/systemarchitecture.jpg" alt="Workday Data Cloud Ecosystem Architecture">
                     </div>
                     
                     <div class="case-study-body">
                         <h2>Overview</h2>
-                        <p>The Data Management pillar provides enterprise customers with comprehensive tools to understand data lineage, manage governance, and organize datasets across the organization.</p>
+                        <p>As Workday evolved its data platform to support AI-driven decision-making and zero-copy data architectures, the existing Prism data catalog needed a fundamental redesign. With three major strategic shifts converging—external Iceberg integration, real-time data preparation, and partner-built applications—users were struggling with organization, discoverability, and understanding new data paradigms.</p>
 
-                        <div class="coming-soon-banner">
-                            <h3>Case Study Coming Soon</h3>
-                            <p>Detailed case study content for Data Management is currently being developed.</p>
-                        </div>
-
-                        <h2>Key Features</h2>
+                        <h2>The Challenge</h2>
+                        
+                        <h3>Platform Evolution: Workday Data Cloud</h3>
+                        <p>Workday was launching <strong>Workday Data Cloud</strong>, a strategic platform evolution that fundamentally changes how customers access their people and money data. Instead of complex ETL processes, it enables <strong>bi-directional zero-copy data access</strong>—allowing customers to query data in-place without physically moving or copying it.</p>
+                        
+                        <p>The platform combines four key components:</p>
+                        
+                        <p><strong>Workday Data Lake</strong> - Governed access to curated Workday business objects</p>
                         <ul>
-                            <li><strong>Field-level lineage tracking:</strong> Trace any field back to its source instantly</li>
-                            <li><strong>Workspace organization:</strong> Logical grouping and management of datasets</li>
-                            <li><strong>ML-powered tagging and security:</strong> Automated classification and access controls</li>
+                            <li><strong>Workday Data Connect:</strong> Zero-copy access between Workday and external platforms (Snowflake, Databricks, Salesforce) via Apache Iceberg</li>
+                            <li><strong>Unified Data Catalog:</strong> Simplified catalog of Workday's primary business objects (Worker, HCM, Recruiting, Learning, with Finance and Payroll coming later)</li>
                         </ul>
+                        
+                        <p><strong>Workday Live Data Query</strong> - Direct, real-time SQL access to Workday core objects via JDBC for transactional reads</p>
+                        
+                        <p><strong>Prism's Data Management Tools</strong> - Existing integration toolset enhanced with inbound zero-copy queries from external platforms</p>
+
+                        <h3>The UX Problem</h3>
+                        <p>While Workday Data Cloud promised to eliminate costly data extraction processes, <strong>the catalog interface couldn't support this new paradigm</strong>. Users were facing:</p>
+                        <ul>
+                            <li><strong>Terminology confusion</strong> between materialized data (traditional Prism) and zero-copy live queries</li>
+                            <li><strong>Organizational chaos</strong> with 300-1000+ assets and no hierarchy for external vs. internal catalogs</li>
+                            <li><strong>Discoverability failures</strong> causing work duplication as users couldn't find existing content</li>
+                            <li><strong>No IP segregation</strong> for the growing ecosystem of partners building on the platform</li>
+                        </ul>
+
+                        <h2>Business Impact</h2>
+                        
+                        <h3>Strategic Imperative</h3>
+                        <p>This wasn't just a UI refresh—<strong>Workday Data Cloud was a key element of Workday Build</strong>, the company's initiative to empower customers and partners to build data-driven applications and accelerate AI innovation. The catalog needed to:</p>
+                        <ul>
+                            <li>Support external Iceberg integration with major platforms (Snowflake, Salesforce, Databricks)</li>
+                            <li>Enable real-time reporting through Unified Data Prep Views</li>
+                            <li>Protect Partner IP while allowing collaboration</li>
+                            <li>Scale to thousands of data assets across multiple catalogs</li>
+                        </ul>
+
+                        <h3>User Pain Points</h3>
+                        <ul>
+                            <li>Customers spending excessive time searching before duplicating existing datasets</li>
+                            <li>Data engineers confused by overlapping terminology (Live Data Pipeline, Live Query, Prism Derived Dataset)</li>
+                            <li>Administrators unable to segregate partner-created vs. customer-created content</li>
+                            <li>System analysts lacking metadata filtering to narrow down relevant assets</li>
+                        </ul>
+
+                        <h2>Research Approach</h2>
+                        
+                        <h3>Target Users</h3>
+                        <p>I focused on three distinct personas with different catalog needs:</p>
+                        <ul>
+                            <li><strong>Nina (System Analyst)</strong> - Searches existing content, creates exploratory datasets, needs clear folder structures</li>
+                            <li><strong>Brandon (Data Engineer)</strong> - Creates pipelines and curates data assets end-to-end, works across internal and external catalogs</li>
+                            <li><strong>Franklin (Administrator)</strong> - Manages users, security, workspaces, and monitors catalog limits across the expanding ecosystem</li>
+                        </ul>
+
+                        <h3>Phase 1: Discovery</h3>
+                        <ul>
+                            <li>Conducted user interviews to understand mental models around zero-copy vs. materialized data</li>
+                            <li>Analyzed usage patterns across customers with 300-1000+ assets</li>
+                            <li>Mapped terminology confusion: users couldn't distinguish between Data Connect (external Iceberg), Live Query (real-time JDBC), and traditional Prism tables</li>
+                        </ul>
+
+                        <h3>Phase 2: Information Architecture</h3>
+                        <ul>
+                            <li>Card sorting studies to establish optimal organization for multiple catalog types (Internal, External, Unified)</li>
+                            <li>Evaluated how users conceptualized: Derived Datasets (Live), External Tables, Prism Tables, Workday Data Lake objects</li>
+                            <li>Tested workspace segregation models for partner vs. customer content in BOW (Built on Workday) applications</li>
+                        </ul>
+
+                        <h3>Phase 3: Validation</h3>
+                        <ul>
+                            <li>Prototype testing for advanced search and metadata filtering across catalog types</li>
+                            <li>Usability testing for personalization features (Recents, Favorites, custom columns)</li>
+                            <li>Tested terminology with business users to ensure "zero-copy" was understandable</li>
+                        </ul>
+
+                        <h2>Key Insights</h2>
+                        
+                        <h3>1. The Zero-Copy Mental Model Gap</h3>
+                        <p>Users understood <em>what</em> zero-copy promised (no data movement) but not <em>how</em> to work with it:</p>
+                        <ul>
+                            <li>Couldn't distinguish when they were querying Workday Data Connect (external Iceberg) vs. Live Query (real-time JDBC) vs. Prism (materialized)</li>
+                            <li>Each method had different performance, freshness, and security implications</li>
+                            <li>Technical terminology (Apache Iceberg, JDBC, materialization) didn't map to user workflows</li>
+                        </ul>
+                        <p><strong>Impact:</strong> Created user-facing language distinguishing "Live External Data" (Data Connect), "Real-Time Workday Data" (Live Query), and "Prepared Datasets" (Prism)</p>
+
+                        <h3>2. Catalog Proliferation Without Hierarchy</h3>
+                        <p>Workday Data Cloud introduced multiple catalog types simultaneously:</p>
+                        <ul>
+                            <li><strong>Unified Data Catalog</strong> (curated Workday objects)</li>
+                            <li><strong>External Catalogs</strong> (Snowflake, Databricks, Salesforce via Iceberg)</li>
+                            <li><strong>Internal Catalog</strong> (traditional Prism materialized data)</li>
+                        </ul>
+                        <p>At 300+ assets, users couldn't navigate this complexity. The flat structure made it impossible to understand <em>where</em> data lived and <em>how</em> to access it.</p>
+                        <p><strong>Impact:</strong> Designed hierarchical workspace structure with clear visual indicators for catalog type and data freshness</p>
+
+                        <h3>3. Discovery Requires Multi-Dimensional Filtering</h3>
+                        <p>With Data Cloud expanding the data universe, users needed to filter by:</p>
+                        <ul>
+                            <li><strong>Catalog Source</strong> (Unified Data Catalog, Snowflake, Databricks, Prism)</li>
+                            <li><strong>Artifact Type</strong> (Dataset, Table, Connection, Live Query, External Table)</li>
+                            <li><strong>Data Freshness</strong> (Real-time, Near real-time, Scheduled refresh)</li>
+                            <li><strong>Column properties</strong> and custom metadata</li>
+                        </ul>
+                        <p>Single-keyword search was insufficient for this complexity.</p>
+                        <p><strong>Impact:</strong> Specified advanced search with faceted filtering and saved search states</p>
+
+                        <h3>4. Partner IP Segregation Missing</h3>
+                        <p>Built on Workday (BOW) partners were building applications on Prism, but there was no mechanism to:</p>
+                        <ul>
+                            <li>Separate partner-created artifacts from customer-created content</li>
+                            <li>Control visibility and permissions at the workspace level</li>
+                            <li>Provide partners with dedicated development environments</li>
+                        </ul>
+                        <p>This blocked the partner ecosystem strategy.</p>
+                        <p><strong>Impact:</strong> Prioritized workspace redesign with role-based access control and IP boundaries</p>
+
+                        <h2>Design Recommendations</h2>
+                        
+                        <h3>1. Unified Navigation Framework</h3>
+                        <ul>
+                            <li><strong>Three-tier hierarchy:</strong> Catalogs → Workspaces → Folders</li>
+                            <li><strong>Visual distinction</strong> for catalog types (Unified/Internal/External) and data paradigms (Live/Prepared)</li>
+                            <li><strong>Workspace segregation</strong> supporting partner IP protection and team collaboration</li>
+                        </ul>
+
+                        <h3>2. Terminology Standards for Zero-Copy</h3>
+                        <p>Customer-facing language bridging technical architecture with user understanding:</p>
+                        <ul>
+                            <li><strong>"Live External Data"</strong> (Workday Data Connect/Iceberg) → for external platform queries</li>
+                            <li><strong>"Real-Time Workday Data"</strong> (Live Query) → for fresh JDBC access</li>
+                            <li><strong>"Prepared Datasets"</strong> (Prism materialized) → for pre-processed analytics</li>
+                            <li><strong>"Workday Core Objects"</strong> (Unified Data Catalog) → for curated business objects</li>
+                        </ul>
+
+                        <h3>3. Advanced Discovery System</h3>
+                        <ul>
+                            <li>Multi-faceted filtering by catalog source, artifact type, data freshness, and custom properties</li>
+                            <li>Keyword search across field descriptions linking related datasets, tables, and reports</li>
+                            <li>Customizable column views tailored to user roles (analyst vs. engineer vs. admin)</li>
+                        </ul>
+
+                        <h3>4. Personalization & Context Preservation</h3>
+                        <ul>
+                            <li>Recents and Favorites scoped by catalog and workspace</li>
+                            <li>Saved search filters for common queries (e.g., "all real-time Finance objects")</li>
+                            <li>Workspace bookmarking for active projects across multiple catalogs</li>
+                        </ul>
+
+                        <h2>Impact & Outcomes</h2>
+                        
+                        <h3>Immediate</h3>
+                        <ul>
+                            <li><strong>Informed Workday Data Cloud GA roadmap</strong> for launch in 26R2</li>
+                            <li><strong>Established IA framework</strong> supporting Unified Data Catalog and external Iceberg integration</li>
+                            <li><strong>Created terminology standards</strong> adopted across Platform & Technology and customer documentation</li>
+                        </ul>
+
+                        <h3>Platform Adoption</h3>
+                        <ul>
+                            <li><strong>Reduced onboarding friction</strong> for customers adopting zero-copy architecture</li>
+                            <li><strong>Enabled partner ecosystem growth</strong> with clear IP segregation in BOW applications</li>
+                            <li><strong>Improved discoverability</strong> reducing data asset duplication and redundant ETL processes</li>
+                        </ul>
+
+                        <h3>Business Value</h3>
+                        <ul>
+                            <li><strong>Accelerated AI innovation</strong> through unified access to Workday and external data</li>
+                            <li><strong>Eliminated costly ETL</strong> by supporting in-place querying across platforms</li>
+                            <li><strong>Positioned catalog to scale</strong> beyond 1000+ assets as customers connect multiple external platforms</li>
+                        </ul>
+
+                        <h2>Reflection</h2>
+                        <p>This project required solving a fundamental UX challenge: <strong>how do you make zero-copy data architecture understandable to business users?</strong> The technical benefits (no data movement, real-time freshness, cost reduction) were clear, but users needed to understand <em>when</em> to use Data Connect vs. Live Query vs. Prism for their specific use case.</p>
+                        
+                        <p>The breakthrough came from reframing the problem: instead of explaining <em>how</em> each technology works (Apache Iceberg, JDBC, materialization), we focused on <em>what users are trying to accomplish</em>—accessing fresh external data, querying real-time Workday objects, or analyzing prepared datasets. This user-centered language unlocked both the terminology framework and the navigation structure.</p>
+                        
+                        <p>The research also revealed that <strong>organization and terminology are inseparable</strong>: users couldn't organize catalogs they didn't understand. By solving both problems together—creating clear language <em>and</em> hierarchical structure—we enabled customers to confidently adopt Workday Data Cloud.</p>
+                        
+                        <p>If I were to continue this work, I'd focus on:</p>
+                        <ul>
+                            <li><strong>Longitudinal studies</strong> tracking how users' mental models evolve as they adopt zero-copy workflows</li>
+                            <li><strong>Measuring duplication reduction</strong> after implementing advanced discovery</li>
+                            <li><strong>Partner feedback</strong> on IP segregation effectiveness as the BOW ecosystem scales</li>
+                        </ul>
+
+                        <h2>Images</h2>
+                        <p>Visual artifacts from the Data Catalog Redesign project:</p>
+                        <img class="hero-video" src="assets/cataloghome.png" alt="Data Management Catalog Overview" style="margin-top: 1rem;">
 
                     </div>
 
@@ -606,8 +804,8 @@
                         <div class="pillar-nav__links">
                             <a href="../data-integration-framework/" class="pillar-nav__link">1. Data Integration</a>
                             <a href="../data-prep-editor/" class="pillar-nav__link">2. Data Preparation</a>
-                            <span class="pillar-nav__current">3. Data Management</span>
-                            <a href="../unified-monitoring/" class="pillar-nav__link">4. Unified Monitoring</a>
+                            <a href="../unified-monitoring/" class="pillar-nav__link">3. Unified Monitoring</a>
+                            <span class="pillar-nav__current">4. Workday Data Cloud</span>
                         </div>
                         <a href="../../index.html" class="pillar-nav__home">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

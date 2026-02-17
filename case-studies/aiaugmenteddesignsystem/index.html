@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EverWell - Senior Companion App Case Study - Shanthi Acharya</title>
+    <title>AI-Augmented Design System Case Study - Shanthi Acharya</title>
     <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
         }
 
         :root {
-            /* DataCamp Color Palette */
             --primary-blue: #003D82;
             --primary-blue-light: #004C8C;
             --accent-teal: #00C7B1;
@@ -282,6 +281,16 @@
             font-weight: 400;
         }
 
+        .hero-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
         .case-study-body {
             background: var(--background-white);
             padding: 3rem;
@@ -372,6 +381,44 @@
             font-style: italic;
         }
 
+        .case-study-body .image-container {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .case-study-body .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-body .image-caption {
+            margin-top: 1rem;
+            color: var(--text-medium);
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .case-study-body .external-link {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+            transition: all 0.3s;
+        }
+
+        .case-study-body .external-link:hover {
+            background: var(--accent-teal-light);
+            transform: translateY(-2px);
+        }
+
         .case-study-body hr {
             border: none;
             height: 3px;
@@ -380,101 +427,130 @@
             border-radius: 2px;
         }
 
-        /* Feature Cards */
-        .feature-card {
-            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
-            padding: 1.75rem 1.5rem 1.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 4px 16px var(--shadow-sm);
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .process-step {
+            background: var(--background-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .process-step__number {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 0.75rem;
+        }
+
+        .process-step__title {
+            display: inline;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .process-step__description {
+            margin-top: 0.75rem;
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Outcome Card */
+        .outcome-card {
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-teal-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 16px var(--shadow-sm);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .feature-card::before {
+        .outcome-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue-light) 100%);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, var(--primary-blue) 100%);
         }
 
-        .feature-card:hover {
+        .outcome-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
         }
 
-        .feature-card h4 {
-            color: var(--primary-blue);
-            margin-top: 0;
-            margin-bottom: 0.75rem;
-            font-weight: 700;
-            font-size: 1.05rem;
-            letter-spacing: -0.01em;
-        }
-
-        .feature-card p {
-            margin-bottom: 0;
-            font-size: 0.9rem;
-            color: var(--text-medium);
-            line-height: 1.65;
-        }
-
-        /* Tech Stack */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-        }
-
-        .tech-badge {
-            background: var(--background-light);
-            color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--border-light);
-        }
-
-        /* Hero Image */
-        .hero-image {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 24px;
-            margin-top: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 61, 130, 0.15), 
-                        0 8px 24px rgba(0, 0, 0, 0.1);
-            border: 8px solid #1a1a1a;
-            background: #1a1a1a;
-        }
-
-        /* Demo Link */
-        .demo-link {
-            display: inline-block;
-            background: var(--accent-teal);
+        .outcome-card h3 {
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 1.5rem 0;
-            transition: all 0.3s;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        .demo-link:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+        .outcome-card p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1rem;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benefit-card {
+            background: var(--background-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px var(--shadow-md);
+        }
+
+        .benefit-card__icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card__title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .benefit-card__description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         /* Footer */
@@ -551,143 +627,125 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>EverWell</h1>
-                        <p class="tagline">A voice-first wellness companion for seniors</p>
-                        <p class="subtitle">World's Largest Hackathon presented by Bolt • June 2025</p>
-                        <img class="hero-image" src="assets/everwell.gif" alt="EverWell App - Home screen showing weather, walking prompts, mood check-in, and step tracking">
+                        <h1>AI-Augmented Design System</h1>
+                        <p class="tagline">Reusable Component Libraries for Rapid AI Prototyping</p>
+                        <p class="subtitle">AI Prototyping • Design Systems • Figma MCP</p>
+                        <img class="hero-image" src="assets/datapreview.png" alt="AI-Augmented Design System - Data Prep Editor Interface">
                     </div>
                     
                     <div class="case-study-body">
-                        <h2>Inspiration</h2>
-                        <p>We were inspired by the aging journey of our own parents and in-laws, noticing how easily they can slip into isolation or sedentary routines with mobility issues and loss of a partner. As busy parents and working professionals, we continue to struggle to provide caregiving and companionship.</p>
+                        <h2>The Problem</h2>
+                        <p>Building high-polish UI prototypes presents a significant challenge: replicating components and quickly assembling unique prototypes for different use cases over and over again. Our team was being tasked to create prototypes for different demos across various use cases, and we needed to move fast.</p>
                         
-                        <p>Caregivers and family members cannot be with them 24/7 and need a way to motivate them to be active and safe. We envisioned EverWell as a kind, voice-first companion that empowers seniors to move more, feel more connected, and age with greater independence — while giving caregivers peace of mind.</p>
-
-                        <hr>
-
-                        <h2>What EverWell Does</h2>
-                        <p>EverWell is a comprehensive wellness companion designed primarily for seniors, with features to support their daily health, activity, and social engagement. It also includes a dedicated portal for caregivers to monitor their loved ones' well-being.</p>
-
-                        <h3>Core Features</h3>
-
-                        <div class="feature-card">
-                            <h4>Smart Weather Detection & Walking Nudges</h4>
-                            <p>Detects weather conditions and provides the perfect time to walk, gently nudging users to stay active.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Walking Buddy</h4>
-                            <p>Enables light conversation during walks through an AI-powered voice companion, making exercise more enjoyable and less lonely.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Story Time</h4>
-                            <p>Offers narrated stories across various categories using voice AI assistant for entertainment and cognitive engagement.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Mood Check-in</h4>
-                            <p>Allows users to log their daily mood, helping track emotional well-being over time.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Activity Tracking</h4>
-                            <p>Monitors daily steps, distance, calories burned, and active minutes, with progress towards set goals.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Medication Management</h4>
-                            <p>Provides medication reminders, tracks adherence, and allows users to manage their medication schedules.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Calendar and Events</h4>
-                            <p>Helps users organize appointments, personal events, and walking activities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Safety Features</h4>
-                            <p>Includes emergency contacts management, location sharing with family, and health monitoring capabilities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Caregiver Portal</h4>
-                            <p>Offers a separate login for caregivers to view a summary of the senior's daily activities, medication compliance, mood trends, and receive alerts for real-time updates and peace of mind.</p>
-                        </div>
-
-                        <h3>Design Approach</h3>
-                        <p>EverWell features a clean, modern UI with calming gradients, bold typography, and large, accessible components designed specifically for seniors. Visual cues like emojis, icons, and color-coded statuses make navigation intuitive and engaging. The interface feels warm, uncluttered, and emotionally supportive.</p>
-
-                        <hr>
-
-                        <h2>How We Built It</h2>
-                        <p>We leveraged cutting-edge technology to create a robust, accessible mobile application:</p>
-
-                        <div class="tech-stack">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Expo</span>
-                            <span class="tech-badge">Supabase</span>
-                            <span class="tech-badge">PostgreSQL</span>
-                            <span class="tech-badge">ElevenLabs API</span>
-                            <span class="tech-badge">Netlify</span>
-                        </div>
-
+                        <p>The traditional approach of building each prototype from scratch was:</p>
                         <ul>
-                            <li><strong>Frontend Framework:</strong> React Native with Expo (Managed Workflow)</li>
-                            <li><strong>Navigation:</strong> Expo Router for tab-based and stack navigation</li>
-                            <li><strong>Database:</strong> PostgreSQL managed via Supabase for data storage, authentication, and real-time capabilities</li>
-                            <li><strong>Backend:</strong> Supabase Edge Functions and Supabase Auth</li>
-                            <li><strong>Local Storage:</strong> @react-native-async-storage/async-storage</li>
-                            <li><strong>Audio & Speech:</strong> expo-av for audio playback, expo-speech for system text-to-speech, and ElevenLabs API for advanced AI voice synthesis</li>
-                            <li><strong>Sensors:</strong> expo-sensors (Pedometer for step tracking) and expo-location for location services</li>
-                            <li><strong>Deployment:</strong> Netlify</li>
+                            <li>Time-consuming and repetitive</li>
+                            <li>Inconsistent across different prototypes</li>
+                            <li>Difficult to maintain quality at speed</li>
+                            <li>Hard for team members to onboard and contribute</li>
                         </ul>
 
                         <hr>
 
-                        <h2>Challenges We Faced</h2>
-                        <p>Building a full-featured mobile app in a hackathon setting came with significant challenges:</p>
-                        <ul>
-                            <li><strong>Framework Compatibility:</strong> React Native and Expo framework version incompatibility required multiple attempts to resolve, depleting tokens</li>
-                            <li><strong>Debugging:</strong> Terminal errors required creative debugging approaches, including using screenshots</li>
-                            <li><strong>Last-Minute Changes:</strong> UI changes at the last minute occasionally broke the app, requiring rapid fixes</li>
-                            <li><strong>Version Control:</strong> GitHub integration presented learning curves for team coordination</li>
-                        </ul>
+                        <h2>The Solution</h2>
+                        <p>I followed <strong>Colin Matthew's method</strong> for creating reusable component libraries optimized for AI-assisted development. The approach focuses on building a comprehensive component library first, then using AI tools to rapidly assemble high-fidelity prototypes.</p>
+                        
+                        <p>In this case, we were working on our <strong>Data Prep Editor</strong> on the canvas. I created a component library specifically for the visualized representation of stages and UI elements that could be rapidly composed into different configurations.</p>
+
+                        <div class="image-container">
+                            <img src="assets/stages.png" alt="Stage Components - Visual representation of data preparation stages">
+                            <p class="image-caption">Reusable stage components for data preparation visualization</p>
+                        </div>
 
                         <hr>
 
-                        <h2>Accomplishments</h2>
-                        <p>We're proud of what we achieved:</p>
-                        <ul>
-                            <li>Building a beautiful, fully-functional mobile app for seniors and caregivers that enhances the lives of seniors</li>
-                            <li>Designed a brand identity and icon system that feels calming, clear, and trustworthy</li>
-                            <li>Successfully integrated voice AI for interactive companionship features</li>
-                            <li>Created a comprehensive caregiver portal for real-time monitoring</li>
-                        </ul>
+                        <h2>The Process</h2>
+                        
+                        <div class="process-steps">
+                            <div class="process-step">
+                                <span class="process-step__number">1</span>
+                                <span class="process-step__title">Component Library Creation Prompt</span>
+                                <p class="process-step__description">First, I developed a specialized prompt for creating the component library. This prompt was designed to generate production-ready React components with consistent styling, proper accessibility, and flexibility for different use cases.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <span class="process-step__number">2</span>
+                                <span class="process-step__title">Figma MCP Screen Building</span>
+                                <p class="process-step__description">Using the component library creation prompt, I provided screens through Figma MCP integration. The AI tools built the initial screen implementations based on the design specifications, translating visual designs into functional code.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <span class="process-step__number">3</span>
+                                <span class="process-step__title">UI Component Refinement</span>
+                                <p class="process-step__description">Once the initial build was complete, the next step was refining the UI components. This involved adjusting styling, improving interactions, and ensuring components worked seamlessly together across different configurations.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <span class="process-step__number">4</span>
+                                <span class="process-step__title">Building Use Cases</span>
+                                <p class="process-step__description">With refined components in place, I started building different use cases for demos and prototypes. The modular nature of the component library made it easy to assemble new variations quickly.</p>
+                            </div>
+                            
+                            <div class="process-step">
+                                <span class="process-step__number">5</span>
+                                <span class="process-step__title">Publishing to Lovable</span>
+                                <p class="process-step__description">Finally, I pushed the prototypes to Lovable so other team members could remix and build upon them. This enabled collaborative iteration and allowed the team to create their own variations without starting from scratch.</p>
+                            </div>
+                        </div>
 
-                        <a href="https://everwellcompanion.netlify.app" class="demo-link" target="_blank">Try EverWell Live Demo →</a>
+                        <div class="image-container">
+                            <img src="assets/buttons.png" alt="Button Components - Reusable button library">
+                            <p class="image-caption">Standardized button components ensuring consistency across all prototypes</p>
+                        </div>
 
                         <hr>
 
-                        <h2>What We Learned</h2>
-                        <ul>
-                            <li>Developing a full-length, sleek-looking app with cutting-edge technology using prompts and conversation with intermediate technical skills</li>
-                            <li>Problem solving and debugging approaches when working under time pressure</li>
-                            <li>Confidence to build more ambitious projects in the future</li>
-                            <li>The importance of designing for accessibility and empathy when building for senior users</li>
-                        </ul>
+                        <h2>Results & Benefits</h2>
+                        
+                        <div class="outcome-card">
+                            <h3>Deterministic, Polished Output</h3>
+                            <p>While there's still upfront work required to build the component library, this investment quickly pays off. The method enables creating high-fidelity prototypes with consistent, deterministic output every time.</p>
+                        </div>
+
+                        <div class="benefits-grid">
+                            <div class="benefit-card">
+                                <div class="benefit-card__title">Consistent Design Language</div>
+                                <p class="benefit-card__description">All prototypes share the same visual language, making them feel cohesive and professional regardless of who builds them.</p>
+                            </div>
+                            
+                            <div class="benefit-card">
+                                <div class="benefit-card__title">Easier Iteration</div>
+                                <p class="benefit-card__description">Changes to components propagate across all prototypes, making it simple to update and improve the entire collection.</p>
+                            </div>
+                            
+                            <div class="benefit-card">
+                                <div class="benefit-card__title">Faster Onboarding</div>
+                                <p class="benefit-card__description">Team members can quickly start building prototypes using the established component library without learning everything from scratch.</p>
+                            </div>
+                            
+                            <div class="benefit-card">
+                                <div class="benefit-card__title">Rapid Prototyping</div>
+                                <p class="benefit-card__description">New demo variations can be assembled in a fraction of the time compared to building from scratch.</p>
+                            </div>
+                        </div>
 
                         <hr>
 
-                        <h2>What's Next for EverWell</h2>
-                        <p>We have ambitious plans for the future of EverWell:</p>
+                        <h2>Live Prototype</h2>
+                        <p>Explore the interactive prototype built using this AI-augmented design system approach:</p>
+                        
+                        <a href="#" class="external-link" target="_blank">View Live Prototype →</a>
+                        
+                        <p><em>Note: The prototype demonstrates the data preparation editor interface with reusable stage components.</em></p>
+
+                        <hr>
+
+                        <h2>Key Takeaways</h2>
                         <ul>
-                            <li><strong>Fall Detection:</strong> Integrating automatic fall detection for enhanced safety</li>
-                            <li><strong>Personalized AI:</strong> Building memory and mood tracking into AI conversations for more meaningful interactions</li>
-                            <li><strong>Partnerships:</strong> Connecting with home healthcare providers and AARP networks</li>
-                            <li><strong>Multilingual Support:</strong> Expanding language options to serve diverse communities</li>
-                            <li><strong>Pilot Program:</strong> Launching a pilot with real caregivers and aging-in-place communities</li>
-                            <li><strong>iOS Launch:</strong> Publishing to the iOS App Store</li>
+                            <li><strong>Invest in the foundation:</strong> The upfront work of creating a robust component library pays dividends in speed and consistency.</li>
+                            <li><strong>AI amplifies, not replaces:</strong> AI tools are most effective when given well-structured components to work with.</li>
+                            <li><strong>Enable your team:</strong> Publishing to platforms like Lovable allows team members to remix and build upon your work.</li>
+                            <li><strong>Iterate on the system:</strong> Continuously refine the component library based on real usage and feedback.</li>
                         </ul>
 
                         <hr>
@@ -696,13 +754,13 @@
                         <p><strong>Design & Development</strong><br>
                         Shanthi Acharya</p>
 
-                        <p><strong>Team Members</strong><br>
-                        Pooja Kohli - Front-end features (weather reporting, scheduling, notifications)</p>
+                        <p><strong>Methodology</strong><br>
+                        Based on Colin Matthew's reusable component library approach</p>
 
-                        <p><strong>Hackathon</strong><br>
-                        World's Largest Hackathon presented by Bolt • June 2025</p>
+                        <p><strong>Tools Used</strong><br>
+                        Figma, Figma MCP, AI Coding Assistants, Lovable, React</p>
 
-                        <p><em>This hackathon project demonstrates the ability to design empathetically for senior users, build rapidly with modern technologies, and create meaningful solutions that connect families and caregivers.</em></p>
+                        <p><em>This project demonstrates how combining design systems thinking with AI-assisted development can dramatically accelerate prototyping workflows while maintaining quality and consistency.</em></p>
                     </div>
                 </div>
             </div>
@@ -827,21 +885,13 @@
                 });
             }
 
-            // TOC is always sticky now via CSS, so this function is simplified
-            function handleTOCSticky() {
-                // TOC sticky positioning is handled by CSS position: sticky
-                // No JavaScript toggling needed
-            }
-
             // Initialize when DOM is ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function() {
                     initializeTOC();
-                    handleTOCSticky();
                 });
             } else {
                 initializeTOC();
-                handleTOCSticky();
             }
         })();
     </script>

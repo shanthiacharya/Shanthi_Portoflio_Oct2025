@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shanthi Acharya - Product Design Leader</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -188,16 +189,32 @@
         }
 
         .btn-primary {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
-            box-shadow: 0 8px 20px rgba(0, 199, 177, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         .btn-primary:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(0, 199, 177, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
         .btn-outline {
@@ -261,6 +278,53 @@
         .hero-social-links a svg {
             width: 20px;
             height: 20px;
+        }
+
+        /* Hero Brands Strip */
+        .hero-brands-strip {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-brands-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-brands-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-brands-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .hero-brands-item img {
+            max-width: 80px;
+            max-height: 32px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: opacity(0.85);
+            transition: all 0.3s ease;
+        }
+
+        .hero-brands-item:hover img {
+            filter: opacity(1);
+            transform: scale(1.1);
         }
 
         @keyframes fadeIn {
@@ -330,8 +394,8 @@
 
         .highlights-grid {
             display: grid !important;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
             margin-top: 1rem;
             visibility: visible !important;
             opacity: 1 !important;
@@ -339,8 +403,8 @@
 
         .highlight-card {
             background: var(--background-white);
-            border-radius: 16px;
-            padding: 1.75rem;
+            border-radius: 12px;
+            padding: 1.25rem;
             border: 1px solid var(--border-light);
             box-shadow: 0 4px 20px var(--shadow-md);
             transition: all 0.3s ease;
@@ -360,7 +424,7 @@
             right: 0;
             height: 4px;
             background: linear-gradient(90deg, var(--accent-teal) 0%, var(--primary-blue) 100%);
-            border-radius: 16px 16px 0 0;
+            border-radius: 12px 12px 0 0;
         }
 
         .highlight-card:hover {
@@ -370,14 +434,14 @@
         }
 
         .highlight-icon {
-            width: 36px;
-            height: 36px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 0.75rem;
-            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
             background: var(--accent-teal);
             color: white;
         }
@@ -387,11 +451,11 @@
         }
 
         .highlight-stat {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 800;
             color: var(--text-dark);
             line-height: 1.1;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.25rem;
             letter-spacing: -0.02em;
         }
 
@@ -399,7 +463,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-medium);
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.25rem;
         }
 
         .highlight-description {
@@ -456,96 +520,259 @@
         }
 
 
-        /* Experience Section */
-        .experience {
+        /* Resume Section */
+        .resume {
             background: var(--background-light);
         }
 
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
+        .resume-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2.5rem;
+            align-items: start;
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(180deg, var(--primary-blue), var(--accent-teal));
-            border-radius: 2px;
+        .resume-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
         }
 
-        .timeline-item {
+        .resume-column-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-teal);
+        }
+
+        /* Competency Cards */
+        .competency-card {
             background: var(--background-white);
-            padding: 2rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
-            position: relative;
-            box-shadow: 0 2px 8px var(--shadow-sm);
-            transition: all 0.3s;
+            padding: 1.25rem;
             border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
         }
 
-        .timeline-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 8px 24px var(--shadow-md);
-            border-color: var(--accent-teal);
+        .competency-card__header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
         }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 2rem;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-teal);
-            border-radius: 50%;
-            border: 3px solid var(--background-white);
+        .competency-card__icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
 
-        .timeline-item .company {
-            font-size: 1.5rem;
+        .competency-card__title {
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 0.3rem;
+            line-height: 1.3;
         }
 
-        .timeline-item .role {
-            font-size: 1.1rem;
-            color: var(--accent-teal);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-item .duration {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .timeline-item ul {
+        .competency-card__list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
-        .timeline-item li {
-            padding-left: 1.5rem;
-            margin-bottom: 0.8rem;
-            position: relative;
+        .competency-card__list li {
+            font-size: 0.85rem;
             color: var(--text-light);
-            line-height: 1.6;
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.5;
+            margin-bottom: 0.35rem;
         }
 
-        .timeline-item li::before {
-            content: '→';
+        .competency-card__list li::before {
+            content: '•';
             position: absolute;
             left: 0;
             color: var(--accent-teal);
             font-weight: bold;
+        }
+
+        /* Experience Entries */
+        .experience-entry {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .experience-entry__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-entry__company {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .experience-entry__location {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .experience-entry__duration {
+            font-size: 0.8rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        .experience-entry__role {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-entry__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .experience-entry__list li {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.5;
+            margin-bottom: 0.35rem;
+        }
+
+        .experience-entry__list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-size: 0.8rem;
+        }
+
+        /* Thought Leadership */
+        .leadership-section {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .leadership-section__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .leadership-section__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .leadership-section__list li {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            padding-left: 1rem;
+            position: relative;
+            line-height: 1.5;
+            margin-bottom: 0.35rem;
+        }
+
+        .leadership-section__list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+        }
+
+        /* Education Row */
+        .education-row {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .education-row__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-row__items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .education-row__item {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+        }
+
+        .education-row__degree {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Technical Fluency */
+        .tech-fluency {
+            background: var(--background-white);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .tech-fluency__title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .tech-fluency__content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+        }
+
+        .tech-fluency__group {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .tech-fluency__label {
+            font-weight: 600;
+            color: var(--text-dark);
         }
 
         /* Projects Section */
@@ -654,24 +881,45 @@
 
         .hero-project-left .hero-cta,
         .alternating-project-right .hero-cta {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--accent-teal);
-            color: var(--background-white);
-            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: fit-content;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-project-left .hero-cta::before,
+        .alternating-project-right .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         .hero-project.clickable:hover .hero-cta,
         .alternating-project.clickable:hover .hero-cta {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 199, 177, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        .hero-project.clickable:hover .hero-cta::before,
+        .alternating-project.clickable:hover .hero-cta::before {
+            left: 100%;
         }
 
         .hero-project-right {
@@ -1169,11 +1417,7 @@
         }
 
         .speaking-description {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-            flex: 1;
+            display: none;
         }
 
         .speaking-links {
@@ -1440,6 +1684,20 @@
                 height: 18px;
             }
 
+            .hero-brands-strip {
+                margin-top: 1.25rem;
+                padding-top: 1.25rem;
+            }
+
+            .hero-brands-logos {
+                gap: 1rem;
+            }
+
+            .hero-brands-item img {
+                max-width: 60px;
+                max-height: 24px;
+            }
+
             .section-title {
                 font-size: 1.8rem;
             }
@@ -1454,11 +1712,11 @@
             }
 
             .highlight-card {
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .highlight-stat {
-                font-size: 1.75rem;
+                font-size: 1.25rem;
             }
 
             .brands-strip {
@@ -1585,12 +1843,26 @@
                 font-size: 1.1rem;
             }
 
-            .timeline {
-                padding-left: 1.5rem;
+            .resume-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
-            .timeline-item {
-                padding: 1.5rem;
+            .resume-column {
+                gap: 1rem;
+            }
+
+            .competency-card,
+            .experience-entry,
+            .leadership-section,
+            .education-row,
+            .tech-fluency {
+                padding: 1rem;
+            }
+
+            .education-row__items {
+                flex-direction: column;
+                gap: 0.75rem;
             }
 
             .speaking-writing {
@@ -1790,22 +2062,40 @@
         }
 
         .prism-overview-link {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--accent-teal);
-            color: var(--background-white);
-            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
             text-decoration: none;
+            font-size: 1.1rem;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 16px rgba(0, 199, 177, 0.3);
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prism-overview-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         .prism-overview-link:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 199, 177, 0.4);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        .prism-overview-link:hover::before {
+            left: 100%;
         }
 
         @media (max-width: 1024px) {
@@ -2079,16 +2369,24 @@
             transition: opacity 0.5s ease;
         }
 
-        /* Timeline Animation */
-        .timeline-item {
+        /* Resume Animation */
+        .competency-card,
+        .experience-entry,
+        .leadership-section,
+        .education-row,
+        .tech-fluency {
             opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        .timeline-item.visible {
+        .competency-card.visible,
+        .experience-entry.visible,
+        .leadership-section.visible,
+        .education-row.visible,
+        .tech-fluency.visible {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
         }
 
         /* Speaking Card Stagger */
@@ -2167,6 +2465,28 @@
                     </svg>
                 </a>
             </div>
+            
+            <!-- Brands Logo Strip -->
+            <div class="hero-brands-strip">
+                <p class="hero-brands-label">Trusted by Industry Leaders</p>
+                <div class="hero-brands-logos">
+                    <div class="hero-brands-item">
+                        <img src="images/brands/workday_logo.jpeg" alt="Workday">
+                    </div>
+                    <div class="hero-brands-item">
+                        <img src="images/brands/ge_digital_logo.jpeg" alt="GE Digital">
+                    </div>
+                    <div class="hero-brands-item">
+                        <img src="images/brands/ibm_logo.jpeg" alt="IBM">
+                    </div>
+                    <div class="hero-brands-item">
+                        <img src="images/brands/intel_corporation_logo.jpeg" alt="Intel">
+                    </div>
+                    <div class="hero-brands-item">
+                        <img src="images/brands/elliemaeinc_logo.jpeg" alt="ICE Mortgage Technology">
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2229,29 +2549,18 @@
                     </div>
                     <div class="highlight-stat">Thought Leader</div>
                     <div class="highlight-label">Conference Presenter & Author</div>
-                    <p class="highlight-description">'Double Diamond in the Age of AI' at Workday AI Summit 2025. Author on Medium covering UX design, data visualization, and AI.</p>
+                    <p class="highlight-description">Double Diamond in the Age of AI at Workday AI Summit 2025. Author on Medium covering UX design, data visualization, and AI.</p>
                 </div>
-            </div>
 
-            <!-- Brands Logo Strip -->
-            <div class="brands-strip">
-                <p class="brands-strip-label">Trusted by Industry Leaders</p>
-                <div class="brands-strip-logos">
-                    <div class="brands-strip-item">
-                        <img src="images/brands/workday_logo.jpeg" alt="Workday">
+                <div class="highlight-card">
+                    <div class="highlight-icon ai">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+                        </svg>
                     </div>
-                    <div class="brands-strip-item">
-                        <img src="images/brands/ge_digital_logo.jpeg" alt="GE Digital">
-                    </div>
-                    <div class="brands-strip-item">
-                        <img src="images/brands/ibm_logo.jpeg" alt="IBM">
-                    </div>
-                    <div class="brands-strip-item">
-                        <img src="images/brands/intel_corporation_logo.jpeg" alt="Intel">
-                    </div>
-                    <div class="brands-strip-item">
-                        <img src="images/brands/elliemaeinc_logo.jpeg" alt="ICE Mortgage Technology">
-                    </div>
+                    <div class="highlight-stat">Women Defining AI</div>
+                    <div class="highlight-label">AI Immersion & Community Building</div>
+                    <p class="highlight-description">Invested in structured AI upskilling and validated learning through hands-on hackathon builds and public demos.</p>
                 </div>
             </div>
         </div>
@@ -2261,7 +2570,6 @@
     <section class="section projects" id="projects">
         <div class="container">
             <h2 class="section-title">Featured Work</h2>
-            <p class="section-subtitle">Driving innovation through user-centered design</p>
             
             <!-- Prism Analytics Showcase Section -->
             <section class="prism-showcase" id="prism">
@@ -2269,7 +2577,7 @@
                     <span class="hero-company-tag">WORKDAY</span>
                     <h3>Prism Analytics Platform</h3>
                     <p class="hero-subtitle">The Data Backbone That Powers Workday's Enterprise Growth</p>
-                    <p>4 interconnected design initiatives spanning data integration, preparation, management, and monitoring</p>
+                    <p>Led design strategy across 4 product pillars balancing strategic visioning with tactical execution.</p>
                 </div>
                 
                 <div class="prism-pillars-grid">
@@ -2287,22 +2595,11 @@
                     <a href="case-studies/data-prep-editor/" class="prism-pillar-card">
                         <div class="pillar-icon">
                             <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                                <path d="M3 3v18h18V3H3zm8 16H5v-6h6v6zm0-8H5V5h6v6zm8 8h-6v-6h6v6zm0-8h-6V5h6v6z"/>
                             </svg>
                         </div>
                         <span class="pillar-title">Data Preparation</span>
                         <p class="pillar-description">AI-augmented data transformation and rapid prototyping</p>
-                        <span class="pillar-cta">Explore →</span>
-                    </a>
-                    
-                    <a href="case-studies/data-management/" class="prism-pillar-card">
-                        <div class="pillar-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
-                            </svg>
-                        </div>
-                        <span class="pillar-title">Data Management</span>
-                        <p class="pillar-description">Catalog, governance, and workspace organization</p>
                         <span class="pillar-cta">Explore →</span>
                     </a>
                     
@@ -2316,6 +2613,17 @@
                         <p class="pillar-description">Job health dashboard and proactive management</p>
                         <span class="pillar-cta">Explore →</span>
                     </a>
+                    
+                    <a href="case-studies/data-management/" class="prism-pillar-card">
+                        <div class="pillar-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                            </svg>
+                        </div>
+                        <span class="pillar-title">Workday Data Cloud</span>
+                        <p class="pillar-description">Empowering Workday platform with a bi-directional flow of insights at scale</p>
+                        <span class="pillar-cta">Explore →</span>
+                    </a>
                 </div>
                 
                 <a href="case-studies/workday-prism-analytics-platform/" class="prism-overview-link">
@@ -2326,12 +2634,7 @@
             <!-- Hero Project -->
             <a href="case-studies/analytics-data-platform/" class="hero-project clickable" data-tags="UX Strategy Data Visualization Enterprise Analytics Team Leadership">
                 <div class="hero-project-left">
-                    <span class="hero-company-tag">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.4rem;">
-                            <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C6.44 13 10 11 10 11c0-.55.45-1 1-1s1 .45 1 1c0 0 3.56 2 3.81 3.22.02.04-.12.22.07.12.19-.34.2-.66-.38-.66H13l1 7h-1v1h-2v-1zm-4-9c1.1 0 2-.9 2-2 0-.55-.45-1-1-1s-1 .45-1 1c0 .55.45 1 1 1zm8 0c.55 0 1-.45 1-1 0-.55-.45-1-1-1s-1 .45-1 1c0 .55.45 1 1 1z"/>
-                        </svg>
-                        early stage startup
-                    </span>
+                    <span class="hero-company-tag">VISION SETTING</span>
                     <h3>Unified Data Movement Platform</h3>
                     <p class="hero-subtitle">Ingestion, transformation, activation, and orchestration - all in one place</p>
                     <p>Led the complete UX vision and strategy for Supaflow, a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
@@ -2342,67 +2645,53 @@
                 </div>
             </a>
 
-            <!-- Alternating Project -->
-            <a href="case-studies/data-prep-editor/" class="alternating-project clickable" data-tags="Design System React AI Prototyping Data Preparation">
-                <div class="alternating-project-left">
-                    <img src="case-studies/data-prep-editor/assets/data-prep-editor.jpg" alt="AI-Augmented Design System">
-                </div>
-                <div class="alternating-project-right">
-                    <span class="hero-company-tag">WORKDAY</span>
-                    <h3>AI-Augmented Design System</h3>
-                    <p class="hero-subtitle">Rapid Prototyping Infrastructure for Analytics Scenarios</p>
-                    <p>Developed a comprehensive design system featuring AI-enhanced prototyping capabilities, enabling rapid iteration on data preparation interfaces with intelligent state management and production-ready React components.</p>
-                    <span class="hero-cta">View case study →</span>
-                </div>
-            </a>
-
             <!-- More Projects Section -->
             <h3 class="more-projects-title">More Projects</h3>
             <div class="projects-grid">
-                <a href="case-studies/gartner-magic-quadrant/" class="project-card clickable" data-tags="Sales Enablement Demo Design Enterprise Workday">
+                <a href="case-studies/gartner-magic-quadrant/" class="project-card clickable" data-tags="Sales Enablement Cross Pillar Collaboration Enterprise Workday">
                     <div class="project-header">
                         <img src="case-studies/gartner-magic-quadrant/assets/gartner-mq-2025.png" alt="2025 Gartner Magic Quadrant for Cloud ERP" class="project-header-image">
-                        <span class="project-type-tag">WORKDAY</span>
+                        <span class="project-type-tag">Workday Financials</span>
                     </div>
                     <div class="project-content">
                         <h4 class="project-title">2025 Gartner® Magic Quadrant™ Demo Vignettes</h4>
                         <p>Led design effort for demo vignettes that contributed to Workday Financials achieving #1 rating in Gartner's 2025 Magic Quadrant for Cloud ERP—the top artifact in sales cycles.</p>
                         <div class="project-tags-bottom">
                             <span class="tag">Sales Enablement</span>
-                            <span class="tag">Demo Design</span>
+                            <span class="tag">Cross Pillar Collaboration</span>
                             <span class="tag">#1 Leader</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="case-studies/subscription-management/" class="project-card clickable" data-tags="Information Architecture JTBD Research UX Strategy Enterprise Software">
+                <a href="case-studies/aiaugmenteddesignsystem/" class="project-card clickable" data-tags="Design System Components AI Prototyping Data Preparation">
                     <div class="project-header">
-                        <img src="case-studies/subscription-management/assets/subscription-management.jpg" alt="Subscription Management" class="project-header-image">
-                        <span class="project-type-tag">WORKDAY</span>
+                        <img src="case-studies/aiaugmenteddesignsystem/assets/vrscomponentcover.png" alt="AI-Augmented Design System" class="project-header-image">
+                        <span class="project-type-tag">AI Prototyping</span>
                     </div>
                     <div class="project-content">
-                        <h4 class="project-title">Subscription Management</h4>
-                        <p>Restructured contract management through Jobs-to-be-Done research, redesigning information architecture to align with user mental models and improve task completion rates.</p>
+                        <h4 class="project-title">AI-Augmented Design System</h4>
+                        <p>Developed a comprehensive design system featuring AI-enhanced prototyping capabilities, enabling rapid iteration on data preparation interfaces with reusable components.</p>
                         <div class="project-tags-bottom">
-                            <span class="tag">Information Architecture</span>
-                            <span class="tag">JTBD Research</span>
-                            <span class="tag">UX Strategy</span>
+                            <span class="tag">Design System</span>
+                            <span class="tag">AI Prototyping</span>
+                            <span class="tag">Components</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="case-studies/color-palette-tool/" class="project-card clickable" data-tags="Personal Project AI Tooling Accessibility Data Visualization">
+                <a href="case-studies/color-palette-tool/" class="project-card clickable" data-tags="Data Visualization Vibe Coding Accessible Color Palette">
                     <div class="project-header">
                         <img src="case-studies/color-palette-tool/assets/WorkdayCharts.png" alt="Data Visualization Color Palette Tool" class="project-header-image">
-                        <span class="project-type-tag">PERSONAL PROJECT</span>
+                        <span class="project-type-tag">UNIFIED CHARTING LIBRARY</span>
                     </div>
                     <div class="project-content">
-                        <h4 class="project-title">Data Visualization Color Palette Tool</h4>
+                        <h4 class="project-title">Unified Charting</h4>
                         <p>Built an intelligent color palette tool for data visualization using modern AI coding tools. Created an accessible, harmonious palette generator that ensures WCAG compliance and optimal data readability.</p>
                         <div class="project-tags-bottom">
-                            <span class="tag">Personal Project</span>
-                            <span class="tag">AI Tooling</span>
-                            <span class="tag">Accessibility</span>
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">Vibe Coding</span>
+                            <span class="tag">Accessible Color Palette</span>
                         </div>
                     </div>
                 </a>
@@ -2422,6 +2711,70 @@
                         </div>
                     </div>
                 </a>
+
+                <a href="case-studies/field-lineage/" class="project-card clickable" data-tags="Data Lineage Design Thinking Complex UX Workday">
+                    <div class="project-header">
+                        <img src="images/placeholder-lineage.svg" alt="Data and Field Lineage" class="project-header-image" style="background: linear-gradient(135deg, #003D82 0%, #00C7B1 100%);">
+                        <span class="project-type-tag">WORKDAY</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">Data and Field Lineage</h4>
+                        <p>Designed intuitive field lineage visualization for enterprise data platforms, enabling users to trace field origins, transformations, and dependencies across complex data pipelines.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">Data Lineage</span>
+                            <span class="tag">Design Thinking</span>
+                            <span class="tag">Complex UX</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="case-studies/allregs/" class="project-card clickable" data-tags="Responsive Design Search UX Information Architecture Ellie Mae">
+                    <div class="project-header">
+                        <img src="images/placeholder-allregs.svg" alt="AllRegs Responsive Redesign" class="project-header-image" style="background: linear-gradient(135deg, #004C8C 0%, #03DAC6 100%);">
+                        <span class="project-type-tag">ELLIE MAE</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">AllRegs Responsive Redesign</h4>
+                        <p>Led responsive redesign of a mortgage compliance platform, improving search UX, information architecture, and mobile accessibility for thousands of mortgage professionals.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">Responsive Design</span>
+                            <span class="tag">Search UX</span>
+                            <span class="tag">Information Architecture</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="case-studies/design-sprint/" class="project-card clickable" data-tags="Design Sprint Facilitation UX Strategy Ellie Mae">
+                    <div class="project-header">
+                        <img src="images/placeholder-sprint.svg" alt="Marketplace Design Sprint" class="project-header-image" style="background: linear-gradient(135deg, #00C7B1 0%, #003D82 100%);">
+                        <span class="project-type-tag">ELLIE MAE</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">Marketplace Design Sprint</h4>
+                        <p>Facilitated a 5-day design sprint bringing cross-functional teams together to envision, prototype, and validate a marketplace ecosystem MVP with real users.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">Design Sprint</span>
+                            <span class="tag">Facilitation</span>
+                            <span class="tag">UX Strategy</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="case-studies/plant-operation-advisor/" class="project-card clickable" data-tags="IoT Predictive Analytics Asset Management GE Digital">
+                    <div class="project-header">
+                        <img src="images/placeholder-plant.svg" alt="Plant Operation Advisor" class="project-header-image" style="background: linear-gradient(135deg, #003D82 0%, #FF6B35 100%);">
+                        <span class="project-type-tag">GE DIGITAL</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">Plant Operation Advisor</h4>
+                        <p>Designed predictive analytics interfaces for offshore platform health monitoring as part of GE Fastworks design sprint, enabling proactive maintenance and reducing equipment failures.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">IoT</span>
+                            <span class="tag">Predictive Analytics</span>
+                            <span class="tag">Asset Management</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -2432,45 +2785,31 @@
             <h2 class="section-title">Talks & Articles</h2>
             <p class="section-subtitle">Sharing insights on product design, enterprise UX, and design leadership</p>
             
-            <!-- Conference Talks -->
-            <h3 class="subsection-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
-                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
-                </svg>
-                Conference Talks
-            </h3>
-            <div class="speaking-card-featured">
-                <div class="featured-image">
-                    <img src="case-studies/conference%20talks/assets/double-diamond-ai.png" alt="The Double Diamond in the Age of AI">
-                </div>
-                <div class="featured-content">
-                    <div class="featured-header">
-                        <span class="speaking-type-tag">Conference</span>
-                        <span class="speaking-date">2025</span>
-                    </div>
-                    <h4 class="speaking-title">The Double Diamond in the Age of AI – Evolution or Revolution?</h4>
-                    <p class="speaking-venue">Workday AI Summit</p>
-                    <p class="speaking-description">Explores how artificial intelligence is transforming the classic double diamond design process, identifying which fundamental principles remain unchanged and which aspects are being radically reimagined. Through practical examples and forward-looking insights, the presentation helps design teams prepare for a future where human creativity and machine intelligence work in harmony.</p>
-                    <div class="speaking-links">
-                        <a href="case-studies/conference%20talks/The%20Double%20Diamond%20in%20the%20Age%20of%20AI%20-%20Evolution%20or%20Revolution_.pdf" class="speaking-link" target="_blank">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 17h2v-7H7v7zm4 0h2V7h-2v10zm4 0h2v-4h-2v4z"/>
-                            </svg>
-                            View Slides
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Publications -->
-            <h3 class="subsection-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
-                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-                </svg>
-                Articles
-            </h3>
             <div class="speaking-grid">
+                <!-- Conference Talk -->
+                <div class="speaking-card">
+                    <div class="speaking-card-image">
+                        <img src="case-studies/conference%20talks/assets/double-diamond-ai.png" alt="The Double Diamond in the Age of AI">
+                        <div class="speaking-card-header">
+                            <span class="speaking-type-tag">Conference</span>
+                            <span class="speaking-date">2025</span>
+                        </div>
+                    </div>
+                    <div class="speaking-card-content">
+                        <h4 class="speaking-title">The Double Diamond in the Age of AI – Evolution or Revolution?</h4>
+                        <p class="speaking-description">Exploring how AI is transforming the double diamond design process—what remains unchanged and what's being reimagined.</p>
+                        <div class="speaking-links">
+                            <a href="case-studies/conference%20talks/The%20Double%20Diamond%20in%20the%20Age%20of%20AI%20-%20Evolution%20or%20Revolution_.pdf" class="speaking-link" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 17h2v-7H7v7zm4 0h2V7h-2v10zm4 0h2v-4h-2v4z"/>
+                                </svg>
+                                View Slides
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Articles -->
                 <div class="speaking-card writing-card">
                     <div class="speaking-card-image">
                         <img src="images/articles/claude-design-speed.jpg" alt="Design at the Speed of Thought">
@@ -2481,7 +2820,7 @@
                     </div>
                     <div class="speaking-card-content">
                         <h4 class="speaking-title">Design at the Speed of Thought: Leveraging Claude 3.7 Sonnet for Better Outcomes</h4>
-                        <p class="speaking-description">Exploring how AI-powered design tools like Claude 3.7 Sonnet can accelerate the design process and lead to better user experience outcomes through rapid iteration and intelligent assistance.</p>
+                        <p class="speaking-description">How AI tools like Claude 3.7 Sonnet accelerate design through rapid iteration and intelligent assistance.</p>
                         <div class="speaking-links">
                             <a href="https://medium.com/design-bootcamp/design-at-the-speed-of-thought-leveraging-claude-3-7-sonnet-for-better-outcomes-0c2b93e1b9be" class="speaking-link" target="_blank">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -2503,7 +2842,7 @@
                     </div>
                     <div class="speaking-card-content">
                         <h4 class="speaking-title">Mastering Competitive UX Analysis: Harnessing Effective Methodologies and Frameworks</h4>
-                        <p class="speaking-description">A comprehensive guide to conducting competitive UX analysis using proven methodologies and frameworks to gain actionable insights and inform strategic design decisions.</p>
+                        <p class="speaking-description">A guide to competitive UX analysis using proven methodologies for actionable insights.</p>
                         <div class="speaking-links">
                             <a href="https://medium.com/@sacharya123/mastering-competitive-ux-analysis-harnessing-effective-methodologies-and-frameworks-2a095527e4dc" class="speaking-link" target="_blank">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -2525,7 +2864,7 @@
                     </div>
                     <div class="speaking-card-content">
                         <h4 class="speaking-title">From Chatbots to Cohesive Experiences: An AI-Driven Hybrid UX Approach in Google Notebook LM</h4>
-                        <p class="speaking-description">Examining the evolution from simple chatbots to sophisticated AI-driven hybrid experiences, with a deep dive into the UX patterns and design principles behind Google Notebook LM.</p>
+                        <p class="speaking-description">The evolution from chatbots to AI-driven hybrid experiences, with a UX deep dive into Google Notebook LM.</p>
                         <div class="speaking-links">
                             <a href="https://medium.com/@sacharya123/from-chatbots-to-cohesive-experiences-an-ai-driven-hybrid-ux-approach-in-google-notebook-lm-3e15848fb413" class="speaking-link" target="_blank">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -2540,66 +2879,172 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section class="section experience" id="experience">
+    <!-- Resume Section -->
+    <section class="section resume" id="experience">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <p class="section-subtitle">Building impactful products across leading tech companies</p>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="company">Workday</div>
-                    <div class="role">Product Design Leader - Analytics & Reporting</div>
-                    <div class="duration">April 2020 – Present</div>
-                    <ul>
-                        <li>Manage and mentor a team of 7 product designers, aligning work with product strategy</li>
-                        <li>Defined and executed 3-year UX vision for Analytics Data Platform, driving adoption</li>
-                        <li>Led AI/ML feature integration into Workday Reporting & Analytics, improving efficiency</li>
-                        <li>Championed scalable design systems unifying experiences across analytics portfolio</li>
-                        <li>Conducted customer research using Jobs to be Done framework for product evolution</li>
-                    </ul>
+            <h2 class="section-title">Resume</h2>
+            <p class="section-subtitle">Product Design Leader with Enterprise Data Platform Expertise</p>
+            
+            <div class="resume-grid">
+                <!-- Left Column: Core Competencies -->
+                <div class="resume-column">
+                    <div class="resume-column-title">Core Competencies</div>
+                    
+                    <div class="competency-card">
+                        <div class="competency-card__header">
+                            <div class="competency-card__icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a4 4 0 0 0 0 8 4 4 0 0 1 0 8"></path>
+                                    <path d="M12 2a4 4 0 0 1 0 8 4 4 0 0 0 0 8"></path>
+                                </svg>
+                            </div>
+                            <div class="competency-card__title">Systems Design Thinking</div>
+                        </div>
+                        <ul class="competency-card__list">
+                            <li>Journey Map & Information Architecture</li>
+                            <li>Object Oriented UX & semantic models</li>
+                            <li>Behavioral patterns & user intent</li>
+                            <li>Design Systems and UX Patterns</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="competency-card">
+                        <div class="competency-card__header">
+                            <div class="competency-card__icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7L12 17l-6.3 4 2.3-7-6-4.6h7.6L12 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="competency-card__title">AI-First Design Practice</div>
+                        </div>
+                        <ul class="competency-card__list">
+                            <li>Cursor, Figma Make, MCP & Lovable for functional prototypes</li>
+                            <li>Code-first validation (React/TypeScript)</li>
+                            <li>10x iteration velocity with AI tools</li>
+                            <li>Prototype-to-production in hours</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="competency-card">
+                        <div class="competency-card__header">
+                            <div class="competency-card__icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                            </div>
+                            <div class="competency-card__title">Data Platform Expertise</div>
+                        </div>
+                        <ul class="competency-card__list">
+                            <li>Enterprise data catalogs & metadata</li>
+                            <li>Analytics & BI workflows</li>
+                            <li>ML/AI transparency & governance</li>
+                            <li>Postgres & SQL data models</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="competency-card">
+                        <div class="competency-card__header">
+                            <div class="competency-card__icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 2L11 13"></path>
+                                    <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+                                </svg>
+                            </div>
+                            <div class="competency-card__title">High-Velocity Leadership</div>
+                        </div>
+                        <ul class="competency-card__list">
+                            <li>Navigate ambiguity with confidence</li>
+                            <li>Autonomous, high-trust team culture</li>
+                            <li>Ship quality at speed</li>
+                            <li>Scale design resources effectively</li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="timeline-item">
-                    <div class="company">Workday</div>
-                    <div class="role">Design Lead - Analytics Data Platform</div>
-                    <div class="duration">January 2019 – April 2020</div>
-                    <ul>
-                        <li>Delivered end-to-end designs for data ingestion, transformation, and reporting tools</li>
-                        <li>Led UX competitive analysis to inform differentiation strategy</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="company">Ellie Mae</div>
-                    <div class="role">Lead Interaction Designer</div>
-                    <div class="duration">June 2016 – December 2018</div>
-                    <ul>
-                        <li>Directed UX vision for next-generation mortgage enterprise applications</li>
-                        <li>Facilitated design sprint workshops to establish MVP direction</li>
-                        <li>Created reusable components supporting scalable design efforts</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="company">GE Digital</div>
-                    <div class="role">Staff Interaction Designer</div>
-                    <div class="duration">May 2012 – June 2016</div>
-                    <ul>
-                        <li>Led UX for industrial IoT platforms including asset management and predictive analytics</li>
-                        <li>Developed UX strategy for Oil & Gas Fleet combining cloud, mobile, and web</li>
-                        <li>Delivered high-impact analytics visualization prototypes for stakeholder demos</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="company">Western Digital</div>
-                    <div class="role">Senior UX Designer</div>
-                    <div class="duration">June 2010 – May 2012</div>
-                    <ul>
-                        <li>Designed cross-platform UX for storage tools across web, mobile, and smart TV</li>
-                        <li>Established scalable IA and UCD process foundations</li>
-                    </ul>
-                </div>
+                
+                <!-- Right Column: Experience & Education -->
+                <div class="resume-column">
+                    <div class="resume-column-title">Professional Experience</div>
+                    
+                    <div class="experience-entry">
+                        <div class="experience-entry__header">
+                            <div>
+                                <span class="experience-entry__company">WORKDAY</span>
+                                <span class="experience-entry__location"> | Pleasanton, CA</span>
+                            </div>
+                            <span class="experience-entry__duration">Apr 2020 – Present</span>
+                        </div>
+                        <div class="experience-entry__role">Product Design Manager – Analytics Data Platform & Reporting Experience</div>
+                        <ul class="experience-entry__list">
+                            <li>Led team of designers through hiring, mentoring, and performance management, achieving 95% retention rate and delivering 15+ major product releases</li>
+                            <li>Mentored and supported the growth of 10 designers, resulting in 2 promotions to senior level</li>
+                            <li>Led design strategy across 4 product pillars while shipping hands-on work with 5+ Scrum teams</li>
+                            <li>Established cross-functional design review process with PM, engineering, techwriters and research, reducing iteration cycles by 25%</li>
+                            <li>Established AI-first design process, training team on Lovable, Cursor, and Bolt for rapid iteration</li>
+                            <li>Established prototype-driven culture where teams validate with working code first, improving team velocity by 40% and reducing engineering rework by 75%</li>
+                            <li>Architected and shipped Workday Data Cloud MVP with SQL and Apache Iceberg integration, driving 3x adoption by breaking vendor lock-in through open standards</li>
+                            <li>Led design for Workday Financials achieving #1 Gartner Magic Quadrant rating for Cloud ERP</li>
+                            <li>Defined and executed 3-year UX vision for Analytics Data Platform, aligning with C-suite objectives and resulting in 35% increased adoption</li>
+                            <li>Conducted comprehensive UX competitive analysis presenting actionable insights to leadership</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-entry">
+                        <div class="experience-entry__header">
+                            <div>
+                                <span class="experience-entry__company">ELLIE MAE</span>
+                                <span class="experience-entry__location"> (now ICE Mortgage Technology) | Pleasanton, CA</span>
+                            </div>
+                            <span class="experience-entry__duration">Jun 2016 – Dec 2018</span>
+                        </div>
+                        <div class="experience-entry__role">Lead Interaction Designer</div>
+                        <ul class="experience-entry__list">
+                            <li>Directed UX architecture and designed core workflows for mortgage platform processing</li>
+                            <li>Created cross-product design system with 50+ components, ensuring compliance while improving efficiency by 30%</li>
+                            <li>Prototyped complex financial workflows in code, enabling engineering to build from functional foundations</li>
+                            <li>Led 5-day collaborative workshop bringing together product, marketing, business development, UX, and engineering teams to align on strategic vision for marketplace ecosystem</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="experience-entry">
+                        <div class="experience-entry__header">
+                            <div>
+                                <span class="experience-entry__company">GE DIGITAL</span>
+                                <span class="experience-entry__location"> | San Ramon, CA</span>
+                            </div>
+                            <span class="experience-entry__duration">May 2012 – Jun 2016</span>
+                        </div>
+                        <div class="experience-entry__role">Staff Interaction Designer</div>
+                        <ul class="experience-entry__list">
+                            <li>Designed predictive analytics interfaces for industrial IoT platform, translating complex ML models into actionable insights for 10,000+ enterprise users</li>
+                            <li>Led end-to-end design for Asset Management platform across aviation, energy, and healthcare, managing ambiguity in emerging IoT space</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="leadership-section">
+                        <div class="leadership-section__title">Thought Leadership & Innovation</div>
+                        <ul class="leadership-section__list">
+                            <li><strong>Conference Speaker:</strong> "Double Diamond in the Age of AI" at Workday RAD AI Summit 2025—exploring AI-first design methodologies</li>
+                            <li><strong>Speaker Coach & Mentor:</strong> Mentored co-presenter for Orbit Xplore, developing next generation of design leaders</li>
+                            <li><strong>Bolt Hackathon:</strong> Built EverWell, a voice-enabled wellness companion for seniors in partnership with Women Defining AI community</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="education-row">
+                        <div class="education-row__title">Education</div>
+                        <div class="education-row__items">
+                            <div class="education-row__item">
+                                <span class="education-row__degree">M.S. Human Factors</span> | San Jose State University
+                            </div>
+                            <div class="education-row__item">
+                                <span class="education-row__degree">M.S. Computer Science</span> | California State University, East Bay
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div>
             </div>
         </div>
     </section>
@@ -2611,11 +3056,9 @@
             <p class="section-subtitle">Product Design Manager & Lead with Enterprise UX Expertise</p>
             
             <div class="about-bio">
-                <p>I am a Product Design Manager and Lead with several years of Enterprise Product Design experience at various companies including Workday, GE Digital, Western Digital, Kno Inc., and IBM. Before transitioning to a UX career, I worked at Intel as a Software Engineer.</p>
+                <p>I began my career as a Software Engineer at Intel, where exposure to UX through gaming and video performance analysis sparked my transition into design. I later pursued a degree in Human Factors and have loved building user-centered, data-driven enterprise experiences ever since.</p>
                 
-                <p>During my career as a software engineer and performance analyst at Intel, I gained exposure to UX through gaming and video quality performance assessment. This sparked my interest in UX, leading me to pursue a human factors degree. I'm grateful for making this transition and thoroughly enjoy the creative work, collaborating with users, product owners, and engineering teams.</p>
-                
-                <p>In my spare time, I love to read and learn from everything. I enjoy traveling and hiking with family and friends. I'm an active participant in book clubs and culinary groups. To relax, I listen to classical music or practice Zumba and Bollywood dance at the gym.</p>
+                <p>Outside work, I enjoy reading, traveling, hiking, book clubs, culinary groups, and unwinding with classical music, Zumba, and Bollywood dance.</p>
             </div>
 
             <div class="postcard-gallery">
@@ -2795,9 +3238,9 @@
                 });
             });
 
-            // Observe timeline items with stagger
-            document.querySelectorAll('.timeline-item').forEach((item, index) => {
-                item.style.transitionDelay = `${index * 0.15}s`;
+            // Observe resume items with stagger
+            document.querySelectorAll('.competency-card, .experience-entry, .leadership-section, .education-row, .tech-fluency').forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.1}s`;
                 observer.observe(item);
             });
 

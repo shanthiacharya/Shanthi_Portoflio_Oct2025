@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EverWell - Senior Companion App Case Study - Shanthi Acharya</title>
+    <title>AllRegs Responsive Redesign - Shanthi Acharya</title>
     <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
         }
 
         :root {
-            /* DataCamp Color Palette */
             --primary-blue: #003D82;
             --primary-blue-light: #004C8C;
             --accent-teal: #00C7B1;
@@ -82,7 +81,7 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
@@ -92,11 +91,12 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
         }
 
         /* Table of Contents */
@@ -190,7 +190,7 @@
             height: 100%;
         }
 
-        /* Adjust main content layout for TOC */
+        /* Layout */
         @media (min-width: 1024px) {
             .main-content-wrapper {
                 display: block;
@@ -227,7 +227,6 @@
             }
         }
 
-        /* Hide TOC on smaller screens */
         @media (max-width: 1023px) {
             .toc-container {
                 display: none;
@@ -428,53 +427,91 @@
             line-height: 1.65;
         }
 
-        /* Tech Stack */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
+        /* Goals Grid */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .tech-badge {
-            background: var(--background-light);
-            color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .goal-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
             border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        /* Hero Image */
-        .hero-image {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 24px;
-            margin-top: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 61, 130, 0.15), 
-                        0 8px 24px rgba(0, 0, 0, 0.1);
-            border: 8px solid #1a1a1a;
-            background: #1a1a1a;
+        .goal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
-        /* Demo Link */
-        .demo-link {
-            display: inline-block;
-            background: var(--accent-teal);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
+        .goal-card h4 {
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin: 1.5rem 0;
-            transition: all 0.3s;
         }
 
-        .demo-link:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+        .goal-card p {
+            color: var(--text-medium);
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Role Card */
+        .role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .role-card h4 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .role-card ul {
+            margin: 1rem 0 0 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .role-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 2rem 0;
+        }
+
+        .approach-step {
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .approach-step__title {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .approach-step__content {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Footer */
@@ -499,16 +536,20 @@
                 padding: 1rem;
             }
 
+            .container {
+                padding: 0 1rem;
+            }
+
             .case-study-header {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-body {
+                padding: 2rem 1.5rem;
             }
 
             .case-study-header h1 {
                 font-size: 2rem;
-            }
-
-            .case-study-body {
-                padding: 2rem;
             }
 
             .case-study-body h2 {
@@ -519,8 +560,8 @@
                 font-size: 1.3rem;
             }
 
-            .case-study-body h4 {
-                font-size: 1.1rem;
+            .goals-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -551,158 +592,139 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>EverWell</h1>
-                        <p class="tagline">A voice-first wellness companion for seniors</p>
-                        <p class="subtitle">World's Largest Hackathon presented by Bolt • June 2025</p>
-                        <img class="hero-image" src="assets/everwell.gif" alt="EverWell App - Home screen showing weather, walking prompts, mood check-in, and step tracking">
+                        <h1>AllRegs Responsive Redesign</h1>
+                        <p class="tagline">Modernizing mortgage compliance content for the mobile era</p>
+                        <p class="subtitle">Ellie Mae • Senior UX Designer</p>
                     </div>
                     
                     <div class="case-study-body">
-                        <h2>Inspiration</h2>
-                        <p>We were inspired by the aging journey of our own parents and in-laws, noticing how easily they can slip into isolation or sedentary routines with mobility issues and loss of a partner. As busy parents and working professionals, we continue to struggle to provide caregiving and companionship.</p>
+                        <h2 id="background">Background</h2>
+                        <p>AllRegs is a leading provider of mortgage regulatory compliance information, serving thousands of professionals in the mortgage industry who need quick, reliable access to federal and state regulations. The existing platform was built for desktop users in an era before mobile devices became essential workplace tools.</p>
                         
-                        <p>Caregivers and family members cannot be with them 24/7 and need a way to motivate them to be active and safe. We envisioned EverWell as a kind, voice-first companion that empowers seniors to move more, feel more connected, and age with greater independence — while giving caregivers peace of mind.</p>
+                        <p>Mortgage professionals increasingly needed to access compliance information on-the-go—during client meetings, site visits, and while traveling. The desktop-only experience created friction and forced users to wait until they returned to their offices, slowing down decision-making and reducing productivity.</p>
 
                         <hr>
 
-                        <h2>What EverWell Does</h2>
-                        <p>EverWell is a comprehensive wellness companion designed primarily for seniors, with features to support their daily health, activity, and social engagement. It also includes a dedicated portal for caregivers to monitor their loved ones' well-being.</p>
+                        <h2 id="goals">Goals</h2>
+                        <p>Transform AllRegs into a responsive, mobile-first platform that empowers mortgage professionals to access critical compliance information anytime, anywhere.</p>
 
-                        <h3>Core Features</h3>
-
-                        <div class="feature-card">
-                            <h4>Smart Weather Detection & Walking Nudges</h4>
-                            <p>Detects weather conditions and provides the perfect time to walk, gently nudging users to stay active.</p>
+                        <div class="goals-grid">
+                            <div class="goal-card">
+                                <h4>Responsive Design</h4>
+                                <p>Create a seamless experience across desktop, tablet, and mobile devices without compromising functionality</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Improved Search UX</h4>
+                                <p>Redesign search and navigation to help users quickly find specific regulations and compliance guidance</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Enhanced Readability</h4>
+                                <p>Optimize typography and layout for reading dense regulatory content on smaller screens</p>
+                            </div>
+                            <div class="goal-card">
+                                <h4>Personalization</h4>
+                                <p>Enable users to save, bookmark, and customize their experience based on their specific regulatory needs</p>
+                            </div>
                         </div>
-
-                        <div class="feature-card">
-                            <h4>Walking Buddy</h4>
-                            <p>Enables light conversation during walks through an AI-powered voice companion, making exercise more enjoyable and less lonely.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Story Time</h4>
-                            <p>Offers narrated stories across various categories using voice AI assistant for entertainment and cognitive engagement.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Mood Check-in</h4>
-                            <p>Allows users to log their daily mood, helping track emotional well-being over time.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Activity Tracking</h4>
-                            <p>Monitors daily steps, distance, calories burned, and active minutes, with progress towards set goals.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Medication Management</h4>
-                            <p>Provides medication reminders, tracks adherence, and allows users to manage their medication schedules.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Calendar and Events</h4>
-                            <p>Helps users organize appointments, personal events, and walking activities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Safety Features</h4>
-                            <p>Includes emergency contacts management, location sharing with family, and health monitoring capabilities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Caregiver Portal</h4>
-                            <p>Offers a separate login for caregivers to view a summary of the senior's daily activities, medication compliance, mood trends, and receive alerts for real-time updates and peace of mind.</p>
-                        </div>
-
-                        <h3>Design Approach</h3>
-                        <p>EverWell features a clean, modern UI with calming gradients, bold typography, and large, accessible components designed specifically for seniors. Visual cues like emojis, icons, and color-coded statuses make navigation intuitive and engaging. The interface feels warm, uncluttered, and emotionally supportive.</p>
 
                         <hr>
 
-                        <h2>How We Built It</h2>
-                        <p>We leveraged cutting-edge technology to create a robust, accessible mobile application:</p>
-
-                        <div class="tech-stack">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Expo</span>
-                            <span class="tech-badge">Supabase</span>
-                            <span class="tech-badge">PostgreSQL</span>
-                            <span class="tech-badge">ElevenLabs API</span>
-                            <span class="tech-badge">Netlify</span>
+                        <h2 id="role">My Role</h2>
+                        <div class="role-card">
+                            <h4>Senior UX Designer</h4>
+                            <ul>
+                                <li>Led the responsive redesign initiative from discovery through implementation</li>
+                                <li>Conducted user research with mortgage professionals across different device contexts</li>
+                                <li>Created responsive wireframes and prototypes for all major breakpoints</li>
+                                <li>Developed a component-based design system for consistent cross-platform experience</li>
+                                <li>Collaborated with content strategists to optimize information architecture</li>
+                                <li>Worked closely with development team on implementation and QA</li>
+                            </ul>
                         </div>
+
+                        <hr>
+
+                        <h2 id="process">Process</h2>
+                        <p>Our approach balanced user needs with business requirements, ensuring the redesign maintained the depth of content that made AllRegs valuable while dramatically improving accessibility and usability.</p>
+
+                        <div class="approach-steps">
+                            <div class="approach-step">
+                                <div class="approach-step__title">Discovery & Research</div>
+                                <div class="approach-step__content">
+                                    Conducted contextual inquiries with mortgage professionals to understand how, when, and where they accessed compliance information. Analyzed usage data to identify high-priority features and common user journeys.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Information Architecture</div>
+                                <div class="approach-step__content">
+                                    Restructured the navigation and content hierarchy to support mobile-first browsing. Created card sorting exercises to validate new categorization schemes with users.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Responsive Design System</div>
+                                <div class="approach-step__content">
+                                    Developed a modular design system with responsive components that gracefully adapted across breakpoints. Established typography scales and spacing systems optimized for readability.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Prototyping & Testing</div>
+                                <div class="approach-step__content">
+                                    Created interactive prototypes and conducted usability testing across devices. Iterated on designs based on user feedback, focusing on search efficiency and content consumption.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="solution">Solution</h2>
+                        <h3>Key Design Improvements</h3>
+
+                        <div class="feature-card">
+                            <h4>Adaptive Search Experience</h4>
+                            <p>Redesigned search with contextual filters, predictive suggestions, and mobile-optimized results display. Users can now find specific regulations in seconds, even on small screens.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Responsive Content Layout</h4>
+                            <p>Created a reading experience optimized for legal and regulatory content, with adjustable font sizes, collapsible sections, and easy navigation between related regulations.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Personal Collections</h4>
+                            <p>Implemented bookmarking and collections features allowing users to save frequently-accessed regulations and create custom compliance libraries for quick reference.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Progressive Navigation</h4>
+                            <p>Designed a navigation system that reveals complexity progressively, showing high-level categories on mobile while providing deep drilling capabilities on larger screens.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Offline Capabilities</h4>
+                            <p>Enabled offline access to saved content, ensuring mortgage professionals can reference critical regulations even without connectivity.</p>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="outcome">Outcome</h2>
+                        <p>The responsive redesign successfully modernized AllRegs, dramatically improving the user experience across all devices while maintaining the comprehensive depth of content that users depended on.</p>
 
                         <ul>
-                            <li><strong>Frontend Framework:</strong> React Native with Expo (Managed Workflow)</li>
-                            <li><strong>Navigation:</strong> Expo Router for tab-based and stack navigation</li>
-                            <li><strong>Database:</strong> PostgreSQL managed via Supabase for data storage, authentication, and real-time capabilities</li>
-                            <li><strong>Backend:</strong> Supabase Edge Functions and Supabase Auth</li>
-                            <li><strong>Local Storage:</strong> @react-native-async-storage/async-storage</li>
-                            <li><strong>Audio & Speech:</strong> expo-av for audio playback, expo-speech for system text-to-speech, and ElevenLabs API for advanced AI voice synthesis</li>
-                            <li><strong>Sensors:</strong> expo-sensors (Pedometer for step tracking) and expo-location for location services</li>
-                            <li><strong>Deployment:</strong> Netlify</li>
+                            <li><strong>Mobile Usage Growth:</strong> Significant increase in mobile and tablet usage following the redesign</li>
+                            <li><strong>Improved Search Success:</strong> Users found relevant content faster with the redesigned search experience</li>
+                            <li><strong>Higher Engagement:</strong> Session duration and page views increased across all device types</li>
+                            <li><strong>Positive Reception:</strong> Users praised the improved readability and mobile accessibility in feedback surveys</li>
+                            <li><strong>Reduced Support Tickets:</strong> Fewer navigation-related support requests after launch</li>
                         </ul>
 
                         <hr>
 
-                        <h2>Challenges We Faced</h2>
-                        <p>Building a full-featured mobile app in a hackathon setting came with significant challenges:</p>
-                        <ul>
-                            <li><strong>Framework Compatibility:</strong> React Native and Expo framework version incompatibility required multiple attempts to resolve, depleting tokens</li>
-                            <li><strong>Debugging:</strong> Terminal errors required creative debugging approaches, including using screenshots</li>
-                            <li><strong>Last-Minute Changes:</strong> UI changes at the last minute occasionally broke the app, requiring rapid fixes</li>
-                            <li><strong>Version Control:</strong> GitHub integration presented learning curves for team coordination</li>
-                        </ul>
+                        <h2 id="reflections">Reflections</h2>
+                        <p>This project highlighted the importance of understanding context of use when designing for mobile. Mortgage professionals weren't just looking for a "mobile version"—they needed specific functionality optimized for the moments when they reached for their phones: quick lookups during client conversations, reference checks in meetings, and research while traveling.</p>
 
-                        <hr>
+                        <p>The challenge of displaying dense regulatory content on small screens required creative approaches to progressive disclosure and information hierarchy. We learned that mobile users were willing to take additional taps if each step provided clear value and moved them closer to their goal.</p>
 
-                        <h2>Accomplishments</h2>
-                        <p>We're proud of what we achieved:</p>
-                        <ul>
-                            <li>Building a beautiful, fully-functional mobile app for seniors and caregivers that enhances the lives of seniors</li>
-                            <li>Designed a brand identity and icon system that feels calming, clear, and trustworthy</li>
-                            <li>Successfully integrated voice AI for interactive companionship features</li>
-                            <li>Created a comprehensive caregiver portal for real-time monitoring</li>
-                        </ul>
-
-                        <a href="https://everwellcompanion.netlify.app" class="demo-link" target="_blank">Try EverWell Live Demo →</a>
-
-                        <hr>
-
-                        <h2>What We Learned</h2>
-                        <ul>
-                            <li>Developing a full-length, sleek-looking app with cutting-edge technology using prompts and conversation with intermediate technical skills</li>
-                            <li>Problem solving and debugging approaches when working under time pressure</li>
-                            <li>Confidence to build more ambitious projects in the future</li>
-                            <li>The importance of designing for accessibility and empathy when building for senior users</li>
-                        </ul>
-
-                        <hr>
-
-                        <h2>What's Next for EverWell</h2>
-                        <p>We have ambitious plans for the future of EverWell:</p>
-                        <ul>
-                            <li><strong>Fall Detection:</strong> Integrating automatic fall detection for enhanced safety</li>
-                            <li><strong>Personalized AI:</strong> Building memory and mood tracking into AI conversations for more meaningful interactions</li>
-                            <li><strong>Partnerships:</strong> Connecting with home healthcare providers and AARP networks</li>
-                            <li><strong>Multilingual Support:</strong> Expanding language options to serve diverse communities</li>
-                            <li><strong>Pilot Program:</strong> Launching a pilot with real caregivers and aging-in-place communities</li>
-                            <li><strong>iOS Launch:</strong> Publishing to the iOS App Store</li>
-                        </ul>
-
-                        <hr>
-
-                        <h2>Project Credits</h2>
-                        <p><strong>Design & Development</strong><br>
-                        Shanthi Acharya</p>
-
-                        <p><strong>Team Members</strong><br>
-                        Pooja Kohli - Front-end features (weather reporting, scheduling, notifications)</p>
-
-                        <p><strong>Hackathon</strong><br>
-                        World's Largest Hackathon presented by Bolt • June 2025</p>
-
-                        <p><em>This hackathon project demonstrates the ability to design empathetically for senior users, build rapidly with modern technologies, and create meaningful solutions that connect families and caregivers.</em></p>
+                        <p><em>Due to confidentiality requirements, detailed visuals and specific metrics have been omitted from this case study.</em></p>
                     </div>
                 </div>
             </div>
@@ -720,7 +742,6 @@
         (function() {
             'use strict';
 
-            // Generate IDs for h2 headings and build TOC
             function initializeTOC() {
                 const caseStudyBody = document.querySelector('.case-study-body');
                 if (!caseStudyBody) return;
@@ -734,12 +755,9 @@
                     return;
                 }
 
-                // Clear existing TOC
                 tocList.innerHTML = '';
 
-                // Process each heading
                 headings.forEach((heading, index) => {
-                    // Generate ID if not exists
                     let id = heading.id;
                     if (!id) {
                         id = 'section-' + index + '-' + heading.textContent
@@ -749,7 +767,6 @@
                         heading.id = id;
                     }
 
-                    // Create TOC link
                     const listItem = document.createElement('li');
                     listItem.className = 'toc-nav__item';
                     
@@ -759,18 +776,16 @@
                     link.textContent = heading.textContent;
                     link.setAttribute('data-heading-id', id);
                     
-                    // Smooth scroll on click
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
                         const targetHeading = document.getElementById(id);
                         if (targetHeading) {
-                            const offset = 120; // Account for fixed nav
+                            const offset = 120;
                             const targetPosition = targetHeading.offsetTop - offset;
                             window.scrollTo({
                                 top: targetPosition,
                                 behavior: 'smooth'
                             });
-                            // Update active state
                             updateActiveTOCLink(id);
                         }
                     });
@@ -779,16 +794,13 @@
                     tocList.appendChild(listItem);
                 });
 
-                // Show TOC container
                 if (tocContainer) {
                     tocContainer.classList.add('visible');
                 }
 
-                // Initialize scroll spy
                 initializeScrollSpy(headings);
             }
 
-            // Scroll spy using IntersectionObserver
             function initializeScrollSpy(headings) {
                 if (headings.length === 0) return;
 
@@ -806,7 +818,6 @@
                     });
                 }, observerOptions);
 
-                // Observe all headings
                 headings.forEach(heading => {
                     if (heading.id) {
                         observer.observe(heading);
@@ -814,7 +825,6 @@
                 });
             }
 
-            // Update active TOC link
             function updateActiveTOCLink(activeId) {
                 const tocLinks = document.querySelectorAll('.toc-nav__link');
                 tocLinks.forEach(link => {
@@ -827,21 +837,10 @@
                 });
             }
 
-            // TOC is always sticky now via CSS, so this function is simplified
-            function handleTOCSticky() {
-                // TOC sticky positioning is handled by CSS position: sticky
-                // No JavaScript toggling needed
-            }
-
-            // Initialize when DOM is ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    initializeTOC();
-                    handleTOCSticky();
-                });
+                document.addEventListener('DOMContentLoaded', initializeTOC);
             } else {
                 initializeTOC();
-                handleTOCSticky();
             }
         })();
     </script>

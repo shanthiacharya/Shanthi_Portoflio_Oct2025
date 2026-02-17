@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <linearGradient id="bg-sprint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00C7B1"/>
+      <stop offset="100%" style="stop-color:#003D82"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg-sprint)"/>
+  <!-- 5 Day markers -->
+  <g transform="translate(30, 80)">
+    <!-- Day 1 -->
+    <circle cx="30" cy="40" r="25" fill="rgba(255,255,255,0.95)" stroke="#003D82" stroke-width="2"/>
+    <text x="30" y="45" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="700" fill="#003D82">1</text>
+    <text x="30" y="85" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Map</text>
+    
+    <!-- Day 2 -->
+    <circle cx="105" cy="40" r="25" fill="rgba(255,255,255,0.9)" stroke="#00A89D" stroke-width="2"/>
+    <text x="105" y="45" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="700" fill="#00A89D">2</text>
+    <text x="105" y="85" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Sketch</text>
+    
+    <!-- Day 3 -->
+    <circle cx="180" cy="40" r="25" fill="rgba(255,255,255,0.85)" stroke="#008B7A" stroke-width="2"/>
+    <text x="180" y="45" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="700" fill="#008B7A">3</text>
+    <text x="180" y="85" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Decide</text>
+    
+    <!-- Day 4 -->
+    <circle cx="255" cy="40" r="25" fill="rgba(255,255,255,0.8)" stroke="#006B5A" stroke-width="2"/>
+    <text x="255" y="45" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="700" fill="#006B5A">4</text>
+    <text x="255" y="85" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Build</text>
+    
+    <!-- Day 5 -->
+    <circle cx="330" cy="40" r="25" fill="rgba(255,255,255,0.75)" stroke="#003D82" stroke-width="2"/>
+    <text x="330" y="45" text-anchor="middle" font-family="Poppins, sans-serif" font-size="14" font-weight="700" fill="#003D82">5</text>
+    <text x="330" y="85" text-anchor="middle" font-family="Poppins, sans-serif" font-size="10" fill="rgba(255,255,255,0.9)">Test</text>
+  </g>
+  <!-- Connecting line -->
+  <path d="M60 120 L135 120 L210 120 L285 120 L360 120" stroke="rgba(255,255,255,0.4)" fill="none" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Sprint label -->
+  <text x="200" y="35" text-anchor="middle" font-family="Poppins, sans-serif" font-size="16" font-weight="600" fill="rgba(255,255,255,0.9)">DESIGN SPRINT</text>
+</svg>

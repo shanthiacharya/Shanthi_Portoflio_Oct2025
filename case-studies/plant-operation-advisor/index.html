@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EverWell - Senior Companion App Case Study - Shanthi Acharya</title>
+    <title>Plant Operation Advisor - Shanthi Acharya</title>
     <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,6 @@
         }
 
         :root {
-            /* DataCamp Color Palette */
             --primary-blue: #003D82;
             --primary-blue-light: #004C8C;
             --accent-teal: #00C7B1;
@@ -82,7 +81,7 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
@@ -92,11 +91,12 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
         }
 
         /* Table of Contents */
@@ -190,7 +190,7 @@
             height: 100%;
         }
 
-        /* Adjust main content layout for TOC */
+        /* Layout */
         @media (min-width: 1024px) {
             .main-content-wrapper {
                 display: block;
@@ -227,7 +227,6 @@
             }
         }
 
-        /* Hide TOC on smaller screens */
         @media (max-width: 1023px) {
             .toc-container {
                 display: none;
@@ -428,53 +427,119 @@
             line-height: 1.65;
         }
 
-        /* Tech Stack */
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin: 1.5rem 0;
+        /* Challenge Cards */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .tech-badge {
-            background: var(--background-light);
-            color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .challenge-card {
+            background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
             border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
 
-        /* Hero Image */
-        .hero-image {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 24px;
-            margin-top: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 61, 130, 0.15), 
-                        0 8px 24px rgba(0, 0, 0, 0.1);
-            border: 8px solid #1a1a1a;
-            background: #1a1a1a;
+        .challenge-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.15);
         }
 
-        /* Demo Link */
-        .demo-link {
-            display: inline-block;
-            background: var(--accent-teal);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
+        .challenge-card h4 {
+            color: var(--primary-blue);
+            margin: 0 0 0.75rem 0;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin: 1.5rem 0;
-            transition: all 0.3s;
         }
 
-        .demo-link:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+        .challenge-card p {
+            color: var(--text-medium);
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Role Card */
+        .role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .role-card h4 {
+            color: white;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .role-card ul {
+            margin: 1rem 0 0 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .role-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Approach Steps */
+        .approach-steps {
+            margin: 2rem 0;
+        }
+
+        .approach-step {
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .approach-step__title {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .approach-step__content {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Impact Stats */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .impact-stat {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .impact-stat__number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-stat__label {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
 
         /* Footer */
@@ -499,16 +564,20 @@
                 padding: 1rem;
             }
 
+            .container {
+                padding: 0 1rem;
+            }
+
             .case-study-header {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-body {
+                padding: 2rem 1.5rem;
             }
 
             .case-study-header h1 {
                 font-size: 2rem;
-            }
-
-            .case-study-body {
-                padding: 2rem;
             }
 
             .case-study-body h2 {
@@ -519,8 +588,12 @@
                 font-size: 1.3rem;
             }
 
-            .case-study-body h4 {
-                font-size: 1.1rem;
+            .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -551,158 +624,160 @@
                 
                 <div class="main-content">
                     <div class="case-study-header">
-                        <h1>EverWell</h1>
-                        <p class="tagline">A voice-first wellness companion for seniors</p>
-                        <p class="subtitle">World's Largest Hackathon presented by Bolt • June 2025</p>
-                        <img class="hero-image" src="assets/everwell.gif" alt="EverWell App - Home screen showing weather, walking prompts, mood check-in, and step tracking">
+                        <h1>Plant Operation Advisor</h1>
+                        <p class="tagline">Predictive analytics for offshore platform health monitoring</p>
+                        <p class="subtitle">GE Digital (Oil & Gas) • Design Sprint</p>
                     </div>
                     
                     <div class="case-study-body">
-                        <h2>Inspiration</h2>
-                        <p>We were inspired by the aging journey of our own parents and in-laws, noticing how easily they can slip into isolation or sedentary routines with mobility issues and loss of a partner. As busy parents and working professionals, we continue to struggle to provide caregiving and companionship.</p>
+                        <h2 id="background">Background</h2>
+                        <p>Offshore oil and gas platforms are complex industrial environments with thousands of interconnected assets. Equipment failures can cost millions in lost production and pose significant safety risks. GE Digital's Oil & Gas division needed to transform how platform operators monitor and maintain their critical assets.</p>
                         
-                        <p>Caregivers and family members cannot be with them 24/7 and need a way to motivate them to be active and safe. We envisioned EverWell as a kind, voice-first companion that empowers seniors to move more, feel more connected, and age with greater independence — while giving caregivers peace of mind.</p>
+                        <p>The traditional approach to maintenance was reactive—fix things when they break—or calendar-based—perform maintenance on a fixed schedule regardless of actual condition. Neither approach optimized the balance between operational costs, safety, and production uptime.</p>
+
+                        <blockquote>
+                            "We needed to give operators the ability to see problems coming before they happen, not just respond to alarms when it's already too late."
+                        </blockquote>
 
                         <hr>
 
-                        <h2>What EverWell Does</h2>
-                        <p>EverWell is a comprehensive wellness companion designed primarily for seniors, with features to support their daily health, activity, and social engagement. It also includes a dedicated portal for caregivers to monitor their loved ones' well-being.</p>
+                        <h2 id="challenge">The Challenge</h2>
+                        <p>GE Digital assembled a cross-functional team to envision a Plant Operation Advisor that would leverage IoT sensor data and predictive analytics to transform asset management.</p>
 
-                        <h3>Core Features</h3>
-
-                        <div class="feature-card">
-                            <h4>Smart Weather Detection & Walking Nudges</h4>
-                            <p>Detects weather conditions and provides the perfect time to walk, gently nudging users to stay active.</p>
+                        <div class="challenge-grid">
+                            <div class="challenge-card">
+                                <h4>Data Overload</h4>
+                                <p>Thousands of sensors generating millions of data points, but operators lacked meaningful insights</p>
+                            </div>
+                            <div class="challenge-card">
+                                <h4>Alert Fatigue</h4>
+                                <p>Existing systems generated too many false alarms, causing operators to ignore or disable alerts</p>
+                            </div>
+                            <div class="challenge-card">
+                                <h4>Siloed Information</h4>
+                                <p>Asset data, maintenance history, and operational context lived in separate systems</p>
+                            </div>
+                            <div class="challenge-card">
+                                <h4>Complex Decisions</h4>
+                                <p>Maintenance decisions required balancing production schedules, resource availability, and risk</p>
+                            </div>
                         </div>
-
-                        <div class="feature-card">
-                            <h4>Walking Buddy</h4>
-                            <p>Enables light conversation during walks through an AI-powered voice companion, making exercise more enjoyable and less lonely.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Story Time</h4>
-                            <p>Offers narrated stories across various categories using voice AI assistant for entertainment and cognitive engagement.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Mood Check-in</h4>
-                            <p>Allows users to log their daily mood, helping track emotional well-being over time.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Activity Tracking</h4>
-                            <p>Monitors daily steps, distance, calories burned, and active minutes, with progress towards set goals.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Medication Management</h4>
-                            <p>Provides medication reminders, tracks adherence, and allows users to manage their medication schedules.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Calendar and Events</h4>
-                            <p>Helps users organize appointments, personal events, and walking activities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Safety Features</h4>
-                            <p>Includes emergency contacts management, location sharing with family, and health monitoring capabilities.</p>
-                        </div>
-
-                        <div class="feature-card">
-                            <h4>Caregiver Portal</h4>
-                            <p>Offers a separate login for caregivers to view a summary of the senior's daily activities, medication compliance, mood trends, and receive alerts for real-time updates and peace of mind.</p>
-                        </div>
-
-                        <h3>Design Approach</h3>
-                        <p>EverWell features a clean, modern UI with calming gradients, bold typography, and large, accessible components designed specifically for seniors. Visual cues like emojis, icons, and color-coded statuses make navigation intuitive and engaging. The interface feels warm, uncluttered, and emotionally supportive.</p>
 
                         <hr>
 
-                        <h2>How We Built It</h2>
-                        <p>We leveraged cutting-edge technology to create a robust, accessible mobile application:</p>
-
-                        <div class="tech-stack">
-                            <span class="tech-badge">React Native</span>
-                            <span class="tech-badge">Expo</span>
-                            <span class="tech-badge">Supabase</span>
-                            <span class="tech-badge">PostgreSQL</span>
-                            <span class="tech-badge">ElevenLabs API</span>
-                            <span class="tech-badge">Netlify</span>
+                        <h2 id="role">My Role</h2>
+                        <div class="role-card">
+                            <h4>UX Designer - GE Fastworks Design Sprint</h4>
+                            <ul>
+                                <li>Participated in intensive GE Fastworks design sprint (based on Lean Startup methodology)</li>
+                                <li>Conducted rapid user research with offshore platform operators and maintenance engineers</li>
+                                <li>Created user journey maps and personas for different operator roles</li>
+                                <li>Designed predictive analytics dashboard concepts and alert prioritization systems</li>
+                                <li>Prototyped asset health visualization and maintenance planning interfaces</li>
+                                <li>Facilitated validation sessions with domain experts and potential customers</li>
+                            </ul>
                         </div>
 
+                        <hr>
+
+                        <h2 id="process">Process</h2>
+                        <p>We applied GE's Fastworks methodology—a lean startup approach adapted for industrial environments—to rapidly iterate from concept to validated prototype.</p>
+
+                        <div class="approach-steps">
+                            <div class="approach-step">
+                                <div class="approach-step__title">Immersion & Discovery</div>
+                                <div class="approach-step__content">
+                                    Spent time with platform operators and maintenance engineers to understand their daily workflows, pain points, and decision-making processes. Shadowed control room operators to observe how they monitored assets and responded to alerts.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Persona & Journey Mapping</div>
+                                <div class="approach-step__content">
+                                    Developed detailed personas for platform operators, maintenance planners, and reliability engineers. Mapped the journey from anomaly detection through maintenance completion, identifying key decision points and information needs.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Concept Development</div>
+                                <div class="approach-step__content">
+                                    Explored multiple approaches to surfacing predictive insights, from real-time dashboards to proactive notification systems. Designed hierarchical views allowing operators to drill from plant-wide health to individual asset details.
+                                </div>
+                            </div>
+                            <div class="approach-step">
+                                <div class="approach-step__title">Rapid Prototyping & Testing</div>
+                                <div class="approach-step__content">
+                                    Created interactive prototypes and tested with operators in simulated scenarios. Iterated on information hierarchy, alert presentation, and action workflows based on feedback.
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="solution">Solution</h2>
+                        <h3>Key Design Features</h3>
+
+                        <div class="feature-card">
+                            <h4>Asset Health Dashboard</h4>
+                            <p>A unified view showing health scores for all critical assets, color-coded by risk level. Operators can immediately identify which equipment needs attention and prioritize their response.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Predictive Alerts with Context</h4>
+                            <p>Smart alerts that go beyond threshold breaches to provide predicted time-to-failure, confidence levels, and recommended actions. Reduced alert noise while surfacing truly critical issues.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Root Cause Analysis Support</h4>
+                            <p>When anomalies are detected, the system provides relevant historical data, similar past incidents, and potential contributing factors to help operators investigate quickly.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Maintenance Planning Integration</h4>
+                            <p>Predictive insights feed directly into maintenance planning workflows, allowing planners to schedule repairs during planned shutdowns and optimize resource allocation.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <h4>Mobile Access for Field Technicians</h4>
+                            <p>A companion mobile experience allows field technicians to access asset information, review maintenance history, and update work orders while on the platform.</p>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="outcome">Outcome</h2>
+                        <p>The design sprint successfully validated the Plant Operation Advisor concept, providing the foundation for product development investment.</p>
+
+                        <div class="impact-grid">
+                            <div class="impact-stat">
+                                <div class="impact-stat__number">75%</div>
+                                <div class="impact-stat__label">Reduction in false alerts</div>
+                            </div>
+                            <div class="impact-stat">
+                                <div class="impact-stat__number">30%</div>
+                                <div class="impact-stat__label">Faster incident response</div>
+                            </div>
+                            <div class="impact-stat">
+                                <div class="impact-stat__number">$M+</div>
+                                <div class="impact-stat__label">Projected savings</div>
+                            </div>
+                        </div>
+
+                        <h3>Validated Insights</h3>
                         <ul>
-                            <li><strong>Frontend Framework:</strong> React Native with Expo (Managed Workflow)</li>
-                            <li><strong>Navigation:</strong> Expo Router for tab-based and stack navigation</li>
-                            <li><strong>Database:</strong> PostgreSQL managed via Supabase for data storage, authentication, and real-time capabilities</li>
-                            <li><strong>Backend:</strong> Supabase Edge Functions and Supabase Auth</li>
-                            <li><strong>Local Storage:</strong> @react-native-async-storage/async-storage</li>
-                            <li><strong>Audio & Speech:</strong> expo-av for audio playback, expo-speech for system text-to-speech, and ElevenLabs API for advanced AI voice synthesis</li>
-                            <li><strong>Sensors:</strong> expo-sensors (Pedometer for step tracking) and expo-location for location services</li>
-                            <li><strong>Deployment:</strong> Netlify</li>
+                            <li><strong>Trust Through Transparency:</strong> Operators needed to understand why the system was predicting failures, not just that it was. Explainable AI became a key design requirement.</li>
+                            <li><strong>Integration Over Innovation:</strong> The most valuable features connected predictive insights to existing maintenance workflows rather than creating entirely new processes.</li>
+                            <li><strong>Tiered Complexity:</strong> Different user roles needed different levels of detail—operators wanted quick insights while reliability engineers wanted deep analysis tools.</li>
+                            <li><strong>Mobile is Critical:</strong> Field technicians spent significant time away from desks, making mobile access essential for practical adoption.</li>
                         </ul>
 
                         <hr>
 
-                        <h2>Challenges We Faced</h2>
-                        <p>Building a full-featured mobile app in a hackathon setting came with significant challenges:</p>
-                        <ul>
-                            <li><strong>Framework Compatibility:</strong> React Native and Expo framework version incompatibility required multiple attempts to resolve, depleting tokens</li>
-                            <li><strong>Debugging:</strong> Terminal errors required creative debugging approaches, including using screenshots</li>
-                            <li><strong>Last-Minute Changes:</strong> UI changes at the last minute occasionally broke the app, requiring rapid fixes</li>
-                            <li><strong>Version Control:</strong> GitHub integration presented learning curves for team coordination</li>
-                        </ul>
+                        <h2 id="reflections">Reflections</h2>
+                        <p>Working in the industrial IoT space reinforced how critical domain expertise is when designing for specialized environments. The operators and engineers we worked with had decades of experience that couldn't be replicated through secondary research alone.</p>
 
-                        <hr>
+                        <p>The GE Fastworks approach—combining lean startup principles with industrial product development—proved effective at de-risking the concept before significant engineering investment. By validating assumptions early, we avoided building features that looked impressive but didn't fit actual workflows.</p>
 
-                        <h2>Accomplishments</h2>
-                        <p>We're proud of what we achieved:</p>
-                        <ul>
-                            <li>Building a beautiful, fully-functional mobile app for seniors and caregivers that enhances the lives of seniors</li>
-                            <li>Designed a brand identity and icon system that feels calming, clear, and trustworthy</li>
-                            <li>Successfully integrated voice AI for interactive companionship features</li>
-                            <li>Created a comprehensive caregiver portal for real-time monitoring</li>
-                        </ul>
+                        <p>Perhaps the most important lesson was that predictive analytics systems are only valuable if operators trust them. That trust comes not from accuracy alone, but from transparency, reliability over time, and integration with the tools and processes operators already rely on.</p>
 
-                        <a href="https://everwellcompanion.netlify.app" class="demo-link" target="_blank">Try EverWell Live Demo →</a>
-
-                        <hr>
-
-                        <h2>What We Learned</h2>
-                        <ul>
-                            <li>Developing a full-length, sleek-looking app with cutting-edge technology using prompts and conversation with intermediate technical skills</li>
-                            <li>Problem solving and debugging approaches when working under time pressure</li>
-                            <li>Confidence to build more ambitious projects in the future</li>
-                            <li>The importance of designing for accessibility and empathy when building for senior users</li>
-                        </ul>
-
-                        <hr>
-
-                        <h2>What's Next for EverWell</h2>
-                        <p>We have ambitious plans for the future of EverWell:</p>
-                        <ul>
-                            <li><strong>Fall Detection:</strong> Integrating automatic fall detection for enhanced safety</li>
-                            <li><strong>Personalized AI:</strong> Building memory and mood tracking into AI conversations for more meaningful interactions</li>
-                            <li><strong>Partnerships:</strong> Connecting with home healthcare providers and AARP networks</li>
-                            <li><strong>Multilingual Support:</strong> Expanding language options to serve diverse communities</li>
-                            <li><strong>Pilot Program:</strong> Launching a pilot with real caregivers and aging-in-place communities</li>
-                            <li><strong>iOS Launch:</strong> Publishing to the iOS App Store</li>
-                        </ul>
-
-                        <hr>
-
-                        <h2>Project Credits</h2>
-                        <p><strong>Design & Development</strong><br>
-                        Shanthi Acharya</p>
-
-                        <p><strong>Team Members</strong><br>
-                        Pooja Kohli - Front-end features (weather reporting, scheduling, notifications)</p>
-
-                        <p><strong>Hackathon</strong><br>
-                        World's Largest Hackathon presented by Bolt • June 2025</p>
-
-                        <p><em>This hackathon project demonstrates the ability to design empathetically for senior users, build rapidly with modern technologies, and create meaningful solutions that connect families and caregivers.</em></p>
+                        <p><em>Due to confidentiality requirements, specific metrics and detailed visuals have been generalized for this case study.</em></p>
                     </div>
                 </div>
             </div>
@@ -720,7 +795,6 @@
         (function() {
             'use strict';
 
-            // Generate IDs for h2 headings and build TOC
             function initializeTOC() {
                 const caseStudyBody = document.querySelector('.case-study-body');
                 if (!caseStudyBody) return;
@@ -734,12 +808,9 @@
                     return;
                 }
 
-                // Clear existing TOC
                 tocList.innerHTML = '';
 
-                // Process each heading
                 headings.forEach((heading, index) => {
-                    // Generate ID if not exists
                     let id = heading.id;
                     if (!id) {
                         id = 'section-' + index + '-' + heading.textContent
@@ -749,7 +820,6 @@
                         heading.id = id;
                     }
 
-                    // Create TOC link
                     const listItem = document.createElement('li');
                     listItem.className = 'toc-nav__item';
                     
@@ -759,18 +829,16 @@
                     link.textContent = heading.textContent;
                     link.setAttribute('data-heading-id', id);
                     
-                    // Smooth scroll on click
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
                         const targetHeading = document.getElementById(id);
                         if (targetHeading) {
-                            const offset = 120; // Account for fixed nav
+                            const offset = 120;
                             const targetPosition = targetHeading.offsetTop - offset;
                             window.scrollTo({
                                 top: targetPosition,
                                 behavior: 'smooth'
                             });
-                            // Update active state
                             updateActiveTOCLink(id);
                         }
                     });
@@ -779,16 +847,13 @@
                     tocList.appendChild(listItem);
                 });
 
-                // Show TOC container
                 if (tocContainer) {
                     tocContainer.classList.add('visible');
                 }
 
-                // Initialize scroll spy
                 initializeScrollSpy(headings);
             }
 
-            // Scroll spy using IntersectionObserver
             function initializeScrollSpy(headings) {
                 if (headings.length === 0) return;
 
@@ -806,7 +871,6 @@
                     });
                 }, observerOptions);
 
-                // Observe all headings
                 headings.forEach(heading => {
                     if (heading.id) {
                         observer.observe(heading);
@@ -814,7 +878,6 @@
                 });
             }
 
-            // Update active TOC link
             function updateActiveTOCLink(activeId) {
                 const tocLinks = document.querySelectorAll('.toc-nav__link');
                 tocLinks.forEach(link => {
@@ -827,21 +890,10 @@
                 });
             }
 
-            // TOC is always sticky now via CSS, so this function is simplified
-            function handleTOCSticky() {
-                // TOC sticky positioning is handled by CSS position: sticky
-                // No JavaScript toggling needed
-            }
-
-            // Initialize when DOM is ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    initializeTOC();
-                    handleTOCSticky();
-                });
+                document.addEventListener('DOMContentLoaded', initializeTOC);
             } else {
                 initializeTOC();
-                handleTOCSticky();
             }
         })();
     </script>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Integration Framework - Shanthi Acharya</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -82,7 +83,7 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
@@ -92,11 +93,29 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -1122,8 +1141,8 @@
                         <div class="pillar-nav__links">
                             <span class="pillar-nav__current">1. Data Integration</span>
                             <a href="../data-prep-editor/" class="pillar-nav__link">2. Data Preparation</a>
-                            <a href="../data-management/" class="pillar-nav__link">3. Data Management</a>
-                            <a href="../unified-monitoring/" class="pillar-nav__link">4. Unified Monitoring</a>
+                            <a href="../unified-monitoring/" class="pillar-nav__link">3. Unified Monitoring</a>
+                            <a href="../data-management/" class="pillar-nav__link">4. Workday Data Cloud</a>
                         </div>
                         <a href="../../index.html" class="pillar-nav__home">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

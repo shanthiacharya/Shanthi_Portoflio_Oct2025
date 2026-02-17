@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transform Canvas: Visual Pipeline Editor - Shanthi Acharya</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -85,7 +86,7 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
             color: white;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
@@ -95,11 +96,29 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -733,19 +752,19 @@
         /* Insight Cards */
         .insight-cards {
             display: grid;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .insight-card {
             background: linear-gradient(145deg, var(--background-white) 0%, var(--background-light) 100%);
-            border-radius: 16px;
-            padding: 1.75rem 1.5rem 1.5rem;
+            border-radius: 12px;
+            padding: 1.25rem 1.25rem 1rem;
             box-shadow: 0 4px 16px var(--shadow-sm);
             border: 1px solid var(--border-light);
             display: grid;
             grid-template-columns: auto 1fr;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: start;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             position: relative;
@@ -768,42 +787,42 @@
         }
 
         .insight-card__number {
-            width: 56px;
-            height: 56px;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
             color: white;
-            border-radius: 14px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 800;
             box-shadow: 0 4px 12px rgba(0, 107, 117, 0.25);
         }
 
         .insight-card__content h4 {
             color: var(--primary-blue);
-            font-size: 1.05rem;
-            margin: 0 0 0.75rem 0;
+            font-size: 0.95rem;
+            margin: 0 0 0.5rem 0;
             font-weight: 700;
             letter-spacing: -0.01em;
         }
 
         .insight-card__content p {
             color: var(--text-medium);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.65;
+            margin-bottom: 0.75rem;
+            font-size: 0.85rem;
+            line-height: 1.6;
         }
 
         .insight-card__quote {
             background: var(--background-light);
-            border-left: 4px solid var(--accent-teal);
-            padding: 1rem 1.5rem;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid var(--accent-teal);
+            padding: 0.75rem 1rem;
+            border-radius: 0 6px 6px 0;
             font-style: italic;
             color: var(--text-dark);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             margin: 0;
         }
 
@@ -2182,7 +2201,7 @@
                                 <li>Facilitated concept validation sessions with 12+ users across discovery and validation phases</li>
                                 <li>Collaborated with engineering to define technical constraints and feasibility</li>
                                 <li>Created comprehensive design specifications and interactive prototypes</li>
-                                <li>Worked with product management to prioritize features for 23R2 release scope</li>
+                                <li>Worked with product management to prioritize features for multiple release scope</li>
                             </ul>
                         </div>
 
@@ -2356,152 +2375,91 @@
                         <h3>The Solution: Transform Canvas</h3>
                         <p>Transform Canvas provides a visual, interactive representation of the entire data pipeline, allowing users to see all stages, their connections, and status at a glance while maintaining the ability to drill into any stage for detailed editing.</p>
 
-                        <div class="canvas-diagram">
-                            <div class="canvas-pipeline">
-                                <div class="canvas-stage">
-                                    <div class="canvas-stage__box">
-                                        <span class="canvas-stage__icon">📥</span>
-                                        Source Data
+                        <div class="image-carousel" id="newEditorCarousel">
+                            <div class="carousel-slides">
+                                <div class="carousel-slide active" data-slide="0">
+                                    <div class="zoomable-image">
+                                        <div class="annotated-image">
+                                            <img src="assets/idpvrsnewdesigneditor.png" alt="Transform Canvas - New Visual Editor Design">
+                                            <!-- Annotation markers positioned on key features -->
+                                            <div class="annotation-marker" style="top: 22%; left: 35%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Visual pipeline canvas</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 22%; left: 18%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Error indicators</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 38%; left: 52%;">
+                                                <span class="marker-number">3</span>
+                                                <span class="marker-label">Secondary pipeline</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 55%; left: 5%;">
+                                                <span class="marker-number">4</span>
+                                                <span class="marker-label">Stage details panel</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 55%; left: 60%;">
+                                                <span class="marker-number">5</span>
+                                                <span class="marker-label">Data preview</span>
+                                            </div>
+                                        </div>
+                                        <div class="zoom-hint">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                                            Click to zoom
+                                        </div>
                                     </div>
+                                    <p class="carousel-slide-label">Transform Canvas - Unified visual pipeline editor</p>
                                 </div>
-                                <div class="canvas-connector"></div>
-                                <div class="canvas-stage">
-                                    <div class="canvas-stage__box">
-                                        <span class="canvas-stage__icon">🔄</span>
-                                        Transform
-                                    </div>
+                            </div>
+                        </div>
+
+                        <div class="annotation-legend">
+                            <div class="legend-item">
+                                <span class="legend-number">1</span>
+                                <div class="legend-text">
+                                    <strong>Visual Pipeline Canvas</strong>
+                                    Connected stage diagram showing all transformations and data flow at a glance
                                 </div>
-                                <div class="canvas-connector"></div>
-                                <div class="canvas-stage">
-                                    <div class="canvas-stage__box">
-                                        <span class="canvas-stage__icon">🔀</span>
-                                        Join
-                                    </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-number">2</span>
+                                <div class="legend-text">
+                                    <strong>Error Indicators</strong>
+                                    Red badges surface issues immediately without clicking into stages
                                 </div>
-                                <div class="canvas-connector"></div>
-                                <div class="canvas-stage">
-                                    <div class="canvas-stage__box">
-                                        <span class="canvas-stage__icon">📊</span>
-                                        Aggregate
-                                    </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-number">3</span>
+                                <div class="legend-text">
+                                    <strong>Secondary Pipeline</strong>
+                                    Branching pipelines visible on the same canvas with clear connections
                                 </div>
-                                <div class="canvas-connector"></div>
-                                <div class="canvas-stage">
-                                    <div class="canvas-stage__box">
-                                        <span class="canvas-stage__icon">📤</span>
-                                        Output
-                                    </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-number">4</span>
+                                <div class="legend-text">
+                                    <strong>Stage Details Panel</strong>
+                                    Edit stage configurations without losing pipeline context
+                                </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-number">5</span>
+                                <div class="legend-text">
+                                    <strong>Data Preview</strong>
+                                    Real-time data grid showing transformation results
                                 </div>
                             </div>
                         </div>
 
                         <h3>Key Features</h3>
-                        <div class="feature-cards">
-                            <div class="feature-card">
-                                <div class="feature-card__icon">🗺️</div>
-                                <h4 class="feature-card__title">Holistic Pipeline View</h4>
-                                <p class="feature-card__description">See the entire pipeline structure at once with zoomable, pannable canvas that shows all stages and their relationships.</p>
-                            </div>
-
-                            <div class="feature-card">
-                                <div class="feature-card__icon">✏️</div>
-                                <h4 class="feature-card__title">Inline Stage Editing</h4>
-                                <p class="feature-card__description">Edit stage configurations directly on the canvas without losing context of the overall pipeline structure.</p>
-                            </div>
-
-                            <div class="feature-card">
-                                <div class="feature-card__icon">🚦</div>
-                                <h4 class="feature-card__title">Surfaced Errors</h4>
-                                <p class="feature-card__description">Errors are visually highlighted on the canvas with clear indicators, making troubleshooting immediate and intuitive.</p>
-                            </div>
-
-                            <div class="feature-card">
-                                <div class="feature-card__icon">🌿</div>
-                                <h4 class="feature-card__title">Expand/Collapse Branches</h4>
-                                <p class="feature-card__description">Manage complexity by collapsing branches you're not working on, focusing attention on relevant stages.</p>
-                            </div>
-
-                            <div class="feature-card">
-                                <div class="feature-card__icon">⌨️</div>
-                                <h4 class="feature-card__title">Keyboard Navigation</h4>
-                                <p class="feature-card__description">Full keyboard support for power users to navigate, select, and edit stages without touching the mouse.</p>
-                            </div>
-
-                            <div class="feature-card">
-                                <div class="feature-card__icon">⚡</div>
-                                <h4 class="feature-card__title">Real-Time Updates</h4>
-                                <p class="feature-card__description">Changes to one stage immediately reflect across the canvas, showing downstream impacts instantly.</p>
-                            </div>
-                        </div>
-
-                        <h3>Release Scope</h3>
-                        <p>The Transform Canvas was delivered as part of the 23R2 release cycle. We prioritized features that addressed the most critical user pain points while planning future enhancements for subsequent releases.</p>
-
-                        <div class="scope-table-container">
-                            <table class="scope-table">
-                                <thead>
-                                    <tr>
-                                        <th>Feature</th>
-                                        <th>Description</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Visual Pipeline Canvas</strong></td>
-                                        <td>Interactive diagram showing all stages and connections</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Stage Status Indicators</strong></td>
-                                        <td>Visual error and warning indicators on each stage</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Click-to-Edit Stages</strong></td>
-                                        <td>Open stage editor panel by clicking any stage</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Zoom and Pan Controls</strong></td>
-                                        <td>Navigate large pipelines with mouse and keyboard</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Stage Grouping</strong></td>
-                                        <td>Group related stages into collapsible containers</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Keyboard Shortcuts</strong></td>
-                                        <td>Navigate and edit using keyboard only</td>
-                                        <td><span class="scope-badge scope-badge--included">✓ 23R2</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Mini-Map Navigation</strong></td>
-                                        <td>Overview map for quick navigation in large pipelines</td>
-                                        <td><span class="scope-badge scope-badge--future">◇ Future</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Collaborative Editing</strong></td>
-                                        <td>Real-time multi-user editing capabilities</td>
-                                        <td><span class="scope-badge scope-badge--future">◇ Future</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Version History</strong></td>
-                                        <td>Visual diff and restore for pipeline versions</td>
-                                        <td><span class="scope-badge scope-badge--future">◇ Future</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>AI-Suggested Stages</strong></td>
-                                        <td>Intelligent recommendations for next transformation steps</td>
-                                        <td><span class="scope-badge scope-badge--future">◇ Future</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <hr>
+                        <ul>
+                            <li><strong>Holistic Pipeline View:</strong> See the entire pipeline structure at once with zoomable, pannable canvas that shows all stages and their relationships.</li>
+                            <li><strong>Inline Stage Editing:</strong> Edit stage configurations directly on the canvas without losing context of the overall pipeline structure.</li>
+                            <li><strong>Surfaced Errors:</strong> Errors are visually highlighted on the canvas with clear indicators, making troubleshooting immediate and intuitive.</li>
+                            <li><strong>Expand/Collapse Branches:</strong> Manage complexity by collapsing branches you're not working on, focusing attention on relevant stages.</li>
+                            <li><strong>Keyboard Navigation:</strong> Full keyboard support for power users to navigate, select, and edit stages without touching the mouse.</li>
+                            <li><strong>Real-Time Updates:</strong> Changes to one stage immediately reflect across the canvas, showing downstream impacts instantly.</li>
+                        </ul>
 
                         <!-- Before & After Section -->
                         <h2 id="before-after">Before & After</h2>
@@ -2572,53 +2530,23 @@
                         <h2 id="reflections">Reflections</h2>
                         <p class="section-intro">This project reinforced several key principles that I carry into all my design work, while also teaching me new lessons about designing complex data tools.</p>
 
-                        <div class="reflection-cards">
-                            <div class="reflection-card">
-                                <div class="reflection-card__icon">🔬</div>
-                                <h4 class="reflection-card__title">Research Methodology Matters</h4>
-                                <p class="reflection-card__content">Splitting research into discovery and validation phases allowed us to deeply understand problems before jumping to solutions. The foundational interviews revealed insights we wouldn't have uncovered with concept testing alone.</p>
-                            </div>
+                        <ul>
+                            <li><strong>Research Methodology Matters:</strong> Splitting research into discovery and validation phases allowed us to deeply understand problems before jumping to solutions. The foundational interviews revealed insights we wouldn't have uncovered with concept testing alone.</li>
+                            <li><strong>Persona-Driven Design:</strong> Having Nina as our primary persona kept the team aligned on who we were designing for. When debates arose about features, we asked "What would Nina need?" and it clarified our direction.</li>
+                            <li><strong>Visual Context is Power:</strong> Users' natural instinct to draw diagrams told us everything we needed to know. When users are creating their own visualizations to understand your tool, the tool should provide that visualization.</li>
+                            <li><strong>Phased Delivery Builds Trust:</strong> Delivering a focused 23R2 scope with clear future enhancements built stakeholder trust. Users appreciated knowing what was coming next, and engineering could plan capacity more effectively.</li>
+                        </ul>
 
-                            <div class="reflection-card">
-                                <div class="reflection-card__icon">👥</div>
-                                <h4 class="reflection-card__title">Persona-Driven Design</h4>
-                                <p class="reflection-card__content">Having Nina as our primary persona kept the team aligned on who we were designing for. When debates arose about features, we asked "What would Nina need?" and it clarified our direction.</p>
-                            </div>
-
-                            <div class="reflection-card">
-                                <div class="reflection-card__icon">👁️</div>
-                                <h4 class="reflection-card__title">Visual Context is Power</h4>
-                                <p class="reflection-card__content">Users' natural instinct to draw diagrams told us everything we needed to know. When users are creating their own visualizations to understand your tool, the tool should provide that visualization.</p>
-                            </div>
-
-                            <div class="reflection-card">
-                                <div class="reflection-card__icon">🎯</div>
-                                <h4 class="reflection-card__title">Phased Delivery Builds Trust</h4>
-                                <p class="reflection-card__content">Delivering a focused 23R2 scope with clear future enhancements built stakeholder trust. Users appreciated knowing what was coming next, and engineering could plan capacity more effectively.</p>
-                            </div>
                         </div>
-
-                        <hr>
-
-                        <h2 id="credits">Project Credits</h2>
-                        <p><strong>Design Leadership</strong><br>
-                        Shanthi Acharya, Lead Product Designer</p>
-
-                        <p><strong>Research Partner</strong><br>
-                        UX Research Team, Workday</p>
-
-                        <p><strong>Organization</strong><br>
-                        Workday, Inc. • Prism Analytics Platform</p>
-
-                        <p><em>This case study demonstrates how visual thinking and rigorous user research can transform complex enterprise tools into intuitive experiences that users genuinely enjoy.</em></p>
-                    </div>
 
                     <!-- Pillar Navigation -->
                     <div class="pillar-nav">
                         <div class="pillar-nav__label">Prism Analytics Pillars</div>
                         <div class="pillar-nav__links">
-                            <a href="../data-integration-framework/" class="pillar-nav__link">← 1. Data Integration</a>
+                            <a href="../data-integration-framework/" class="pillar-nav__link">1. Data Integration</a>
                             <span class="pillar-nav__current">2. Data Preparation</span>
+                            <a href="../unified-monitoring/" class="pillar-nav__link">3. Unified Monitoring</a>
+                            <a href="../data-management/" class="pillar-nav__link">4. Workday Data Cloud</a>
                         </div>
                         <a href="../../index.html" class="pillar-nav__home">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
