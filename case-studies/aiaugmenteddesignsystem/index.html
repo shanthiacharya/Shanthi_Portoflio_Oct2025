@@ -81,21 +81,40 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -291,6 +310,16 @@
             border: 1px solid var(--border-light);
         }
 
+        .hero-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
         .case-study-body {
             background: var(--background-white);
             padding: 3rem;
@@ -397,6 +426,95 @@
         .case-study-body .image-caption {
             margin-top: 1rem;
             color: var(--text-medium);
+        }
+
+        /* Image Carousel */
+        .image-carousel {
+            margin: 2.5rem 0;
+            position: relative;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .carousel-slides {
+            position: relative;
+        }
+
+        .carousel-slide {
+            display: none;
+            text-align: center;
+            background: var(--background-white);
+            padding: 1rem;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .carousel-slide .image-caption {
+            margin-top: 1rem;
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .carousel-btn {
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-medium);
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent-teal);
+            color: white;
+            border-color: var(--accent-teal);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: var(--border-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--accent-teal);
+            transform: scale(1.2);
             font-size: 1rem;
             font-weight: 500;
             font-style: italic;
@@ -630,7 +748,10 @@
                         <h1>AI-Augmented Design System</h1>
                         <p class="tagline">Reusable Component Libraries for Rapid AI Prototyping</p>
                         <p class="subtitle">AI Prototyping • Design Systems • Figma MCP</p>
-                        <img class="hero-image" src="assets/datapreview.png" alt="AI-Augmented Design System - Data Prep Editor Interface">
+                        <video class="hero-video" controls playsinline autoplay muted loop>
+                            <source src="assets/cursorfigmamcpcomponentbasedflow.mov" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                     
                     <div class="case-study-body">
@@ -648,14 +769,9 @@
                         <hr>
 
                         <h2>The Solution</h2>
-                        <p>I followed <strong>Colin Matthew's method</strong> for creating reusable component libraries optimized for AI-assisted development. The approach focuses on building a comprehensive component library first, then using AI tools to rapidly assemble high-fidelity prototypes.</p>
+                        <p>I followed <strong><a href="https://blog.techforproduct.com/p/building-a-component-library" target="_blank" style="color: var(--accent-teal); text-decoration: underline;">Colin Matthew's method</a></strong> for creating reusable component libraries optimized for AI-assisted development. The approach focuses on building a comprehensive component library first, then using AI tools to rapidly assemble high-fidelity prototypes.</p>
                         
                         <p>In this case, we were working on our <strong>Data Prep Editor</strong> on the canvas. I created a component library specifically for the visualized representation of stages and UI elements that could be rapidly composed into different configurations.</p>
-
-                        <div class="image-container">
-                            <img src="assets/stages.png" alt="Stage Components - Visual representation of data preparation stages">
-                            <p class="image-caption">Reusable stage components for data preparation visualization</p>
-                        </div>
 
                         <hr>
 
@@ -665,7 +781,35 @@
                             <div class="process-step">
                                 <span class="process-step__number">1</span>
                                 <span class="process-step__title">Component Library Creation Prompt</span>
-                                <p class="process-step__description">First, I developed a specialized prompt for creating the component library. This prompt was designed to generate production-ready React components with consistent styling, proper accessibility, and flexibility for different use cases.</p>
+                                <p class="process-step__description">First, I leveraged a specialized prompt for creating the component library. This prompt was designed to generate production-ready React components with consistent styling, proper accessibility, and flexibility for different use cases.</p>
+                                <div style="background: var(--background-gray); border-radius: 8px; padding: 1.5rem; margin-top: 1rem; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85rem; line-height: 1.6; color: var(--text-medium); border-left: 4px solid var(--accent-teal);">
+                                    <p style="margin: 0 0 1rem 0; font-weight: 600; color: var(--text-dark);">The Prompt:</p>
+                                    <p style="margin: 0 0 1rem 0;">You are tasked with creating a component library based on a screenshot, using NextJs, React, and Tailwind CSS. All components should be custom-made to match the screenshot as closely as possible. Follow these instructions carefully:</p>
+                                    <ol style="margin: 0 0 1rem 1.5rem; padding: 0;">
+                                        <li style="margin-bottom: 0.5rem;">Analyze the provided screenshot</li>
+                                        <li style="margin-bottom: 0.5rem;">Identify distinct UI components in the screenshot. These may include, but are not limited to:
+                                            <ul style="margin: 0.5rem 0 0 1rem;">
+                                                <li>Buttons</li>
+                                                <li>Input fields</li>
+                                                <li>Navigation bars</li>
+                                                <li>Cards</li>
+                                                <li>Modals</li>
+                                                <li>Typography elements</li>
+                                            </ul>
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">For each identified component:
+                                            <ol style="margin: 0.5rem 0 0 1rem; list-style-type: lower-alpha;">
+                                                <li>Create a React functional component</li>
+                                                <li>Use Tailwind CSS classes to style the component, matching the visual design in the screenshot</li>
+                                                <li>Ensure the component is responsive and accessible</li>
+                                                <li>Add any necessary props for customization</li>
+                                                <li>Include a brief comment describing the component's purpose</li>
+                                            </ol>
+                                        </li>
+                                        <li style="margin-bottom: 0.5rem;">After creating all individual components, create an index page that imports and displays each component with example usage.</li>
+                                    </ol>
+                                    <p style="margin: 0; font-style: italic;">Remember to use only custom-made components and Tailwind CSS classes. Do not use any external libraries or pre-built components. Strive to match the visual design in the screenshot as closely as possible while maintaining good coding practices and component reusability.</p>
+                                </div>
                             </div>
                             
                             <div class="process-step">
@@ -693,9 +837,40 @@
                             </div>
                         </div>
 
-                        <div class="image-container">
-                            <img src="assets/buttons.png" alt="Button Components - Reusable button library">
-                            <p class="image-caption">Standardized button components ensuring consistency across all prototypes</p>
+                        <div class="image-carousel" id="componentCarousel">
+                            <div class="carousel-container">
+                                <div class="carousel-slides">
+                                    <div class="carousel-slide active">
+                                        <img src="assets/pagetemplatedataprep.png" alt="Data Prep Editor - Page Template">
+                                        <p class="image-caption">Data Prep Editor interface with visual pipeline stages</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/expressioneditorcomponent.png" alt="Expression Builder Component">
+                                        <p class="image-caption">Expression Builder component with syntax highlighting</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/buttons.png" alt="Button Components - Reusable button library">
+                                        <p class="image-caption">Standardized button components ensuring consistency across all prototypes</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-controls">
+                                <button class="carousel-btn carousel-prev" onclick="changeSlide(-1)">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M15 18l-6-6 6-6"/>
+                                    </svg>
+                                </button>
+                                <div class="carousel-dots">
+                                    <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(1)"></button>
+                                    <button class="carousel-dot" onclick="goToSlide(2)"></button>
+                                </div>
+                                <button class="carousel-btn carousel-next" onclick="changeSlide(1)">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 18l6-6-6-6"/>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
 
                         <hr>
@@ -728,15 +903,6 @@
                                 <p class="benefit-card__description">New demo variations can be assembled in a fraction of the time compared to building from scratch.</p>
                             </div>
                         </div>
-
-                        <hr>
-
-                        <h2>Live Prototype</h2>
-                        <p>Explore the interactive prototype built using this AI-augmented design system approach:</p>
-                        
-                        <a href="#" class="external-link" target="_blank">View Live Prototype →</a>
-                        
-                        <p><em>Note: The prototype demonstrates the data preparation editor interface with reusable stage components.</em></p>
 
                         <hr>
 
@@ -773,6 +939,35 @@
             <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+    </script>
 
     <script>
         (function() {
