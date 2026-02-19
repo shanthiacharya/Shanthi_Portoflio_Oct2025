@@ -81,22 +81,40 @@
         }
 
         nav .back-btn {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -636,6 +654,7 @@
                         <h1>Marketplace Design Sprint</h1>
                         <p class="tagline">5-day collaborative sprint to envision a marketplace ecosystem</p>
                         <p class="subtitle">Ellie Mae • Design Sprint Facilitator</p>
+                        <img src="assets/designsprinttsplashscreen.png" alt="Design Sprint Overview" style="width: 100%; max-width: 900px; border-radius: 12px; margin-top: 2rem; box-shadow: 0 4px 20px rgba(0, 61, 130, 0.15);">
                     </div>
                     
                     <div class="case-study-body">
@@ -691,6 +710,11 @@
 
                         <h2 id="process">The Sprint Week</h2>
                         <p>Following the Google Ventures design sprint methodology, we structured each day around specific goals and outcomes.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                            <img src="assets/personaworkshop.jpg" alt="Persona Workshop" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <img src="assets/journeymappingworkshop.jpg" alt="Journey Mapping Workshop" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        </div>
 
                         <div class="sprint-days">
                             <div class="sprint-day">
@@ -710,6 +734,12 @@
                                 </div>
                                 <div class="sprint-day__content">
                                     <p>Reviewed inspiring solutions from analogous products and competitors. Each team member worked independently on solution sketches, exploring diverse approaches. Used Crazy 8s and detailed solution sketches to generate a wide range of ideas. Focused on quality over quantity in the final solution presentations.</p>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                        <img src="assets/heatmapcompanalysis.jpg" alt="Competitive Analysis Heatmap" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                        <img src="assets/radarchartcompanalysis.jpg" alt="Competitive Analysis Radar Chart" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                        <img src="assets/sketching_home.jpg" alt="Sketching Session - Home" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                        <img src="assets/sketching_devworkflow.jpg" alt="Sketching Session - Dev Workflow" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    </div>
                                 </div>
                             </div>
 
@@ -730,6 +760,14 @@
                                 </div>
                                 <div class="sprint-day__content">
                                     <p>Built a realistic, clickable prototype of the marketplace experience. Divided the team into roles: makers, writers, stitchers, and interviewers. Created enough fidelity to feel real while moving fast. Prepared the interview script and testing plan for Day 5.</p>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                        <img src="assets/Home.png" alt="Marketplace Home Screen" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                        <img src="assets/Discover.png" alt="Discover Screen" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    </div>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                        <img src="assets/Discover Extension Details.png" alt="Extension Details Screen" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                        <img src="assets/Discover-Build-Getting Started.png" alt="Getting Started Screen" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    </div>
                                 </div>
                             </div>
 
@@ -751,26 +789,53 @@
 
                         <div class="outcome-grid">
                             <div class="outcome-card">
-                                <div class="outcome-card__icon">🎯</div>
+                                <div class="outcome-card__icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <circle cx="12" cy="12" r="6"></circle>
+                                        <circle cx="12" cy="12" r="2"></circle>
+                                    </svg>
+                                </div>
                                 <h4>Validated Concept</h4>
                                 <p>User testing confirmed strong interest in the marketplace concept with clear preferences for specific features</p>
                             </div>
                             <div class="outcome-card">
-                                <div class="outcome-card__icon">🤝</div>
+                                <div class="outcome-card__icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
                                 <h4>Aligned Stakeholders</h4>
                                 <p>Cross-functional team left with shared vision and understanding of the opportunity</p>
                             </div>
                             <div class="outcome-card">
-                                <div class="outcome-card__icon">📋</div>
+                                <div class="outcome-card__icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                </div>
                                 <h4>Clear Roadmap</h4>
                                 <p>Identified MVP scope and prioritized feature set based on user feedback</p>
                             </div>
                             <div class="outcome-card">
-                                <div class="outcome-card__icon">💡</div>
+                                <div class="outcome-card__icon">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 18h6"></path>
+                                        <path d="M10 22h4"></path>
+                                        <path d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2z"></path>
+                                    </svg>
+                                </div>
                                 <h4>Key Insights</h4>
                                 <p>Discovered unexpected user needs that influenced the product strategy</p>
                             </div>
                         </div>
+
+                        <h3>Product Launch</h3>
+                        <p>The Marketplace product was successfully launched and built on Salesforce in partnership with a consulting partner. The designs created during this sprint and the alignment achieved across teams significantly accelerated the development timeline and product launch, turning a strategic vision into a market-ready solution.</p>
 
                         <h3>Key Learnings from User Testing</h3>
                         <ul>

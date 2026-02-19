@@ -80,6 +80,11 @@
             display: flex;
             list-style: none;
             gap: 2rem;
+            flex-wrap: nowrap;
+        }
+
+        nav ul li {
+            white-space: nowrap;
         }
 
         nav a {
@@ -2412,6 +2417,134 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: linear-gradient(135deg, var(--background-light) 0%, var(--background-white) 100%);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+        }
+
+        .testimonial-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            pointer-events: none;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .testimonial-quote {
+            position: relative;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+            font-weight: 400;
+            font-style: italic;
+            margin: 0 0 1.5rem 0;
+            padding: 0;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 6rem;
+            color: var(--accent-teal);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-attribution {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin: 0;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-light);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .testimonial-dots .dot:hover {
+            background: var(--accent-teal);
+            opacity: 0.7;
+        }
+
+        .testimonial-dots .dot.active {
+            background: var(--accent-teal);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-section {
+                padding: 3rem 0;
+            }
+
+            .testimonial-carousel {
+                min-height: 320px;
+            }
+
+            .testimonial-quote {
+                font-size: 1.1rem;
+                line-height: 1.7;
+            }
+
+            .testimonial-quote::before {
+                font-size: 4rem;
+                top: -30px;
+            }
+
+            .testimonial-attribution {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2431,6 +2564,7 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#skills">Highlights</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#speaking">Talks & Articles</a></li>
                 <li><a href="#experience">Resume</a></li>
                 <li><a href="#contact">About</a></li>
@@ -2477,13 +2611,10 @@
                         <img src="images/brands/ge_digital_logo.jpeg" alt="GE Digital">
                     </div>
                     <div class="hero-brands-item">
-                        <img src="images/brands/ibm_logo.jpeg" alt="IBM">
-                    </div>
-                    <div class="hero-brands-item">
-                        <img src="images/brands/intel_corporation_logo.jpeg" alt="Intel">
-                    </div>
-                    <div class="hero-brands-item">
                         <img src="images/brands/elliemaeinc_logo.jpeg" alt="ICE Mortgage Technology">
+                    </div>
+                    <div class="hero-brands-item">
+                        <img src="images/brands/western_digital_logo.jpeg" alt="Western Digital">
                     </div>
                 </div>
             </div>
@@ -2503,7 +2634,7 @@
                             <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                         </svg>
                     </div>
-                    <div class="highlight-stat" data-count="20">0</div>
+                    <div class="highlight-stat"><span data-count="15">0</span>+</div>
                     <div class="highlight-label">Years of Enterprise Experience</div>
                     <p class="highlight-description">Designing complex B2B platforms for data analytics, IoT, and enterprise workflows</p>
                 </div>
@@ -2514,7 +2645,7 @@
                             <path d="M12 2L4.5 6.5v11L12 22l7.5-4.5v-11L12 2zm0 2.311l5.5 3.3v7.778L12 18.689l-5.5-3.3V8.611L12 4.311zM12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                         </svg>
                     </div>
-                    <div class="highlight-stat"><span data-count="30">0</span>+</div>
+                    <div class="highlight-stat"><span data-count="20">0</span>+</div>
                     <div class="highlight-label">Products Shipped</div>
                     <p class="highlight-description">10+ built from 0→1. Multi-release cross-functional partner.</p>
                 </div>
@@ -2637,7 +2768,7 @@
                     <span class="hero-company-tag">VISION SETTING</span>
                     <h3>Unified Data Movement Platform</h3>
                     <p class="hero-subtitle">Ingestion, transformation, activation, and orchestration - all in one place</p>
-                    <p>Led the complete UX vision and strategy for Supaflow, a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
+                    <p>Led the complete UX vision and strategy for a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
                     <span class="hero-cta">View case study →</span>
                 </div>
                 <div class="hero-project-right">
@@ -2712,7 +2843,7 @@
                     </div>
                 </a>
 
-                <a href="case-studies/field-lineage/" class="project-card clickable" data-tags="Data Lineage Design Thinking Complex UX Workday">
+                <a href="case-studies/field-lineage/" class="project-card clickable" data-tags="Data Lineage Design Thinking Complex UX Workday" style="display: none;">
                     <div class="project-header">
                         <img src="images/placeholder-lineage.svg" alt="Data and Field Lineage" class="project-header-image" style="background: linear-gradient(135deg, #003D82 0%, #00C7B1 100%);">
                         <span class="project-type-tag">WORKDAY</span>
@@ -2728,7 +2859,7 @@
                     </div>
                 </a>
 
-                <a href="case-studies/allregs/" class="project-card clickable" data-tags="Responsive Design Search UX Information Architecture Ellie Mae">
+                <a href="case-studies/allregs/" class="project-card clickable" data-tags="Responsive Design Search UX Information Architecture Ellie Mae" style="display: none;">
                     <div class="project-header">
                         <img src="images/placeholder-allregs.svg" alt="AllRegs Responsive Redesign" class="project-header-image" style="background: linear-gradient(135deg, #004C8C 0%, #03DAC6 100%);">
                         <span class="project-type-tag">ELLIE MAE</span>
@@ -2746,7 +2877,7 @@
 
                 <a href="case-studies/design-sprint/" class="project-card clickable" data-tags="Design Sprint Facilitation UX Strategy Ellie Mae">
                     <div class="project-header">
-                        <img src="images/placeholder-sprint.svg" alt="Marketplace Design Sprint" class="project-header-image" style="background: linear-gradient(135deg, #00C7B1 0%, #003D82 100%);">
+                        <img src="case-studies/design-sprint/assets/designsprinttsplashscreen.png" alt="Marketplace Design Sprint" class="project-header-image">
                         <span class="project-type-tag">ELLIE MAE</span>
                     </div>
                     <div class="project-content">
@@ -2762,7 +2893,7 @@
 
                 <a href="case-studies/plant-operation-advisor/" class="project-card clickable" data-tags="IoT Predictive Analytics Asset Management GE Digital">
                     <div class="project-header">
-                        <img src="images/placeholder-plant.svg" alt="Plant Operation Advisor" class="project-header-image" style="background: linear-gradient(135deg, #003D82 0%, #FF6B35 100%);">
+                        <img src="case-studies/plant-operation-advisor/assets/bppoadashboardheroimage.png" alt="Plant Operation Advisor" class="project-header-image">
                         <span class="project-type-tag">GE DIGITAL</span>
                     </div>
                     <div class="project-content">
@@ -2775,6 +2906,66 @@
                         </div>
                     </div>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials-section" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What People Say</h2>
+            <div class="testimonial-carousel" id="testimonialCarousel">
+                <div class="testimonial-slide active">
+                    <blockquote class="testimonial-quote">
+                        Thank you Shanthi for including me in the virtual holiday game with your team and also facilitating the prompting image generation game. I had a lot of fun!
+                    </blockquote>
+                    <p class="testimonial-attribution">— Product Designer, Workday</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Shanthi has been amazing in running UX research for a brand new ML product idea around ML Observability. She was able to also teach a few tricks and tips to me and my PM on how to conduct user research. She showed a professional attitude when talking to customers and was able to understand ML concepts pretty easily as well.
+                    </blockquote>
+                    <p class="testimonial-attribution">— Senior Manager, ML Team</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Shanthi has been an amazing partner and collaborator. She has data domain knowledge, UX know-how and ability to visualize how products and features will evolve long term. She keeps an eye out for industry trends in product design. She also has a very capable team who are willing to go an extra mile which speaks volumes of her leadership skills and capabilities.
+                    </blockquote>
+                    <p class="testimonial-attribution">— Director, Product Management</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Thank you Shanthi for the incredible job you did in creating the designs for Prism Workspaces. This was an incredibly complex problem that required in-depth knowledge about how the entire Prism Data Catalog operates. Shanthi led the early mockup phase that fed our user research interviews. From those interviews, Shanthi re-imagined workflows to incorporate feedback into the high-fidelity designs that frame the MVP.
+                    </blockquote>
+                    <p class="testimonial-attribution">— Senior Product Manager, Data Platforms</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Thank you for presenting at the Analytics URM recruiting event. I thought your presentation really represented the collaborative aspects of our team culture. I also think that many enterprise companies still don't value design and you showed our candidates how we value it strongly. Thank you for also helping to coordinate the entire event.
+                    </blockquote>
+                    <p class="testimonial-attribution">— VP Analytics</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Thank you so much for sharing your enthusiasm and knowledge of new AI products and examples of best of show AI/LLMs. It's a new emerging technology and can be intimidating to get your head around. So I really appreciate you trying to make it more "accessible" to our team!
+                    </blockquote>
+                    <p class="testimonial-attribution">— Senior Designer</p>
+                </div>
+                <div class="testimonial-slide">
+                    <blockquote class="testimonial-quote">
+                        Thank you, Shanthi and Kassie, for your awesome presentation during ORBIT Xplore Week! Your session on how AI impacts the design process was incredibly valuable and insightful. It was clear our GWs found it both engaging and informative. We appreciate your time and investment in P&T's early talent!
+                    </blockquote>
+                    <p class="testimonial-attribution">— Sr. Program Manager, Early Talent Development</p>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <button class="dot active" data-index="0" aria-label="Show testimonial 1"></button>
+                <button class="dot" data-index="1" aria-label="Show testimonial 2"></button>
+                <button class="dot" data-index="2" aria-label="Show testimonial 3"></button>
+                <button class="dot" data-index="3" aria-label="Show testimonial 4"></button>
+                <button class="dot" data-index="4" aria-label="Show testimonial 5"></button>
+                <button class="dot" data-index="5" aria-label="Show testimonial 6"></button>
+                <button class="dot" data-index="6" aria-label="Show testimonial 7"></button>
             </div>
         </div>
     </section>
@@ -3168,6 +3359,60 @@
                 filterProjects();
             });
         });
+
+        // ========================================
+        // TESTIMONIAL CAROUSEL
+        // ========================================
+        
+        (function initTestimonialCarousel() {
+            const carousel = document.getElementById('testimonialCarousel');
+            if (!carousel) return;
+
+            const slides = carousel.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.testimonial-dots .dot');
+            let currentIndex = 0;
+            let intervalId = null;
+            const intervalDuration = 5000;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentIndex = index;
+            }
+
+            function nextSlide() {
+                const nextIndex = (currentIndex + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+
+            function startAutoRotation() {
+                if (intervalId) clearInterval(intervalId);
+                intervalId = setInterval(nextSlide, intervalDuration);
+            }
+
+            function stopAutoRotation() {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    startAutoRotation();
+                });
+            });
+
+            carousel.addEventListener('mouseenter', stopAutoRotation);
+            carousel.addEventListener('mouseleave', startAutoRotation);
+
+            startAutoRotation();
+        })();
 
         // ========================================
         // ANIMATIONS & SPECIAL EFFECTS

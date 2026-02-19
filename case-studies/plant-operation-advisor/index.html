@@ -81,22 +81,40 @@
         }
 
         nav .back-btn {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -627,6 +645,7 @@
                         <h1>Plant Operation Advisor</h1>
                         <p class="tagline">Predictive analytics for offshore platform health monitoring</p>
                         <p class="subtitle">GE Digital (Oil & Gas) • Design Sprint</p>
+                        <img src="assets/bppoadashboardheroimage.png" alt="Plant Operation Advisor Dashboard" style="width: 100%; max-width: 900px; border-radius: 12px; margin-top: 2rem; box-shadow: 0 4px 20px rgba(0, 61, 130, 0.15);">
                     </div>
                     
                     <div class="case-study-body">
@@ -683,6 +702,10 @@
                         <h2 id="process">Process</h2>
                         <p>We applied GE's Fastworks methodology—a lean startup approach adapted for industrial environments—to rapidly iterate from concept to validated prototype.</p>
 
+                        <div style="margin: 2rem 0;">
+                            <img src="assets/DesignProcess.jpg" alt="Design Process" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 61, 130, 0.1);">
+                        </div>
+
                         <div class="approach-steps">
                             <div class="approach-step">
                                 <div class="approach-step__title">Immersion & Discovery</div>
@@ -702,6 +725,15 @@
                                     Explored multiple approaches to surfacing predictive insights, from real-time dashboards to proactive notification systems. Designed hierarchical views allowing operators to drill from plant-wide health to individual asset details.
                                 </div>
                             </div>
+                        </div>
+
+                        <h3>Dashboard Sketches</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+                            <img src="assets/Dashboardsketches1.png" alt="Dashboard Sketches 1" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <img src="assets/Dashboardsketches2.png" alt="Dashboard Sketches 2" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        </div>
+
+                        <div class="approach-steps">
                             <div class="approach-step">
                                 <div class="approach-step__title">Rapid Prototyping & Testing</div>
                                 <div class="approach-step__content">
@@ -713,31 +745,44 @@
                         <hr>
 
                         <h2 id="solution">Solution</h2>
+                        
+                        <div style="margin: 2rem 0;">
+                            <img src="assets/bppoadashboard.png" alt="BP POA Dashboard Overview" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 61, 130, 0.1);">
+                        </div>
+
                         <h3>Key Design Features</h3>
 
                         <div class="feature-card">
                             <h4>Asset Health Dashboard</h4>
                             <p>A unified view showing health scores for all critical assets, color-coded by risk level. Operators can immediately identify which equipment needs attention and prioritize their response.</p>
+                            <img src="assets/bppoadashboardlevel3.png" alt="Asset Health Dashboard Detail" style="width: 100%; border-radius: 8px; margin-top: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                         </div>
 
                         <div class="feature-card">
                             <h4>Predictive Alerts with Context</h4>
                             <p>Smart alerts that go beyond threshold breaches to provide predicted time-to-failure, confidence levels, and recommended actions. Reduced alert noise while surfacing truly critical issues.</p>
+                            <img src="assets/excursionstab.png" alt="Excursions Tab" style="width: 100%; border-radius: 8px; margin-top: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                         </div>
 
                         <div class="feature-card">
                             <h4>Root Cause Analysis Support</h4>
                             <p>When anomalies are detected, the system provides relevant historical data, similar past incidents, and potential contributing factors to help operators investigate quickly.</p>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                                <img src="assets/excursionanalysis.png" alt="Excursion Analysis" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <img src="assets/excursionfilters.png" alt="Excursion Filters" style="width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            </div>
                         </div>
 
                         <div class="feature-card">
-                            <h4>Maintenance Planning Integration</h4>
-                            <p>Predictive insights feed directly into maintenance planning workflows, allowing planners to schedule repairs during planned shutdowns and optimize resource allocation.</p>
+                            <h4>Process Surveillance Dashboard</h4>
+                            <p>Real-time monitoring of process variables with intelligent anomaly detection, allowing operators to spot deviations before they become critical issues.</p>
+                            <img src="assets/dashboardprocesssurveillance.png" alt="Process Surveillance Dashboard" style="width: 100%; border-radius: 8px; margin-top: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                         </div>
 
                         <div class="feature-card">
-                            <h4>Mobile Access for Field Technicians</h4>
-                            <p>A companion mobile experience allows field technicians to access asset information, review maintenance history, and update work orders while on the platform.</p>
+                            <h4>Analysis & Insights</h4>
+                            <p>Deep dive analytics tools allow reliability engineers to investigate trends, correlations, and patterns across multiple assets and time periods.</p>
+                            <img src="assets/analysis.png" alt="Analysis Dashboard" style="width: 100%; border-radius: 8px; margin-top: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
                         </div>
 
                         <hr>

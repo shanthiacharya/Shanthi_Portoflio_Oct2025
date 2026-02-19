@@ -84,21 +84,40 @@
         }
 
         nav .back-btn {
-            background: var(--accent-teal);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         nav .back-btn:hover {
-            background: var(--accent-teal-light);
-            transform: translateY(-2px);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
         }
 
         /* Table of Contents */
@@ -567,7 +586,7 @@
                 <p>Data engineers waste 40% of their time context-switching between 4-6 different tools to manage data pipelines. Each tool has its own design language, mental model, and workflow paradigm. How might we create a unified experience that consolidates these workflows while maintaining the power users expect?</p>
 
                 <h2>My Role</h2>
-                <p>Design Strategy Lead & Product Designer - Led design strategy while collaborating directly with the founder and engineering team, and mentoring a design intern through the product development process.</p>
+                <p>Design Strategy Lead & Product Designer - Conceptualized and built this prototype as a self-driven initiative to showcase a clear product vision, test it with target users, and drive executive sponsorship.</p>
 
                 <h3>User Persona</h3>
                 <p>Based on user interviews, we developed a comprehensive persona representing our core analytics engineer user.</p>
@@ -581,6 +600,12 @@
                     <li>Maintain power while improving discoverability</li>
                 </ul>
 
+                <h3>Product Demo</h3>
+                <div style="position: relative; padding-bottom: 64.13301662707838%; height: 0; margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 61, 130, 0.15);">
+                    <iframe src="https://www.loom.com/embed/af8257950cb84540b93adeb56c033964" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
+
+                <!-- CASE STUDY CONTENT COMING SOON - COMMENTED OUT FOR NOW
                 <hr>
 
                 <h2>Discovery & Research</h2>
@@ -691,6 +716,7 @@
 
 
                 <p><em>This case study represents strategic UX work on the Analytics Data Platform, showcasing how user-centered design transforms complex enterprise software into intuitive, powerful tools.</em></p>
+                END CASE STUDY CONTENT COMING SOON -->
                     </div>
                 </div>
             </div>

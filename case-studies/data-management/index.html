@@ -83,19 +83,20 @@
         }
 
         nav .back-btn {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
         }
 
         nav .back-btn::before {
@@ -110,8 +111,8 @@
         }
 
         nav .back-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
         }
 
         nav .back-btn:hover::before {
@@ -755,6 +756,12 @@
                             <li>Workspace bookmarking for active projects across multiple catalogs</li>
                         </ul>
 
+                        <div style="background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%); color: white; padding: 3rem; border-radius: 16px; text-align: center; margin: 3rem 0;">
+                            <h3 style="color: white; margin: 0 0 1rem 0; font-size: 1.5rem;">Full Case Study Coming Soon</h3>
+                            <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1.1rem;">Detailed impact metrics, outcomes, and reflections are being prepared.</p>
+                        </div>
+
+                        <!-- CASE STUDY CONTENT COMING SOON - COMMENTED OUT FOR NOW
                         <h2>Impact & Outcomes</h2>
                         
                         <h3>Immediate</h3>
@@ -795,6 +802,7 @@
                         <h2>Images</h2>
                         <p>Visual artifacts from the Data Catalog Redesign project:</p>
                         <img class="hero-video" src="assets/cataloghome.png" alt="Data Management Catalog Overview" style="margin-top: 1rem;">
+                        END CASE STUDY CONTENT COMING SOON -->
 
                     </div>
 

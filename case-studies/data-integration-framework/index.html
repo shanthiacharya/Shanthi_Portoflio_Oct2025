@@ -83,19 +83,20 @@
         }
 
         nav .back-btn {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 61, 130, 0.25);
         }
 
         nav .back-btn::before {
@@ -110,8 +111,8 @@
         }
 
         nav .back-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(0, 199, 177, 0.35);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
         }
 
         nav .back-btn:hover::before {
@@ -492,8 +493,43 @@
         /* Design Areas */
         .design-areas {
             display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin: 2rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .design-areas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .design-areas {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .design-area-card__number {
+                width: 48px;
+                height: 48px;
+                font-size: 1.25rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+            }
+
+            .design-area-card__title {
+                font-size: 0.95rem;
+            }
+
+            .design-area-card__description {
+                font-size: 0.85rem;
+            }
+
+            .design-area-card__demo .demo-caption {
+                font-size: 0.8rem;
+            }
         }
 
         .design-area-card {
@@ -577,6 +613,85 @@
             font-style: italic;
             margin-top: 0.75rem;
             margin-bottom: 0;
+        }
+
+        /* Demo Carousel */
+        .demo-carousel {
+            margin: 2.5rem 0;
+            text-align: center;
+        }
+
+        .demo-carousel__container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px var(--shadow-md);
+            border: 1px solid var(--border-light);
+            background: var(--background-white);
+        }
+
+        .demo-carousel__slides {
+            position: relative;
+            width: 100%;
+        }
+
+        .demo-carousel__slide {
+            display: none;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .demo-carousel__slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .demo-carousel__slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .demo-carousel__caption {
+            padding: 1rem 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            font-style: italic;
+            background: var(--background-light);
+            margin: 0;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .demo-carousel__dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .demo-carousel__dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-teal);
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .demo-carousel__dot:hover {
+            background: rgba(0, 199, 177, 0.3);
+            transform: scale(1.1);
+        }
+
+        .demo-carousel__dot.active {
+            background: var(--accent-teal);
+            transform: scale(1.15);
         }
 
         /* Approach Steps */
@@ -754,6 +869,81 @@
             font-size: 1.15rem;
             line-height: 1.8;
             margin-bottom: 0;
+        }
+
+        /* Impact Cards */
+        .impact-cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: white;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .impact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .impact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 61, 130, 0.3);
+        }
+
+        .impact-card__number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .impact-card__label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .impact-card--teal {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+        }
+
+        @media (max-width: 1200px) {
+            .impact-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .impact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .impact-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-card__number {
+                font-size: 2rem;
+            }
         }
 
         /* Pillar Navigation */
@@ -1084,10 +1274,6 @@
                                 <p class="design-area-card__description">
                                     Enabling users to create tables from multiple data sources with a streamlined, intuitive workflow that reduces complexity and eliminates the need for IT involvement.
                                 </p>
-                                <div class="design-area-card__demo">
-                                    <img src="assets/prismdcttablefromsource.gif" alt="Demo: Creating tables from various data sources">
-                                    <p class="demo-caption">Table creation workflow from external data sources</p>
-                                </div>
                             </div>
                             
                             <div class="design-area-card">
@@ -1096,14 +1282,6 @@
                                 <p class="design-area-card__description">
                                     Users can bring in data from external sources to the table for various use cases such as deleting, updating, upserting, and more—providing complete control over data operations.
                                 </p>
-                                <div class="design-area-card__demo">
-                                    <img src="assets/prismdctexpressioneditor.gif" alt="Demo: Expression editor for data transformations">
-                                    <p class="demo-caption">Expression editor for data transformations</p>
-                                </div>
-                                <div class="design-area-card__demo">
-                                    <img src="assets/primsdctautosuggestion.gif" alt="Demo: Auto-suggestion feature for data operations">
-                                    <p class="demo-caption">Intelligent auto-suggestion for faster data configuration</p>
-                                </div>
                             </div>
                             
                             <div class="design-area-card">
@@ -1112,10 +1290,36 @@
                                 <p class="design-area-card__description">
                                     Create reusable connections and activity monitoring, integrating with the data catalog. Connections provide reusability and flexibility in configuration of various data sources.
                                 </p>
-                                <div class="design-area-card__demo">
-                                    <img src="assets/prismconnectors.gif" alt="Demo: Creating and managing reusable connections">
-                                    <p class="demo-caption">Reusable connections for various data sources</p>
+                            </div>
+                        </div>
+
+                        <!-- Demo Carousel -->
+                        <div class="demo-carousel">
+                            <div class="demo-carousel__container">
+                                <div class="demo-carousel__slides">
+                                    <div class="demo-carousel__slide active" data-slide="0">
+                                        <img src="assets/prismdcttablefromsource.gif" alt="Demo: Creating tables from various data sources">
+                                        <p class="demo-carousel__caption">Table creation workflow from external data sources</p>
+                                    </div>
+                                    <div class="demo-carousel__slide" data-slide="1">
+                                        <img src="assets/prismdctexpressioneditor.gif" alt="Demo: Expression editor for data transformations">
+                                        <p class="demo-carousel__caption">Expression editor for data transformations</p>
+                                    </div>
+                                    <div class="demo-carousel__slide" data-slide="2">
+                                        <img src="assets/primsdctautosuggestion.gif" alt="Demo: Auto-suggestion feature for data operations">
+                                        <p class="demo-carousel__caption">Intelligent auto-suggestion for faster data configuration</p>
+                                    </div>
+                                    <div class="demo-carousel__slide" data-slide="3">
+                                        <img src="assets/prismconnectors.gif" alt="Demo: Creating and managing reusable connections">
+                                        <p class="demo-carousel__caption">Reusable connections for various data sources</p>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="demo-carousel__dots">
+                                <button class="demo-carousel__dot active" data-slide="0" aria-label="View slide 1"></button>
+                                <button class="demo-carousel__dot" data-slide="1" aria-label="View slide 2"></button>
+                                <button class="demo-carousel__dot" data-slide="2" aria-label="View slide 3"></button>
+                                <button class="demo-carousel__dot" data-slide="3" aria-label="View slide 4"></button>
                             </div>
                         </div>
 
@@ -1124,6 +1328,34 @@
                         <blockquote>
                             Connections provides reusability and flexibility in configuration of various data sources.
                         </blockquote>
+
+                        <hr>
+
+                        <h2>Results & Impact</h2>
+                        <p>The Data Integration Framework delivered measurable improvements across adoption, reliability, and self-service capabilities.</p>
+
+                        <div class="impact-cards">
+                            <div class="impact-card">
+                                <span class="impact-card__number">500+</span>
+                                <span class="impact-card__label">Enterprise customers</span>
+                            </div>
+                            <div class="impact-card impact-card--teal">
+                                <span class="impact-card__number">99%</span>
+                                <span class="impact-card__label">Data integration success rate</span>
+                            </div>
+                            <div class="impact-card">
+                                <span class="impact-card__number">40+</span>
+                                <span class="impact-card__label">Industry-leading data warehouses</span>
+                            </div>
+                            <div class="impact-card impact-card--teal">
+                                <span class="impact-card__number">70%</span>
+                                <span class="impact-card__label">Reduction in debugging time</span>
+                            </div>
+                            <div class="impact-card">
+                                <span class="impact-card__number">90%</span>
+                                <span class="impact-card__label">Integrations without IT support</span>
+                            </div>
+                        </div>
 
                         <hr>
 
@@ -1271,11 +1503,39 @@
                 });
             }
 
+            // Demo Carousel functionality
+            function initializeCarousel() {
+                const carousel = document.querySelector('.demo-carousel');
+                if (!carousel) return;
+
+                const slides = carousel.querySelectorAll('.demo-carousel__slide');
+                const dots = carousel.querySelectorAll('.demo-carousel__dot');
+                
+                if (slides.length === 0 || dots.length === 0) return;
+
+                function showSlide(index) {
+                    slides.forEach((slide, i) => {
+                        slide.classList.toggle('active', i === index);
+                    });
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => showSlide(index));
+                });
+            }
+
             // Initialize when DOM is ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initializeTOC);
+                document.addEventListener('DOMContentLoaded', () => {
+                    initializeTOC();
+                    initializeCarousel();
+                });
             } else {
                 initializeTOC();
+                initializeCarousel();
             }
         })();
     </script>
