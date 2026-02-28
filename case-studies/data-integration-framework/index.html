@@ -694,6 +694,133 @@
             transform: scale(1.15);
         }
 
+        /* Zoomable Image Container */
+        .zoomable-image-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .zoomable-image {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            border-radius: 12px;
+            cursor: zoom-in;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .zoomable-image:hover {
+            opacity: 0.95;
+        }
+
+        .zoomable-image img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 15;
+        }
+
+        .zoomable-image:hover .zoom-hint {
+            opacity: 1;
+        }
+
+        .zoom-hint svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .zoomable-caption {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+
+        /* Lightbox Modal */
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            padding: 2rem;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+            animation: lightboxFadeIn 0.25s ease;
+        }
+
+        @keyframes lightboxFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-overlay img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .lightbox-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
         /* Approach Steps */
         .approach-steps {
             display: grid;
@@ -1127,6 +1254,253 @@
             line-height: 1.2;
         }
 
+        /* Before-After Section */
+        .before-after-section {
+            margin: 2rem 0;
+        }
+
+        .before-after-section h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .before-after-section > p {
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+        }
+
+        .before-after-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .before-after-card {
+            background: var(--background-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+
+        .before-after-card__header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .before-after-card__number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-teal);
+            margin-bottom: 0.25rem;
+        }
+
+        .before-after-card__title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .before-after-card__body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .before-after-card__section {
+            margin-bottom: 0;
+        }
+
+        .before-after-card__label {
+            display: block;
+            padding: 0.6rem 1rem;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .before-after-card__label--before {
+            background: var(--background-gray);
+            color: var(--text-medium);
+        }
+
+        .before-after-card__label--after {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+            color: white;
+        }
+
+        .before-after-card__label--impact {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: white;
+        }
+
+        .before-after-card__list {
+            margin: 0;
+            padding-left: 1.25rem;
+        }
+
+        .before-after-card__list li {
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .before-after-card__list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .before-after-card__impact {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            text-align: center;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .before-after-impact {
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .before-after-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .before-after-images img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px var(--shadow-sm);
+        }
+
+        .annotated-image {
+            position: relative;
+            display: block;
+        }
+
+        .annotated-image img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 20px var(--shadow-sm);
+        }
+
+        .annotation-marker {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .marker-number {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #FF6B35 0%, #E85A24 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+            border: 2px solid white;
+            flex-shrink: 0;
+        }
+
+        .marker-label {
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .annotation-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding: 1.25rem;
+            background: var(--background-light);
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .legend-number {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35 0%, #E85A24 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        .legend-text strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (max-width: 900px) {
+            .before-after-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .before-after-card__body {
+                grid-template-columns: 1fr;
+            }
+            
+            .annotation-marker {
+                transform: scale(0.85);
+            }
+            
+            .marker-label {
+                display: none;
+            }
+        }
+
         /* Phased Delivery Timeline */
         .phased-delivery {
             background: var(--background-light);
@@ -1144,7 +1518,7 @@
             font-size: 1.1rem;
             line-height: 1.7;
             margin-bottom: 2.5rem;
-            max-width: 700px;
+            max-width: 100%;
         }
 
         .timeline {
@@ -1604,7 +1978,7 @@
                         <hr>
 
                         <h2>Goals</h2>
-                        <p>Design the end-to-end experience for a self service data integration framework that will enhance data management capabilities by providing:</p>
+                        <p>Our goal wad to design the end-to-end experience for a self service data integration framework that will enhance data management capabilities by providing:</p>
                         
                         <div class="goals-grid">
                             <div class="goal-card">
@@ -1731,9 +2105,57 @@
                             </div>
                             
                             <div class="approach-step">
+                                <div class="approach-step__title">Design Focus Areas</div>
+                                <div class="approach-step__content">
+                                    Our design efforts were broken down into creating experiences for 3 key areas:
+                                </div>
+                                <div class="approach-step__media">
+                                    <div class="design-areas">
+                                        <div class="design-area-card">
+                                            <span class="design-area-card__number">1</span>
+                                            <span class="design-area-card__title">Creating Tables from Various Sources</span>
+                                            <p class="design-area-card__description">
+                                                Tables are foundational data containers that serve as a central location for data from multiple sources with schema definition and data management capabilities.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="design-area-card">
+                                            <span class="design-area-card__number">2</span>
+                                            <span class="design-area-card__title">Data Operations: Data Change Task</span>
+                                            <p class="design-area-card__description">
+                                                Provide the flexibility to ingest data incrementally in an automated fashion with a reusable framework for Table Data Change operations such as Append, Replace, Delete. Define and map fields that are needed.
+                                            </p>
+                                        </div>
+                                        
+                                        <div class="design-area-card">
+                                            <span class="design-area-card__number">3</span>
+                                            <span class="design-area-card__title">Connections & System Integration</span>
+                                            <p class="design-area-card__description">
+                                                Create reusable connections and activity monitoring, integrating with the data catalog.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- DCT Stepper Flow -->
+                                    <div class="zoomable-image-container">
+                                        <div class="zoomable-image">
+                                            <img src="assets/dctstepper/dctoverall.png" alt="DCT Overall Flow: End-to-end data change task workflow">
+                                            <div class="zoom-hint">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                                </svg>
+                                                Click to zoom
+                                            </div>
+                                        </div>
+                                        <p class="zoomable-caption">Data Change Task: Complete stepper workflow overview — click to enlarge</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="approach-step">
                                 <div class="approach-step__title">User Feedback & Iterative Designs</div>
                                 <div class="approach-step__content">
-                                    Conducted multiple rounds of user research and usability testing to validate design decisions and iterate based on real-world feedback from enterprise customers.
+                                    Conducted multiple rounds of user research and usability testing to validate design decisions and iterate based on feedback from customers.
                                 </div>
                                 <div class="approach-step__media">
                                     <img src="../data-prep-editor/assets/empathymap.png" alt="User Empathy Map for Data Integration showing Says, Thinks, Does, and Feels quadrants for Nina - HRIT Analyst">
@@ -1742,67 +2164,269 @@
                             </div>
                         </div>
 
-                        <h2>Design Focus Areas</h2>
-                        <p>Our design efforts were broken down into creating experiences for 3 key areas:</p>
-
-                        <div class="design-areas">
-                            <div class="design-area-card">
-                                <span class="design-area-card__number">1</span>
-                                <span class="design-area-card__title">Creating Tables from Various Sources</span>
-                                <p class="design-area-card__description">
-                                    Tables are foundational data containers that serve as a central location for data from multiple sources with schema definition and data management capabilities.
-                                </p>
-                            </div>
-                            
-                            <div class="design-area-card">
-                                <span class="design-area-card__number">2</span>
-                                <span class="design-area-card__title">Data Operations: Data Change Task</span>
-                                <p class="design-area-card__description">
-                                    Provide the flexibility to ingest data incrementally in an automated fashion with a reusable framework for Table Data Change operations such as Append, Replace, Delete. Define and map fields that are needed.
-                                </p>
-                            </div>
-                            
-                            <div class="design-area-card">
-                                <span class="design-area-card__number">3</span>
-                                <span class="design-area-card__title">Connections & System Integration</span>
-                                <p class="design-area-card__description">
-                                    Create reusable connections and activity monitoring, integrating with the data catalog.
-                                </p>
-                            </div>
-                        </div>
-
                         <hr>
 
-                        <h2>Key UX Patterns</h2>
-                        <p>Reusable design patterns established across the connector ecosystem to ensure consistency and scalability.</p>
-                        
-                        <!-- Demo Carousel -->
-                        <div class="demo-carousel">
-                            <div class="demo-carousel__container">
-                                <div class="demo-carousel__slides">
-                                    <div class="demo-carousel__slide active" data-slide="0">
-                                        <img src="assets/prismdcttablefromsource.gif" alt="Demo: Creating tables from various data sources">
-                                        <p class="demo-carousel__caption">Table creation workflow from external data sources</p>
+                        <div class="before-after-section">
+                            <h2>Design Improvements</h2>
+                            <p>Key UX optimizations driven by user feedback, focusing on workflow efficiency, cognitive load reduction, and system coherence.</p>
+
+                            <div class="before-after-grid">
+                                <div class="before-after-card">
+                                    <div class="before-after-card__header">
+                                        <div class="before-after-card__number">Improvement 01</div>
+                                        <h4 class="before-after-card__title">Unified Mapping, Data Types & Smart Suggestions</h4>
                                     </div>
-                                    <div class="demo-carousel__slide" data-slide="1">
-                                        <img src="assets/prismdctexpressioneditor.gif" alt="Demo: Expression editor for data transformations">
-                                        <p class="demo-carousel__caption">Expression editor for data transformations</p>
+                                    <div class="before-after-card__body">
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--before">Before</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Mapping fields and converting data types were two separate steps</li>
+                                                <li>Users had to move back and forth between screens</li>
+                                                <li>Auto-mapping algorithm created duplicate mappings due to hierarchical naming</li>
+                                                <li>Data preview panel consumed valuable mapping space</li>
+                                                <li>No intelligent assistance for mapping decisions</li>
+                                            </ul>
+                                        </div>
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--after">After</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Combined mapping + data type conversion into a single unified workflow</li>
+                                                <li>Switched from fuzzy hierarchical to exact mapping logic</li>
+                                                <li>Added ML-powered field mapping recommendations with confidence scores</li>
+                                                <li>Moved data preview to expandable bottom panel</li>
+                                                <li>Expanded mapping workspace for better visibility</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="demo-carousel__slide" data-slide="2">
-                                        <img src="assets/primsdctautosuggestion.gif" alt="Demo: Auto-suggestion feature for data operations">
-                                        <p class="demo-carousel__caption">Intelligent auto-suggestion for faster data configuration</p>
+                                    <div class="before-after-impact">
+                                        Faster configuration time, fewer navigation errors, reduced duplicate mappings, improved user confidence.
                                     </div>
-                                    <div class="demo-carousel__slide" data-slide="3">
-                                        <img src="assets/prismconnectors.gif" alt="Demo: Creating and managing reusable connections">
-                                        <p class="demo-carousel__caption">Reusable connections for various data sources</p>
+                                    <div class="before-after-images">
+                                        <div class="annotated-image">
+                                            <img src="assets/after_mappingwithdatatypessmartsuggestions.png" alt="Unified mapping with inline data type conversion">
+                                            <div class="annotation-marker" style="top: 12%; left: 58%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Inline data type conversion</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 30%; left: 15%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Source-to-target mapping</span>
+                                            </div>
+                                            <div class="annotation-marker" style="bottom: 12%; left: 25%;">
+                                                <span class="marker-number">3</span>
+                                                <span class="marker-label">Data preview at bottom</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>Inline Data Type Conversion</strong>
+                                                    Users can adjust data types directly in the mapping row without navigating to a separate screen.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">2</span>
+                                                <div class="legend-text">
+                                                    <strong>Source-to-Target Field Mapping</strong>
+                                                    Unified view shows source fields mapped to target fields with type indicators.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">3</span>
+                                                <div class="legend-text">
+                                                    <strong>Expandable Data Preview</strong>
+                                                    Sample data moved to bottom panel, freeing up mapping workspace.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="annotated-image">
+                                            <img src="assets/after-smart suggestion.png" alt="ML-powered smart mapping suggestions">
+                                            <div class="annotation-marker" style="top: 8%; right: 5%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Smart suggestions panel</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 28%; right: 12%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Confidence scores</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>ML-Powered Suggestions Panel</strong>
+                                                    Intelligent recommendations appear contextually based on field names and data patterns.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">2</span>
+                                                <div class="legend-text">
+                                                    <strong>Exact Matching with Confidence</strong>
+                                                    Switched from fuzzy to exact matching logic, showing match confidence percentages.
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="demo-carousel__dots">
-                                <button class="demo-carousel__dot active" data-slide="0" aria-label="View slide 1"></button>
-                                <button class="demo-carousel__dot" data-slide="1" aria-label="View slide 2"></button>
-                                <button class="demo-carousel__dot" data-slide="2" aria-label="View slide 3"></button>
-                                <button class="demo-carousel__dot" data-slide="3" aria-label="View slide 4"></button>
+
+                                <div class="before-after-card">
+                                    <div class="before-after-card__header">
+                                        <div class="before-after-card__number">Improvement 02</div>
+                                        <h4 class="before-after-card__title">Schema Changes with Existing Data</h4>
+                                    </div>
+                                    <div class="before-after-card__body">
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--before">Before</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Manual, multi-step workaround required for schema changes</li>
+                                                <li>Deleting or modifying fields required recreating tables</li>
+                                                <li>High operational friction and risk of data inconsistencies</li>
+                                            </ul>
+                                        </div>
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--after">After</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Introduced Alter Table capability</li>
+                                                <li>Users can modify table schema even when data exists</li>
+                                                <li>Eliminated manual workaround processes</li>
+                                                <li>Reduced engineering dependency</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="before-after-impact">
+                                        Greater flexibility, faster iteration cycles, lower operational friction.
+                                    </div>
+                                    <div class="before-after-images">
+                                        <div class="annotated-image">
+                                            <img src="assets/after_createtablesourceschema.png" alt="Create Table using source schema">
+                                            <div class="annotation-marker" style="top: 18%; left: 28%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Create from source schema</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 45%; left: 35%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Tables with metadata</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>Create Table Using Source Schema</strong>
+                                                    One-click action to generate table structure from source data.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">2</span>
+                                                <div class="legend-text">
+                                                    <strong>Tables with Metadata</strong>
+                                                    View existing tables with last modified and data change timestamps.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="annotated-image">
+                                            <img src="assets/after_createtablesourceschema2.png" alt="Schema editing with existing data">
+                                            <div class="annotation-marker" style="top: 8%; left: 12%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Add Field</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 25%; left: 45%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Editable field types</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>Add Field Capability</strong>
+                                                    Add new fields to schema even with existing data.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">2</span>
+                                                <div class="legend-text">
+                                                    <strong>Editable Field Properties</strong>
+                                                    Modify field types, required status, and default values inline.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="before-after-card">
+                                    <div class="before-after-card__header">
+                                        <div class="before-after-card__number">Improvement 03</div>
+                                        <h4 class="before-after-card__title">Load & Transform Workflow</h4>
+                                    </div>
+                                    <div class="before-after-card__body">
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--before">Before</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Loading data and transforming data were completely separate stages</li>
+                                                <li>Transformations required moving to a different step</li>
+                                                <li>No lightweight manipulation during load stage</li>
+                                            </ul>
+                                        </div>
+                                        <div class="before-after-card__section">
+                                            <div class="before-after-card__label before-after-card__label--after">After</div>
+                                            <ul class="before-after-card__list">
+                                                <li>Enabled lightweight transformations during load (filters, custom calculations)</li>
+                                                <li>Users can perform quick data shaping inline</li>
+                                                <li>Reduced need for separate transformation passes</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="before-after-impact">
+                                        Streamlined pipeline setup, fewer steps, improved efficiency.
+                                    </div>
+                                    <div class="before-after-images">
+                                        <div class="annotated-image">
+                                            <img src="assets/after_lightweightfilter.png" alt="Inline filtering during data load">
+                                            <div class="annotation-marker" style="top: 22%; left: 5%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Filter step in workflow</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 38%; left: 25%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">AND/OR logic builder</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>Integrated Filter Step</strong>
+                                                    Filter data during load without switching to a separate transformation tool.
+                                                </div>
+                                            </div>
+                                            <div class="legend-item">
+                                                <span class="legend-number">2</span>
+                                                <div class="legend-text">
+                                                    <strong>Visual Filter Builder</strong>
+                                                    Construct complex AND/OR filter conditions with a drag-and-drop interface.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="annotated-image">
+                                            <img src="assets/after_lightweightcalc.png" alt="Custom calculations during load">
+                                            <div class="annotation-marker" style="top: 22%; left: 18%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Inline calculation builder</span>
+                                            </div>
+                                        </div>
+                                        <div class="annotation-legend">
+                                            <div class="legend-item">
+                                                <span class="legend-number">1</span>
+                                                <div class="legend-text">
+                                                    <strong>Inline Calculation Builder</strong>
+                                                    Create calculated fields with CONCAT, math, and string functions without leaving the mapping workflow.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
