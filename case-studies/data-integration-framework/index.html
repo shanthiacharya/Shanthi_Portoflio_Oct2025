@@ -821,6 +821,56 @@
             font-size: 0.9rem;
         }
 
+        .lightbox-controls {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .lightbox-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-btn:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .lightbox-zoom-level {
+            color: white;
+            font-size: 0.85rem;
+            min-width: 50px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-overlay img {
+            transition: transform 0.2s ease;
+        }
+
         /* Approach Steps */
         .approach-steps {
             display: grid;
@@ -2040,8 +2090,16 @@
                         <p>By focusing on Object-Oriented UX (OOUX) principles, we shift the conversation away from individual screens and toward a shared understanding of core objects, their attributes, and their complex interdependencies. This approach is inherently superior because it establishes consistent patterns and logical relationships early in the process, preventing the "drift" that often occurs when designers focus on aesthetics while engineers focus on data structures. Ultimately, this systemic alignment reduces technical debt and ensures that the final product is as intuitive to navigate as it is robust to build.</p>
                         
                         <div class="image-container">
-                            <img src="assets/objectmodellingdiagram.png" alt="Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities">
-                            <p class="image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects</p>
+                            <div class="zoomable-image">
+                                <img src="assets/objectmodellingdiagram.png" alt="Object Modeling Diagram showing system relationships between Connection, Configuration, Schedule, Base Datasets, Base Tables, Derived Datasets, and Activities">
+                                <div class="zoom-hint">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                    Click to zoom
+                                </div>
+                            </div>
+                            <p class="image-caption">Object Modeling Diagram: System view showing how the new connection object interacts with other catalog objects — click to enlarge</p>
                         </div>
 
                         <hr>
@@ -2682,18 +2740,140 @@
                 });
             }
 
+            // Lightbox Zoom Functionality
+            function initializeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightboxImg');
+                const lightboxClose = document.getElementById('lightboxClose');
+                const zoomables = document.querySelectorAll('.zoomable-image');
+                const zoomInBtn = document.getElementById('zoomIn');
+                const zoomOutBtn = document.getElementById('zoomOut');
+                const zoomResetBtn = document.getElementById('zoomReset');
+                const zoomLevelDisplay = document.getElementById('zoomLevel');
+
+                if (!lightbox || !lightboxImg) return;
+
+                let zoomLevel = 1;
+                const zoomStep = 0.25;
+                const minZoom = 0.5;
+                const maxZoom = 3;
+
+                function updateZoom() {
+                    lightboxImg.style.transform = `scale(${zoomLevel})`;
+                    zoomLevelDisplay.textContent = Math.round(zoomLevel * 100) + '%';
+                }
+
+                function zoomIn() {
+                    zoomLevel = Math.min(maxZoom, zoomLevel + zoomStep);
+                    updateZoom();
+                }
+
+                function zoomOut() {
+                    zoomLevel = Math.max(minZoom, zoomLevel - zoomStep);
+                    updateZoom();
+                }
+
+                function resetZoom() {
+                    zoomLevel = 1;
+                    updateZoom();
+                }
+
+                // Open lightbox when clicking on zoomable images
+                zoomables.forEach(zoomable => {
+                    zoomable.addEventListener('click', function(e) {
+                        // Don't open if clicking on annotation markers
+                        if (e.target.closest('.annotation-marker')) return;
+
+                        // Find the main image in this zoomable container
+                        const img = this.querySelector('.annotated-image img') || this.querySelector('img');
+                        if (img) {
+                            lightboxImg.src = img.src;
+                            lightboxImg.alt = img.alt;
+                            resetZoom();
+                            lightbox.classList.add('active');
+                            document.body.style.overflow = 'hidden';
+                        }
+                    });
+                });
+
+                // Close lightbox function
+                function closeLightbox() {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                    lightboxImg.src = '';
+                    resetZoom();
+                }
+
+                // Close on overlay click (but not on image or controls)
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+
+                // Close on X button click
+                if (lightboxClose) {
+                    lightboxClose.addEventListener('click', closeLightbox);
+                }
+
+                // Zoom button event listeners
+                if (zoomInBtn) zoomInBtn.addEventListener('click', zoomIn);
+                if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomOut);
+                if (zoomResetBtn) zoomResetBtn.addEventListener('click', resetZoom);
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', function(e) {
+                    if (!lightbox.classList.contains('active')) return;
+                    
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    } else if (e.key === '+' || e.key === '=') {
+                        zoomIn();
+                    } else if (e.key === '-' || e.key === '_') {
+                        zoomOut();
+                    } else if (e.key === '0') {
+                        resetZoom();
+                    }
+                });
+
+                // Mouse wheel zoom
+                lightboxImg.addEventListener('wheel', function(e) {
+                    e.preventDefault();
+                    if (e.deltaY < 0) {
+                        zoomIn();
+                    } else {
+                        zoomOut();
+                    }
+                });
+            }
+
             // Initialize when DOM is ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', () => {
                     initializeTOC();
                     initializeCarousel();
+                    initializeLightbox();
                 });
             } else {
                 initializeTOC();
                 initializeCarousel();
+                initializeLightbox();
             }
         })();
     </script>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" alt="Zoomed image" id="lightboxImg">
+        <div class="lightbox-controls">
+            <button class="lightbox-btn" id="zoomOut" title="Zoom out (-)">−</button>
+            <span class="lightbox-zoom-level" id="zoomLevel">100%</span>
+            <button class="lightbox-btn" id="zoomIn" title="Zoom in (+)">+</button>
+            <button class="lightbox-btn" id="zoomReset" title="Reset zoom (0)">↺</button>
+        </div>
+        <span class="lightbox-hint">Use +/- keys to zoom, ESC or click to close</span>
+    </div>
 </body>
 </html>
 
