@@ -74,17 +74,131 @@
             font-weight: 700;
             color: var(--primary-blue);
             letter-spacing: -0.5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--primary-blue-light);
         }
 
         nav ul {
             display: flex;
+            align-items: center;
             list-style: none;
             gap: 2rem;
             flex-wrap: nowrap;
         }
 
-        nav ul li {
+        nav ul > li {
+            display: flex;
+            align-items: center;
             white-space: nowrap;
+        }
+
+        nav ul > li > a {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.25;
+            padding: 0.25rem 0;
+        }
+
+        /* Grouped nav dropdowns */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-dropdown__label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--text-medium);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.25rem 0;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* Caret for items with submenus (Work, About) */
+        .nav-dropdown__label::after {
+            content: '';
+            flex-shrink: 0;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid currentColor;
+            margin-top: 1px;
+            opacity: 0.55;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .nav-dropdown:hover .nav-dropdown__label,
+        .nav-dropdown:focus-within .nav-dropdown__label {
+            color: var(--primary-blue);
+        }
+
+        .nav-dropdown:hover .nav-dropdown__label::after,
+        .nav-dropdown:focus-within .nav-dropdown__label::after {
+            opacity: 0.95;
+            transform: rotate(180deg);
+        }
+
+        .nav-dropdown__panel {
+            list-style: none;
+            margin: 0;
+            padding: 0.35rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            text-align: left;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 12rem;
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px var(--shadow-md);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(4px);
+            transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+            z-index: 1001;
+        }
+
+        .nav-dropdown:hover .nav-dropdown__panel,
+        .nav-dropdown:focus-within .nav-dropdown__panel {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown__panel li {
+            white-space: nowrap;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-dropdown__panel a {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-dropdown__panel a:hover {
+            background: var(--background-teal-tint);
         }
 
         nav a {
@@ -1647,6 +1761,7 @@
                 width: 100%;
                 background: var(--background-white);
                 flex-direction: column;
+                align-items: stretch;
                 padding: 2rem;
                 box-shadow: 0 5px 20px var(--shadow-md);
                 border-top: 1px solid var(--border-light);
@@ -1654,6 +1769,43 @@
 
             nav ul.active {
                 display: flex;
+            }
+
+            nav ul > li {
+                width: 100%;
+                align-items: flex-start;
+            }
+
+            .nav-dropdown__inner {
+                width: 100%;
+            }
+
+            .nav-dropdown__panel {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                border: none;
+                box-shadow: none;
+                padding: 0.25rem 0 0.75rem 1rem;
+                background: transparent;
+                gap: 0.15rem;
+                align-items: stretch;
+                text-align: left;
+            }
+
+            .nav-dropdown__panel a {
+                padding: 0.4rem 0;
+                text-align: left;
+            }
+
+            .nav-dropdown__label {
+                padding: 0.5rem 0 0.15rem;
+                font-weight: 600;
+                color: var(--primary-blue);
+                font-size: 0.85rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
             }
 
             .menu-toggle {
@@ -2211,8 +2363,8 @@
 
         .hero-project:hover,
         .alternating-project:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 25px 50px rgba(0, 61, 130, 0.15);
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 14px 32px rgba(0, 61, 130, 0.08);
         }
 
         .prism-pillar-card:hover {
@@ -2249,7 +2401,7 @@
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
-            box-shadow: 0 0 30px rgba(0, 199, 177, 0.2);
+            box-shadow: 0 0 18px rgba(0, 199, 177, 0.12);
         }
 
         .hero-project:hover::before,
@@ -2554,20 +2706,34 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <div class="logo">Shanthi Acharya</div>
+            <a href="#home" class="logo">Shanthi Acharya</a>
             <div class="menu-toggle" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <ul id="navMenu">
+            <ul id="navMenu" aria-label="Primary">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#skills">Highlights</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li class="nav-dropdown">
+                    <div class="nav-dropdown__inner">
+                        <span class="nav-dropdown__label" id="nav-label-work">Work</span>
+                        <ul class="nav-dropdown__panel" aria-labelledby="nav-label-work">
+                            <li><a href="#projects">Featured Work</a></li>
+                            <li><a href="#more-projects">More Projects</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="#speaking">Talks &amp; Articles</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#speaking">Talks & Articles</a></li>
-                <li><a href="#experience">Resume</a></li>
-                <li><a href="#contact">About</a></li>
+                <li class="nav-dropdown">
+                    <div class="nav-dropdown__inner">
+                        <span class="nav-dropdown__label" id="nav-label-about">About</span>
+                        <ul class="nav-dropdown__panel" aria-labelledby="nav-label-about">
+                            <li><a href="#contact">About me</a></li>
+                            <li><a href="#experience">Resume</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -2763,22 +2929,36 @@
             </section>
 
             <!-- Hero Project -->
-            <a href="case-studies/analytics-data-platform/" class="hero-project clickable" data-tags="UX Strategy Data Visualization Enterprise Analytics Team Leadership">
+            <a href="case-studies/analytics-data-agent/" class="hero-project clickable" data-tags="Analytics Reporting AI Agent Design Data Platform Enterprise UX">
                 <div class="hero-project-left">
-                    <span class="hero-company-tag">VISION SETTING</span>
-                    <h3>Unified Data Movement Platform</h3>
-                    <p class="hero-subtitle">Ingestion, transformation, activation, and orchestration - all in one place</p>
-                    <p>Led the complete UX vision and strategy for a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
+                    <span class="hero-company-tag">WORKDAY</span>
+                    <h3>Analytic Reporting Agent</h3>
                     <span class="hero-cta">View case study →</span>
                 </div>
                 <div class="hero-project-right">
-                    <img src="case-studies/analytics-data-platform/assets/demo.png" alt="Unified Data Movement Platform">
+                    <img src="case-studies/analytics-data-agent/assets/reportinginsightsagentcover.png" alt="Analytic Reporting Agent">
                 </div>
             </a>
 
             <!-- More Projects Section -->
-            <h3 class="more-projects-title">More Projects</h3>
+            <h3 class="more-projects-title" id="more-projects">More Projects</h3>
             <div class="projects-grid">
+                <a href="case-studies/analytics-data-platform/" class="project-card clickable" data-tags="UX Strategy Data Visualization Enterprise Analytics Team Leadership">
+                    <div class="project-header">
+                        <img src="case-studies/analytics-data-platform/assets/demo.png" alt="Unified Data Movement Platform" class="project-header-image">
+                        <span class="project-type-tag">WORKDAY</span>
+                    </div>
+                    <div class="project-content">
+                        <h4 class="project-title">Unified Data Movement Platform</h4>
+                        <p>Led the complete UX vision and strategy for a unified data movement platform that handles ingestion, transformation, activation, and orchestration—all in one solution.</p>
+                        <div class="project-tags-bottom">
+                            <span class="tag">UX Strategy</span>
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">Data Platform</span>
+                        </div>
+                    </div>
+                </a>
+
                 <a href="case-studies/gartner-magic-quadrant/" class="project-card clickable" data-tags="Sales Enablement Cross Pillar Collaboration Enterprise Workday">
                     <div class="project-header">
                         <img src="case-studies/gartner-magic-quadrant/assets/gartner-mq-2025.png" alt="2025 Gartner Magic Quadrant for Cloud ERP" class="project-header-image">
@@ -3244,7 +3424,7 @@
     <section class="section contact" id="contact">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">Product Design Manager & Lead with Enterprise UX Expertise</p>
+            <p class="section-subtitle">Staying Curious and Continuous Learning</p>
             
             <div class="about-bio">
                 <p>I began my career as a Software Engineer at Intel, where exposure to UX through gaming and video performance analysis sparked my transition into design. I later pursued a degree in Human Factors and have loved building user-centered, data-driven enterprise experiences ever since.</p>

@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytic Reporting Agent - Shanthi Acharya</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #003D82;
+            --primary-blue-light: #004C8C;
+            --accent-teal: #00C7B1;
+            --accent-teal-light: #03DAC6;
+            --accent-orange: #FF6B35;
+            --background-white: #FFFFFF;
+            --background-light: #F5F7FA;
+            --background-gray: #E8ECF0;
+            --text-dark: #1A1A1A;
+            --text-medium: #2C3E50;
+            --text-light: #5A6C7D;
+            --border-light: #E0E4E8;
+            --shadow-sm: rgba(0, 61, 130, 0.08);
+            --shadow-md: rgba(0, 61, 130, 0.12);
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--background-light);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--background-white);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px var(--shadow-sm);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        nav .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav .logo:hover {
+            color: var(--accent-teal);
+        }
+
+        nav .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 100%);
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 61, 130, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        nav .back-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 199, 177, 0.4);
+        }
+
+        nav .back-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Table of Contents */
+        .toc-container {
+            width: 220px;
+            flex-shrink: 0;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: sticky;
+            top: 140px;
+            align-self: flex-start;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .toc-container.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toc-nav {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            box-shadow: none;
+        }
+
+        .toc-nav__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .toc-nav__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-nav__item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-nav__link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+
+        .toc-nav__link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 0;
+            background: var(--accent-teal);
+            border-radius: 2px;
+            transition: height 0.2s ease;
+        }
+
+        .toc-nav__link:hover {
+            color: var(--primary-blue);
+            background: var(--background-light);
+        }
+
+        .toc-nav__link[aria-current="true"] {
+            color: var(--primary-blue);
+            font-weight: 600;
+            background: rgba(0, 199, 177, 0.08);
+        }
+
+        .toc-nav__link[aria-current="true"]::before {
+            height: 100%;
+        }
+
+        /* Layout */
+        @media (min-width: 1024px) {
+            .main-content-wrapper {
+                display: block;
+            }
+
+            .content-with-toc {
+                display: flex;
+                gap: 2rem;
+                align-items: flex-start;
+                margin-top: 0;
+                padding-top: 0;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+                padding: 0;
+            }
+
+            .container {
+                padding: 0 2rem;
+            }
+
+            .case-study-header {
+                width: 100%;
+                margin-bottom: 2rem;
+                margin-top: 0;
+                padding-top: 0;
+                scroll-margin-top: 140px;
+            }
+
+            .case-study-body {
+                scroll-margin-top: 140px;
+                margin-top: 0;
+                padding: 0 3rem 3rem 3rem;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .toc-container {
+                display: none;
+            }
+
+            .content-with-toc {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .case-study-header {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .case-study-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .case-study-header .tagline {
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-study-header .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 16px var(--shadow-md);
+        }
+
+        .hero-figure {
+            margin: 0;
+            text-align: center;
+        }
+
+        .hero-figure figcaption {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .journey-video-figure {
+            margin: 2rem 0;
+        }
+
+        .journey-video {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 16px var(--shadow-md);
+            background: #000;
+        }
+
+        .journey-video-figure figcaption {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Hero Metadata */
+        .hero-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-meta__item {
+            text-align: center;
+        }
+
+        .hero-meta__label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--text-light);
+        }
+
+        .hero-meta__value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-medium);
+        }
+
+        @media (max-width: 768px) {
+            .hero-meta {
+                gap: 1rem;
+            }
+
+            .case-study-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Case Study Body */
+        .case-study-body {
+            background: var(--background-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+            line-height: 1.8;
+            border: 1px solid var(--border-light);
+            width: 100%;
+        }
+
+        .case-study-body h2 {
+            color: var(--primary-blue);
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            font-weight: 700;
+            border-bottom: 3px solid var(--accent-teal);
+            padding-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            scroll-margin-top: 100px;
+        }
+
+        .case-study-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .case-study-body > *:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        @media (min-width: 1024px) {
+            .case-study-body {
+                padding-top: 3rem;
+            }
+
+            .case-study-body h2:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .case-study-body h3 {
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        /* Subtitle under User Journey h2 (below the h2 border line) */
+        .case-study-body h2 + h3.cuj-subtitle {
+            color: var(--text-medium);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0.5rem 0 1.25rem 0;
+            letter-spacing: 0.02em;
+        }
+
+        .case-study-body h4 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .case-study-body p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study-body ul,
+        .case-study-body ol {
+            margin: 1.5rem 0 2rem 2rem;
+            color: var(--text-light);
+        }
+
+        .trust-at-a-glance {
+            margin: 0 0 1.75rem 0;
+            padding: 1.25rem 1.25rem 1.25rem 2rem;
+            background: var(--background-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-teal);
+            list-style: disc;
+            color: var(--text-light);
+        }
+
+        .trust-at-a-glance li {
+            margin-bottom: 0.5rem;
+            line-height: 1.55;
+            font-size: 1.05rem;
+        }
+
+        .trust-at-a-glance li:last-child {
+            margin-bottom: 0;
+        }
+
+        .case-study-body li {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .case-study-body blockquote {
+            background: var(--background-light);
+            border-left: 5px solid var(--accent-teal);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .case-study-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .case-study-body em {
+            color: var(--accent-teal);
+            font-style: italic;
+        }
+
+        .case-study-body hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-teal));
+            margin: 4rem 0;
+            border-radius: 2px;
+        }
+
+        .case-study-body .section-intro {
+            font-size: 1.15rem;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Role card (matches data-prep-editor) */
+        .case-study-body .role-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 16px var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study-body .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal) 0%, rgba(255, 255, 255, 0.5) 100%);
+        }
+
+        .case-study-body .role-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 107, 117, 0.25);
+        }
+
+        .case-study-body .role-card h4 {
+            color: white;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .case-study-body .role-card ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .case-study-body .role-card li {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tabbed agent skills */
+        .skill-tabs {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .skill-tabs__tablist {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.35rem;
+            margin: 0 0 1rem 0;
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-tabs__tab {
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background: var(--background-white);
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .skill-tabs__tab:hover {
+            border-color: var(--accent-teal);
+            color: var(--primary-blue);
+        }
+
+        .skill-tabs__tab:focus {
+            outline: 2px solid var(--accent-teal);
+            outline-offset: 2px;
+        }
+
+        .skill-tabs__tab[aria-selected="true"] {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0055b3 100%);
+            color: var(--background-white);
+            border-color: transparent;
+            box-shadow: 0 2px 10px rgba(0, 61, 130, 0.2);
+        }
+
+        .skill-tabs__panel {
+            background: var(--background-white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow-sm);
+        }
+
+        .skill-tabs__panel[hidden] {
+            display: none;
+        }
+
+        .case-study-body .skill-tabs__panel p {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 480px) {
+            .skill-tabs__tab {
+                font-size: 0.8rem;
+                padding: 0.55rem 0.75rem;
+            }
+        }
+
+        /* Impact Cards */
+        .impact-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .impact-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .impact-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .impact-card__number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .impact-card__label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .impact-card--teal {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-teal-light));
+        }
+
+        @media (max-width: 1024px) {
+            .impact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .impact-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Target user + journey (visual) */
+        .target-user-layout {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .persona-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: 6px 1fr;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--background-white);
+            box-shadow: 0 2px 10px var(--shadow-sm);
+        }
+
+        .persona-card__accent {
+            background: linear-gradient(180deg, var(--primary-blue), var(--accent-teal));
+        }
+
+        .persona-card__body {
+            display: block;
+        }
+
+        .persona-card__header {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.25rem;
+            padding: 1.5rem 1.5rem 0 0;
+        }
+
+        .persona-card__avatar {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 12px;
+            background: rgba(0, 61, 130, 0.08);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .persona-card__avatar svg {
+            width: 1.6rem;
+            height: 1.6rem;
+        }
+
+        .persona-card__eyebrow {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .case-study-body .persona-card__name {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.45rem;
+            line-height: 1.2;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .persona-card__context {
+            margin: 0;
+            font-size: 1.02rem;
+            color: var(--text-light);
+        }
+
+        .persona-card__goal {
+            margin: 1.25rem 1.5rem 1.5rem 0;
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            background: rgba(0, 199, 177, 0.08);
+            border: 1px solid rgba(0, 199, 177, 0.25);
+        }
+
+        .persona-card__goal-label {
+            display: block;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .persona-card__goal p {
+            margin: 0;
+            color: var(--text-medium);
+            font-size: 1.05rem;
+        }
+
+        @media (min-width: 600px) {
+            .persona-card {
+                grid-template-columns: 8px 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .persona-card__header {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-left: 0;
+            }
+
+            .persona-card__avatar {
+                margin: 0 auto 0.25rem auto;
+            }
+        }
+
+        .journey-timeline {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .journey-step {
+            display: grid;
+            grid-template-columns: 3.25rem 1fr;
+            gap: 1rem 0.5rem;
+            position: relative;
+        }
+
+        .journey-step + .journey-step {
+            margin-top: 0;
+        }
+
+        .journey-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: 1.45rem;
+            top: 3.15rem;
+            width: 2px;
+            bottom: -0.5rem;
+            background: linear-gradient(180deg, var(--accent-teal), rgba(0, 199, 177, 0.15));
+            border-radius: 2px;
+        }
+
+        .journey-step__marker {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--background-white);
+            background: linear-gradient(135deg, var(--primary-blue), #0055b3);
+            box-shadow: 0 2px 8px rgba(0, 61, 130, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .journey-step__content {
+            padding-bottom: 1.75rem;
+        }
+
+        .case-study-body .journey-step__title {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .journey-step__content p {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 520px) {
+            .journey-step {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-step::after {
+                display: none;
+            }
+
+            .journey-step__marker {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-white);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 12px 12px 0 0;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 0 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .case-study-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.6rem;
+            }
+
+            nav .back-btn {
+                padding: 0.65rem 1.25rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav .container {
+                padding: 0 0.75rem;
+            }
+
+            .main-content {
+                padding: 0.75rem;
+            }
+
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .case-study-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-body {
+                padding: 1.5rem 1rem;
+            }
+
+            .case-study-body h2 {
+                font-size: 1.4rem;
+            }
+
+            .case-study-body p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="../../index.html" class="logo">Shanthi Acharya</a>
+            <a href="../../index.html" class="back-btn">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content-wrapper">
+        <div class="container">
+            <div class="content-with-toc">
+                <nav class="toc-container" id="tocContainer" aria-label="Table of contents">
+                    <div class="toc-nav" id="tocNav">
+                        <div class="toc-nav__title">Contents</div>
+                        <ul class="toc-nav__list" id="tocList"></ul>
+                    </div>
+                </nav>
+
+                <div class="main-content">
+                    <div class="case-study-header">
+                        <h1>Analytic Reporting Agent</h1>
+                        <p class="tagline">Improving productivity and efficiency with faster answers and better data-driven decisions</p>
+                        <p class="subtitle">Product Design Leadership</p>
+                        <figure class="hero-figure">
+                            <img class="hero-video" src="assets/Heroconversationpanel.png" alt="Team Performance Summary report with Analytics Agent conversation panel">
+                            <figcaption>Team Performance Summary with Analytics Agent: conversational insights alongside the report</figcaption>
+                        </figure>
+                    </div>
+
+                    <div class="case-study-body">
+                        <h2 id="background-context">Background &amp; Context</h2>
+                        <p class="section-intro">Workday gives organizations a powerful platform for financial and workforce reporting&mdash;but for the finance business partners and HRBPs who depend on it most, the experience of actually getting to insight was slow, manual, and fragmented. Reports existed, but interpreting them required time-consuming exploration: scanning rows, cross-referencing fields, and piecing together a narrative from numbers that didn&rsquo;t speak for themselves.</p>
+                        <p class="section-intro">Finance BPs and HRBPs were spending their time on analysis mechanics instead of the decisions those mechanics were meant to support. Every step&mdash;finding the right report, interpreting the numbers, identifying what mattered, then building something with that knowledge&mdash;required either specialist help or significant manual effort. The insight and the work it should have triggered were disconnected by design.</p>
+                        <ul>
+                            <li><strong>Time to value:</strong> The gap from question to useful answer&mdash;and from answer to follow-on action&mdash;was too large for the people who needed speed most.</li>
+                            <li><strong>Time misallocated:</strong> High-effort work on &ldquo;analysis mechanics&rdquo; instead of on the business decisions the reports were built to support.</li>
+                            <li><strong>Fractured flow:</strong> Every step (find the report, read the data, know what mattered, act) depended on deep expertise or heavy manual effort.</li>
+                            <li><strong>Disconnected by design:</strong> Finding an insight and doing the work it implied lived in different tools, workflows, and handoffs.</li>
+                        </ul>
+
+                        <hr>
+
+                        <h3 id="goals">Goals</h3>
+                        <p class="section-intro">Empower all users, regardless of technical expertise, to derive actionable insights using natural language from their reports and dashboards. The agent provides skills for conversational reporting through natural language, data exploration, visualization, drill down, and integration with Report authoring and Dashboard authoring copilot.</p>
+                        <p class="section-intro">The Report Insights Agent was built to collapse that distance.</p>
+                        <ul>
+                            <li><strong>Natural language on the report:</strong> People ask questions in plain language and receive cited, auditable answers&mdash;without working in the underlying data model.</li>
+                            <li><strong>Narratives that do the first pass of analysis:</strong> Generated summaries surface what the data is already saying: trends, anomalies, and outliers that would often take an analyst pass to name.</li>
+                            <li><strong>Conversational analysis:</strong> Follow-up questions let users compare periods, interrogate patterns across related reports, and pressure-test ideas the way they would with a strong analyst in the room.</li>
+                            <li><strong>Close the loop agentically:</strong> When the insight needs action, people can have the agent scaffold a report, wire up a dashboard, or set up a visualization directly from the conversation&mdash;without a handoff, a context switch, or starting the workflow over.</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2 id="my-role">My role</h2>
+                        <div class="role-card">
+                            <h4>Product design &amp; cross-functional leadership</h4>
+                            <ul>
+                                <li>Collaborated with a team of three designers across the product surface.</li>
+                                <li>Partnered with product management on direction, scope, and delivery.</li>
+                                <li>Led competitive analysis to position the experience against the market and internal patterns.</li>
+                                <li>Worked cross-functionally with engineering, product, and research to align on guardrails, releases, and quality.</li>
+                                <li>Led design through a matrix relationship&mdash;including a dotted line to an additional designer&mdash;so patterns stayed consistent while teams moved in parallel.</li>
+                            </ul>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="target-user">Target User</h2>
+                        <p class="section-intro">Representative primary persona for this journey: a leader who needs a fast read on team performance, then room to go deeper or jump to the right place in the product&mdash;without re-learning where everything lives.</p>
+                        <div class="target-user-layout">
+                            <div class="persona-card" aria-label="Target persona: Manager">
+                                <div class="persona-card__accent" aria-hidden="true"></div>
+                                <div class="persona-card__body">
+                                    <div class="persona-card__header">
+                                        <div class="persona-card__avatar" aria-hidden="true">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                        </div>
+                                        <div class="persona-card__id">
+                                            <p class="persona-card__eyebrow">Persona</p>
+                                            <h3 class="persona-card__name">Manager</h3>
+                                            <p class="persona-card__context">Works from a standard team performance report before recurring leadership touchpoints (e.g. weekly check-in).</p>
+                                        </div>
+                                    </div>
+                                    <div class="persona-card__goal">
+                                        <span class="persona-card__goal-label">User goal</span>
+                                        <p>Get a quick, executive-level <strong>summary of the team&rsquo;s performance</strong> in time for a fast-moving leadership conversation&mdash;without reading every chart first.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="critical-user-journey-1">User Journey 1</h2>
+                        <h3 class="cuj-subtitle" id="compensation-equity-analysis">Compensation equity analysis</h3>
+                        <p class="section-intro">This flow shows how a manager uses a conversational agent to identify pay outliers and navigate to deep-dive reports without manually filtering complex compensation tables.</p>
+                        <ol class="journey-timeline" role="list">
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">1</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Initial prompt</h3>
+                                    <p>From <strong>My Team&rsquo;s Compensation Summary</strong>, the manager opens the conversational assistant and asks: <em>&ldquo;Who has the lowest compa-ratio?&rdquo;</em> The goal is to immediately surface equity concerns without scanning the entire 81-item list.</p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">2</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Summarization</h3>
+                                    <p>The agent returns a ranked list of employees with the lowest compa-ratios (<strong>Marcus Severino, Brian Kaplan</strong>, etc.), providing the specific data points requested so the manager can instantly see who is furthest from their pay midpoint.</p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">3</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Dynamic parameter adjustment</h3>
+                                    <p>To understand the broader context, the manager follows up: <em>&ldquo;I need to analyze the pay range for those employees.&rdquo;</em> The system understands the intent is to move from a summary level to a range analysis level for those specific individuals.</p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">4</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Redirection and navigation</h3>
+                                    <p>Since the current report doesn&rsquo;t contain the full range distribution data, the agent suggests the <strong>Pay Range Analysis</strong> report. When the user clicks the suggestion, it navigates to the new destination while maintaining the context of the inquiry.</p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">5</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Updated insight</h3>
+                                    <p>The manager arrives at the <strong>Pay Range Analysis</strong> dashboard. The view is now focused on market midpoints and variance, allowing the leader to see exactly how much certain employees (like <strong>Dourant Gregory at 0.606</strong>) are lagging behind the market rate to inform salary adjustment decisions.</p>
+                                </div>
+                            </li>
+                        </ol>
+                        <figure class="journey-video-figure">
+                            <video class="journey-video" controls preload="metadata">
+                                <source src="assets/agent-usecase-managercomp.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <figcaption>Compensation equity analysis journey: identifying low compa-ratios and navigating to pay range deep dives.</figcaption>
+                        </figure>
+                        <blockquote>
+                            This end-to-end path highlights how managers move from compensation questions to equity-focused action quickly, with conversational guidance and report redirection preserving context.
+                        </blockquote>
+
+                        <h2 id="critical-user-journey-2">User Journey 2</h2>
+                        <h3 class="cuj-subtitle" id="data-driven-talent-acquisition">Data-driven talent acquisition</h3>
+                        <p class="section-intro">This flow demonstrates how a Staffing Director leverages unified data&mdash;combining external store performance from Snowflake with internal worker profiles&mdash;to identify the &ldquo;DNA of success&rdquo; and immediately trigger the hiring process for top-tier talent.</p>
+                        <ol class="journey-timeline" role="list">
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">1</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">From traditional BI request to live data</h3>
+                                    <p>From <strong>Team Performance Summary</strong>, the <strong>Staffing Director</strong> asks for top performers&rsquo; shared skills&mdash;first the slow path through BI (Snowflake + Workday stitched via ETL, access checks, latency). With <strong>Live Data Query</strong>, the same question becomes near-real-time and self-serve in the agent, removing that bottleneck.</p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">2</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Insight in conversation</h3>
+                                    <p>The <strong>Analytics Agent</strong> returns a concise talent readout (e.g. Pedro, Jacqueline, Betty) and shared skills such as High-Volume Sales and Team Leadership. The director follows up: <em>&ldquo;Great! Now let&rsquo;s open a job req that includes these skills.&rdquo;</em></p>
+                                </div>
+                            </li>
+                            <li class="journey-step" role="listitem">
+                                <div class="journey-step__marker" aria-hidden="true">3</div>
+                                <div class="journey-step__content">
+                                    <h3 class="journey-step__title">Handoff to recruiting</h3>
+                                    <p>The agent surfaces <strong>Create Job Requisition</strong>; one click routes into <strong>Recruiting</strong>. The Staffing Director lands on the req screen with context preserved&mdash;from analyzing <em>why</em> hire to executing <em>how</em>, including region-scoped intent (e.g. <strong>Canada East</strong>).</p>
+                                </div>
+                            </li>
+                        </ol>
+                        <figure class="journey-video-figure">
+                            <video class="journey-video" controls preload="metadata">
+                                <source src="assets/agent-withdatacloud.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <figcaption>Unified data to talent action: shared top-performer skills identified in Analytics Agent, then handed off to create a job requisition.</figcaption>
+                        </figure>
+                        <blockquote>
+                            Personas shift from BI-mediated to self-serve insight, then into transactional recruiting&mdash;with Live Data Query collapsing the middle mile.
+                        </blockquote>
+
+                        <h2 id="agent-skills">Agent skills</h2>
+                        <p class="section-intro">These skills broaden what the reporting agent can do. They add cross-cutting capabilities across reporting that you can combine, so users are not limited to a single workflow.</p>
+                        <div class="skill-tabs" id="agent-skills-tabs">
+                            <div class="skill-tabs__tablist" role="tablist" aria-label="Agent skill areas">
+                                <button type="button" class="skill-tabs__tab" id="tab-skill-1" role="tab" aria-selected="true" aria-controls="panel-skill-1" tabindex="0">Report authoring</button>
+                                <button type="button" class="skill-tabs__tab" id="tab-skill-2" role="tab" aria-selected="false" aria-controls="panel-skill-2" tabindex="-1">AI Narratives</button>
+                                <button type="button" class="skill-tabs__tab" id="tab-skill-3" role="tab" aria-selected="false" aria-controls="panel-skill-3" tabindex="-1">Conversational Analysis</button>
+                            </div>
+                            <div id="panel-skill-1" class="skill-tabs__panel" role="tabpanel" aria-labelledby="tab-skill-1">
+                                <p class="section-intro" style="margin-bottom: 1rem;">The report authoring agent focuses on delivering a skill that provides both <strong>data source</strong> and <strong>field recommendations</strong> for our report authors.</p>
+                                <p class="section-intro" style="margin-bottom: 1rem;"><strong>Pain point:</strong> Data findability is a long-standing frustration for customers: report authors lose time discovering which sources and fields exist, and which ones actually fit the analysis they need to ship.</p>
+                                <p class="section-intro" style="margin-bottom: 0;"><strong>Goals:</strong> The report authoring skill addresses this through natural-language conversation&mdash;recommending relevant data sources and fields grounded in the report the customer is trying to build, so authors move from intent to a credible report structure faster.</p>
+                                <figure class="journey-video-figure">
+                                    <video class="journey-video" controls preload="metadata" aria-label="Report authoring: data findability in context">
+                                        <source src="assets/agent-report-authoring.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <figcaption>Report authoring: finding relevant data sources and fields to support reporting and analytics use cases.</figcaption>
+                                </figure>
+                            </div>
+                            <div id="panel-skill-2" class="skill-tabs__panel" role="tabpanel" aria-labelledby="tab-skill-2" hidden>
+                                <p class="section-intro" style="margin-bottom: 1rem;">Financial and workforce reports surface the numbers&mdash;but turning those numbers into a story still takes time. <strong>AI Narratives</strong> automatically converts report output into clear, actionable text summaries, so business users get the interpretation alongside the data.</p>
+                                <p class="section-intro" style="margin-bottom: 0;">Drill into report details, explore chart-level insights, and share findings directly to Google Docs or Slides&mdash;without ever leaving Workday. Less time decoding data, more time acting on it.</p>
+                                <figure class="journey-video-figure">
+                                    <video class="journey-video" controls preload="metadata" aria-label="AI Narratives: flash narratives and report summaries">
+                                        <source src="assets/agent-flash-narratives.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <figcaption>AI Narratives: actionable text from report output, with drill-down and sharing without leaving Workday.</figcaption>
+                                </figure>
+                            </div>
+                            <div id="panel-skill-3" class="skill-tabs__panel" role="tabpanel" aria-labelledby="tab-skill-3" hidden>
+                                <p class="section-intro" style="margin-bottom: 1rem;"><strong>Conversational analysis</strong> keeps users in one thread as they refine intent: from a headline summary to a chart comparison, a filtered slice, or a follow-up &ldquo;why&rdquo; without re-orienting in menus.</p>
+                                <p class="section-intro" style="margin-bottom: 0;">The agent carries report context across turns so prompts stay grounded in the same dataset and filters&mdash;until you reset or pivot. When the ask exceeds analytics scope or needs a transactional workflow, the experience redirects instead of improvising.</p>
+                                <figure class="journey-video-figure">
+                                    <video class="journey-video" controls preload="metadata" aria-label="Conversational analysis on composite reporting">
+                                        <source src="assets/agent-usecase-compositereporting.mp4" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <figcaption>Follow-up questions and visual exploration anchored to report context.</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2 id="design-approach">Design approach</h2>
+
+                        <h3 id="design-guided-entry">1. The Zero-State: &ldquo;The Guided Entry&rdquo;</h3>
+                        <p class="section-intro">A blank chat box is the enemy of usability. Users often don&rsquo;t know the boundaries of what the agent can actually &ldquo;see&rdquo; or do.</p>
+                        <p class="section-intro"><strong>Design pattern:</strong> Contextual onboarding. Instead of an empty input, provide starter chips that are relevant to the user&rsquo;s specific role.</p>
+                        <p class="section-intro"><strong>The UX fix:</strong> If an HR manager logs in, show chips like &ldquo;Why is turnover high in the UK?&rdquo; vs. a sales manager seeing &ldquo;Who are my top 5 accounts at risk?&rdquo;</p>
+                        <ul>
+                            <li>Mapped high-frequency decision journeys and prompted moments where users got stuck.</li>
+                            <li><strong>Guided Prompting:</strong> Smart follow-up questions resolve ambiguity before analysis runs.</li>
+                        </ul>
+
+                        <h3 id="design-cognitive-transparency">2. The Processing State: &ldquo;Cognitive Transparency&rdquo;</h3>
+                        <p class="section-intro">When a user asks a complex question, there is often a &ldquo;black box&rdquo; period where the AI is crunching data. If the user doesn&rsquo;t see progress, they lose trust.</p>
+                        <p class="section-intro"><strong>Design pattern:</strong> The thought trace. Show the agent&rsquo;s reasoning in real time. Use small status indicators like: &ldquo;Scanning Q3 Sales data&hellip; Filtering for Western Region&hellip; Correlating with Logistics delays.&rdquo;</p>
+                        <p class="section-intro"><strong>The UX fix:</strong> This builds trust by showing the math behind the answer, rather than only returning a number that might feel hallucinated.</p>
+                        <ul>
+                            <li>Established guardrails for metric reuse, prompt history, and governance-first defaults.</li>
+                        </ul>
+
+                        <h3 id="design-hybrid-visualizations">3. The Output: &ldquo;Hybrid Visualizations&rdquo;</h3>
+                        <p class="section-intro">The biggest mistake in conversational BI is returning only text or only a static image.</p>
+                        <p class="section-intro"><strong>Design pattern:</strong> Interactive blocks. The output should be a live widget: users can hover over data points in the chat, change the chart type (for example bar to line), or filter a specific outlier directly within the conversational stream.</p>
+                        <p class="section-intro"><strong>The UX fix:</strong> Ensure every chart includes a &ldquo;How to read this&rdquo; micro-summary. For example: &ldquo;This chart shows a strong correlation (R&sup2; = 0.85) between tenure and promotion speed.&rdquo;</p>
+                        <ul>
+                            <li><strong>Trusted Insights Panel:</strong> Every answer includes source datasets, filters, and assumptions.</li>
+                        </ul>
+
+                        <h3 id="design-follow-up-prompt">4. The &ldquo;Loop&rdquo;: The Follow-up Prompt</h3>
+                        <p class="section-intro">In data exploration, the first answer is rarely the final answer. The UX must facilitate a dialogue of discovery.</p>
+                        <p class="section-intro"><strong>Design pattern:</strong> Socratic suggestions. After providing a result, the agent should proactively suggest the most logical next step.</p>
+                        <p class="section-intro"><strong>Example:</strong> If the agent shows a dip in sales, the follow-up chips should be: &ldquo;Show me this by Product Category&rdquo; or &ldquo;Is this related to the recent shipping strike?&rdquo;</p>
+                        <ul>
+                            <li>Designed a conversational workflow that asks clarifying questions before generating outputs.</li>
+                        </ul>
+
+                        <h3 id="design-insight-to-action">5. Closing the Loop: &ldquo;Insight-to-Action&rdquo;</h3>
+                        <p class="section-intro">Data is useless if it stays in the chat. The UX must provide a bridge back to the system of record.</p>
+                        <p class="section-intro"><strong>Design pattern:</strong> The action bridge. Every insight should have a clear &ldquo;What now?&rdquo; control.</p>
+                        <ul>
+                            <li><strong>Reusable Agent Flows:</strong> Saved agent sessions allow teams to operationalize repeated analyses.</li>
+                        </ul>
+                        <ul>
+                            <li>&ldquo;Add to Executive Dashboard&rdquo;</li>
+                            <li>&ldquo;Email this to the Engineering Lead&rdquo;</li>
+                            <li>&ldquo;Open a Workday Case for this team&rdquo;</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2 id="trust-grounding-hil">Trust, grounding, and human-in-the-loop</h2>
+                        <p class="section-intro">Enterprise conversational analytics has to be <strong>accurate</strong>, <strong>permission-safe</strong>, and <strong>responsible</strong>. Our quality bar combined systematic evaluations (evals), hard guardrails, and safety testing so the agent does not invent data, bypass access controls, or expose what summaries should not repeat.</p>
+                        <ul class="trust-at-a-glance">
+                            <li><strong>Evals:</strong> NLQ, intent, schema mapping, and golden-dataset checks against human-verified baselines.</li>
+                            <li><strong>Permissions:</strong> Answers inherit the user&rsquo;s Workday security groups and DSPs&mdash;no elevation.</li>
+                            <li><strong>Grounding:</strong> Numeric claims traced to query results; formatting and scope limits reduce hallucination risk.</li>
+                            <li><strong>Safety &amp; HITL:</strong> PII-aware summaries, injection red-teaming, bias review, thumbs feedback, and analyst hand-off.</li>
+                        </ul>
+
+                        <h3 id="trust-evals">Evaluations</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">We measured how reliably natural language turned into the right technical behavior and UI, using human-verified baselines where it mattered most.</p>
+                        <ul>
+                            <li><strong>NLQ accuracy:</strong> Compared generated SQL or Prism queries (and their results) against a <strong>golden dataset</strong> of human-verified answers to score correctness, not just fluent text.</li>
+                            <li><strong>Intent classification:</strong> Validated that the agent distinguishes when the user wants a <strong>chart</strong>, a <strong>summary</strong>, or a <strong>filtered list</strong>&mdash;so the surface matches the ask.</li>
+                            <li><strong>Schema mapping:</strong> Checked informal language (e.g. &ldquo;headcount&rdquo;) maps to the correct technical fields in Workday data services (e.g. worker population metrics), reducing wrong joins or wrong measures.</li>
+                            <li><strong>Response latency:</strong> Tracked prompt-to-render time so the experience stayed within conversational speed expectations, not batch-report latency.</li>
+                        </ul>
+
+                        <h3 id="trust-error-states">Error states</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">When something cannot or should not complete, the experience fails visibly and safely instead of guessing.</p>
+                        <ul>
+                            <li><strong>Scope limitation:</strong> Questions outside the analytics agent&rsquo;s domain (e.g. general HR policy) are redirected or declined rather than answered speculatively.</li>
+                            <li><strong>Formatting guardrails:</strong> Outputs stay in supported surfaces (e.g. approved chart types and narrative formats); users do not see raw query code or JSON blobs.</li>
+                            <li><strong>Recovery paths:</strong> Clear messaging, retries, and escalation when queries cannot run or data is unavailable so users can adjust intent or route to an analyst.</li>
+                        </ul>
+
+                        <h3 id="trust-hallucinations">Hallucinations</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">LLMs can sound confident with wrong numbers; we blocked that class of failure where possible.</p>
+                        <ul>
+                            <li><strong>Grounding checks:</strong> Programmatic verification that numeric claims trace to executed query results; mismatches block or qualify the response rather than shipping invented figures.</li>
+                            <li><strong>User-visible uncertainty:</strong> When confidence is limited, the UI surfaces limits and next steps instead of fabricating precision.</li>
+                        </ul>
+
+                        <h3 id="trust-source-grounding">Source grounding</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">Every insight should be inspectable and constrained by what the organization already trusts.</p>
+                        <ul>
+                            <li><strong>Security inheritance (zero-trust posture):</strong> The agent cannot &ldquo;see&rdquo; data the signed-in user cannot access in Workday; it inherits security groups and domain security policies (DSPs) rather than elevating privilege.</li>
+                            <li><strong>Provenance:</strong> Answers tie back to datasets, fields, filters, and assumptions users can audit&mdash;aligned with the Trusted Insights Panel pattern in the product narrative.</li>
+                        </ul>
+
+                        <h3 id="trust-safety-rai">Safety and responsible AI</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">Beyond correctness, we tested privacy, misuse, and fairness of automated summaries.</p>
+                        <ul>
+                            <li><strong>PII and sensitive fields:</strong> Conversational summaries scrub or withhold categories of sensitive attributes (e.g. government IDs, private addresses) even when a power user could view them in a raw report context.</li>
+                            <li><strong>Prompt injection:</strong> Red-teamed jailbreak-style prompts that attempt to override instructions or leak system prompts; mitigations and test cases folded into release gates.</li>
+                            <li><strong>Bias and fairness:</strong> Reviewed workforce summaries for disparate emphasis or omission across demographics so &ldquo;insights&rdquo; language does not introduce new harm.</li>
+                        </ul>
+
+                        <h3 id="trust-feedback">Feedback</h3>
+                        <p class="section-intro" style="margin-bottom: 0.75rem;">Signals from builders and early users tightened boundaries before general availability.</p>
+                        <ul>
+                            <li><strong>Thumbs up / down and qualitative notes:</strong> During testing, structured feedback highlighted failure modes (wrong intent, brittle mappings, unsafe wording) and prioritized fixes.</li>
+                            <li><strong>Iteration loop:</strong> Eval suites and guardrail rules were updated as new scenarios emerged so regressions were caught in CI-style runs, not only in ad hoc demos.</li>
+                        </ul>
+
+                        <h3 id="trust-hil">Human in the loop</h3>
+                        <p class="section-intro" style="margin-bottom: 0;">People remain authoritative for high-stakes decisions and edge cases.</p>
+                        <ul style="margin-bottom: 0;">
+                            <li><strong>Analyst hand-off:</strong> One-click escalation packages prompts, context, and results so specialists can validate, refine queries, or complete work the agent should not own end-to-end.</li>
+                            <li><strong>Override and audit:</strong> Users can reject or revise outputs, and organizations retain traceability for governance reviews.</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2 id="challenges">Challenges</h2>
+                        <p class="section-intro">Shipping conversational reporting in an enterprise product surfaced tensions between accuracy, transparency, goal-directed flows, and users who explore in different ways.</p>
+                        <ul>
+                            <li><strong>Data source constraints:</strong> Phase 1 used a curated golden dataset for accuracy and lower hallucination risk, but users hit silent edges&mdash;unsupported sources returned empty results with little explanation.</li>
+                            <li><strong>Invisible capability boundaries:</strong> Chat hides what it can&rsquo;t do until you ask; designing redirect-and-explain failures instead of dead ends was central.</li>
+                            <li><strong>Trust in interpreted answers:</strong> Audit-sensitive finance users rarely trust AI summaries like self-found reports; calibrating visible reasoning without blanket uncertainty was ongoing.</li>
+                            <li><strong>Loss of serendipitous discovery:</strong> Chat is goal-directed&mdash;users get only what they ask for, unlike browsing a report catalog for peripheral insight.</li>
+                            <li><strong>Context drift across turns:</strong> Multi-turn memory helps until the model compounds a wrong assumption; recovery means debugging the thread, not just re-querying.</li>
+                            <li><strong>Novice vs expert:</strong> Conversation rewards explorers but feels slower than direct navigation for experts; the UI needed explicit trade-offs for both.</li>
+                        </ul>
+
+                        <hr>
+
+                        <h2 id="outcomes">Outcomes</h2>
+                        <p class="section-intro">Impact sits at the intersection of usefulness and trust: conversational speed, eval-backed quality, and governance-ready behavior. Key figures below come from usability testing and UX validation; broader commercial KPIs remain confidential.</p>
+                        <div class="impact-cards">
+                            <div class="impact-card">
+                                <span class="impact-card__number">87%</span>
+                                <span class="impact-card__label">Task completion rate in usability testing</span>
+                            </div>
+                            <div class="impact-card impact-card--teal">
+                                <span class="impact-card__number">&lt;2 min</span>
+                                <span class="impact-card__label">Time to insight (from 2 days)</span>
+                            </div>
+                            <div class="impact-card">
+                                <span class="impact-card__number">82%</span>
+                                <span class="impact-card__label">Answer acceptance rate</span>
+                            </div>
+                            <div class="impact-card impact-card--teal">
+                                <span class="impact-card__number">40%</span>
+                                <span class="impact-card__label">Reduction in ad-hoc report requests</span>
+                            </div>
+                        </div>
+                        <ul>
+                            <li><strong>Quality bar:</strong> NLQ, intent, schema-mapping, and golden-dataset evals created a repeatable definition of &ldquo;correct&rdquo; that tracked releases and prevented regressions as prompts and models evolved.</li>
+                            <li><strong>Latency fit:</strong> Monitoring prompt-to-visual latency kept the experience within conversational expectations rather than traditional batch-report wait times.</li>
+                            <li><strong>Trust and compliance posture:</strong> Permission inheritance, hallucination checks, scope limits, PII-aware summaries, and injection testing aligned the agent with enterprise expectations before scaling to broader audiences.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shanthi Acharya. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            'use strict';
+
+            function initializeTOC() {
+                const caseStudyBody = document.querySelector('.case-study-body');
+                if (!caseStudyBody) return;
+
+                const headings = caseStudyBody.querySelectorAll('h2');
+                const tocList = document.getElementById('tocList');
+                const tocContainer = document.getElementById('tocContainer');
+
+                if (!tocList || headings.length === 0) {
+                    if (tocContainer) tocContainer.style.display = 'none';
+                    return;
+                }
+
+                tocList.innerHTML = '';
+
+                headings.forEach((heading, index) => {
+                    let id = heading.id;
+                    if (!id) {
+                        id = 'section-' + index + '-' + heading.textContent
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, '-')
+                            .replace(/^-|-$/g, '');
+                        heading.id = id;
+                    }
+
+                    const listItem = document.createElement('li');
+                    listItem.className = 'toc-nav__item';
+
+                    const link = document.createElement('a');
+                    link.className = 'toc-nav__link';
+                    link.href = '#' + id;
+                    link.textContent = heading.textContent;
+                    link.setAttribute('data-heading-id', id);
+
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetHeading = document.getElementById(id);
+                        if (targetHeading) {
+                            targetHeading.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                            updateActiveTOCLink(id);
+                        }
+                    });
+
+                    listItem.appendChild(link);
+                    tocList.appendChild(listItem);
+                });
+
+                if (tocContainer) {
+                    tocContainer.classList.add('visible');
+                }
+
+                initializeScrollSpy(headings);
+            }
+
+            function initializeScrollSpy(headings) {
+                if (headings.length === 0) return;
+
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '-20% 0px -70% 0px',
+                    threshold: 0
+                };
+
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateActiveTOCLink(entry.target.id);
+                        }
+                    });
+                }, observerOptions);
+
+                headings.forEach(heading => {
+                    if (heading.id) {
+                        observer.observe(heading);
+                    }
+                });
+            }
+
+            function updateActiveTOCLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc-nav__link');
+                tocLinks.forEach(link => {
+                    const headingId = link.getAttribute('data-heading-id');
+                    if (headingId === activeId) {
+                        link.setAttribute('aria-current', 'true');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeTOC);
+            } else {
+                initializeTOC();
+            }
+        })();
+
+        (function() {
+            'use strict';
+
+            function initSkillTabs(root) {
+                if (!root) return;
+                const tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+                const panels = Array.prototype.slice.call(root.querySelectorAll('[role="tabpanel"]'));
+                if (tabs.length === 0 || panels.length === 0) return;
+
+                function setActive(index) {
+                    tabs.forEach(function(tab, i) {
+                        const selected = i === index;
+                        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+                        tab.setAttribute('tabindex', selected ? '0' : '-1');
+                        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+                        if (panel) {
+                            if (selected) {
+                                panel.removeAttribute('hidden');
+                            } else {
+                                panel.setAttribute('hidden', '');
+                            }
+                        }
+                    });
+                }
+
+                function focusIndex(current, delta) {
+                    var next = (current + delta + tabs.length) % tabs.length;
+                    tabs[next].focus();
+                    setActive(next);
+                }
+
+                tabs.forEach(function(tab, i) {
+                    tab.addEventListener('click', function() {
+                        setActive(i);
+                    });
+                    tab.addEventListener('keydown', function(e) {
+                        if (e.key === 'ArrowRight' || e.key === 'Right') {
+                            e.preventDefault();
+                            focusIndex(i, 1);
+                        } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+                            e.preventDefault();
+                            focusIndex(i, -1);
+                        } else if (e.key === 'Home') {
+                            e.preventDefault();
+                            tabs[0].focus();
+                            setActive(0);
+                        } else if (e.key === 'End') {
+                            e.preventDefault();
+                            tabs[tabs.length - 1].focus();
+                            setActive(tabs.length - 1);
+                        }
+                    });
+                });
+            }
+
+            function boot() {
+                var root = document.getElementById('agent-skills-tabs');
+                initSkillTabs(root);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', boot);
+            } else {
+                boot();
+            }
+        })();
+    </script>
+</body>
+</html>
