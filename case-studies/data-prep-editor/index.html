@@ -2465,10 +2465,37 @@
                                     </div>
                                     <p class="carousel-slide-label">Transform Canvas - Unified visual pipeline editor</p>
                                 </div>
+
+                                <div class="carousel-slide" data-slide="1">
+                                    <div class="zoomable-image">
+                                        <div class="annotated-image">
+                                            <img src="assets/AI_assisted_expression.png" alt="AI-Assisted Expressions - Natural language to transformation logic">
+                                            <!-- Marker positions are approximate; adjust to the actual screenshot -->
+                                            <div class="annotation-marker" style="top: 75%; left: 68%;">
+                                                <span class="marker-number">1</span>
+                                                <span class="marker-label">Natural-language prompt</span>
+                                            </div>
+                                            <div class="annotation-marker" style="top: 45%; left: 45%;">
+                                                <span class="marker-number">2</span>
+                                                <span class="marker-label">Generated expression</span>
+                                            </div>
+                                        </div>
+                                        <div class="zoom-hint">
+                                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M12 10h-2v2H9v-2H7V9h2V7h1v2h2v1z"/></svg>
+                                            Click to zoom
+                                        </div>
+                                    </div>
+                                    <p class="carousel-slide-label">AI-Assisted Expressions - Generate transformation logic from natural language</p>
+                                </div>
+                            </div>
+
+                            <div class="carousel-dots">
+                                <button class="carousel-dot active" data-slide="0" aria-label="View slide 1"></button>
+                                <button class="carousel-dot" data-slide="1" aria-label="View slide 2"></button>
                             </div>
                         </div>
 
-                        <div class="annotation-legend">
+                        <div class="annotation-legend" data-legend-for="newEditorCarousel" data-slide="0">
                             <div class="legend-item">
                                 <span class="legend-number">1</span>
                                 <div class="legend-text">
@@ -2506,10 +2533,28 @@
                             </div>
                         </div>
 
+                        <div class="annotation-legend" data-legend-for="newEditorCarousel" data-slide="1" style="display: none;">
+                            <div class="legend-item">
+                                <span class="legend-number">1</span>
+                                <div class="legend-text">
+                                    <strong>Natural-Language Prompt</strong>
+                                    Describe the transformation in plain language instead of writing syntax
+                                </div>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-number">2</span>
+                                <div class="legend-text">
+                                    <strong>Generated Expression</strong>
+                                    The copilot produces the formula, ready to review
+                                </div>
+                            </div>
+                        </div>
+
                         <h3>Key Features</h3>
                         <ul>
                             <li><strong>Holistic Pipeline View:</strong> See the entire pipeline structure at once with zoomable, pannable canvas that shows all stages and their relationships.</li>
                             <li><strong>Inline Stage Editing:</strong> Edit stage configurations directly on the canvas without losing context of the overall pipeline structure.</li>
+                            <li><strong>AI-Assisted Expressions:</strong> Generate transformation expressions from natural language instead of hand-writing function syntax-turning a frequent, repetitive authoring task into a quick, guided one and reducing formula errors.</li>
                             <li><strong>Surfaced Errors:</strong> Errors are visually highlighted on the canvas with clear indicators, making troubleshooting immediate and intuitive.</li>
                             <li><strong>Expand/Collapse Branches:</strong> Manage complexity by collapsing branches you're not working on, focusing attention on relevant stages.</li>
                             <li><strong>Keyboard Navigation:</strong> Full keyboard support for power users to navigate, select, and edit stages without touching the mouse.</li>
@@ -2553,7 +2598,7 @@
                         <h2 id="final-designs">Final Designs</h2>
                         <div class="image-container">
                             <video controls playsinline class="concept-video">
-                                <source src="assets/prototypedemo.mov" type="video/mp4">
+                                <source src="assets/prototypedemo.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -2595,8 +2640,11 @@
                         <p>The new canvas-based editor has become the de facto standard for Workday Data Modeler.</p>
                         <p>Enable data administrators to create tenanted data sources that blend Workday data, using the familiar Visual Pipeline Editor interface, enabling report creators to use views that are easy to understand and built for their reporting needs.</p>
 
-                        <div class="figma-embed">
-                            <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" src="https://embed.figma.com/proto/XJLaN6aCoxDOElvhrTuOiu/Portfolio-Content-2025-Dec?node-id=37-38455&scaling=1&content-scaling=fixed&page-id=37%3A2553&starting-point-node-id=37%3A38130&embed-host=share" allowfullscreen></iframe>
+                        <div class="image-container">
+                            <video controls playsinline class="concept-video">
+                                <source src="assets/businessviewsdemo.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
 
                         <hr>
@@ -2802,6 +2850,14 @@
                                 dot.classList.remove('active');
                             }
                         });
+
+                        // Toggle slide-aware legends (only for carousels that declare them)
+                        if (carousel.id) {
+                            const legends = document.querySelectorAll(`[data-legend-for="${carousel.id}"]`);
+                            legends.forEach(legend => {
+                                legend.style.display = (parseInt(legend.getAttribute('data-slide')) === index) ? '' : 'none';
+                            });
+                        }
                     }
                 });
             }
